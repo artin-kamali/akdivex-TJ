@@ -1,0 +1,50 @@
+{
+  "id": "./index.html",
+  "name": "AKDIVEX Trading Journal",
+  "short_name": "AKDIVEX",
+  "description": "AKDIVEX Trading Group — Trading Journal, Backtest Lab & Risk Calculator",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#080C12",
+  "theme_color": "#080C12",
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "New Trade",
+      "short_name": "New Trade",
+      "url": "./index.html?action=new-trade",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Import MT Statement",
+      "short_name": "Import",
+      "url": "./index.html?action=import-statement",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
