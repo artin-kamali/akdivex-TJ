@@ -1189,6 +1189,50 @@
       border: none;
     }
 
+    /* ---- LOADING OVERLAY ---- */
+    .loading-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 12, 18, 0.72);
+      backdrop-filter: blur(2px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+      padding: 20px;
+    }
+    .loading-bg.show { display: flex; }
+    .loading-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px 34px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      min-width: 200px;
+    }
+    .loading-spinner {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 3px solid var(--border2);
+      border-top-color: var(--mint);
+      animation: loadingSpin 0.8s linear infinite;
+    }
+    .loading-text {
+      font-size: 13px;
+      color: var(--muted);
+      font-family: var(--mono);
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+    @keyframes loadingSpin {
+      to { transform: rotate(360deg); }
+    }
+
     /* ---- TOAST ---- */
     .toast-stack {
       position: fixed;
@@ -1340,6 +1384,12 @@
 <body>
 
   <div class="toast-stack" id="toastStack"></div>
+  <div class="loading-bg" id="loadingBg">
+    <div class="loading-box">
+      <div class="loading-spinner"></div>
+      <div class="loading-text" id="loadingText">Processing…</div>
+    </div>
+  </div>
   <div class="modal-bg" id="modalBg">
     <button class="modal-close" id="modalClose">&times;</button>
     <img id="modalImg" src="" alt="screenshot">
@@ -1454,6 +1504,7 @@
 
       <!-- ===== JOURNAL ===== -->
       <div class="view" id="view-journal">
+        <div class="stats-row stats-row-4" id="journalStatsRow"></div>
         <div class="panel">
           <h2><span class="panel-icon">➕</span> New Trade</h2>
           <form id="tradeForm" onsubmit="return addTrade(event)">
@@ -1500,8 +1551,10 @@
               <div class="field"><label>Entry</label><input type="number" step="any" id="t_entry" class="ltr" required placeholder="0.00"></div>
               <div class="field"><label>Stop Loss</label><input type="number" step="any" id="t_sl" class="ltr" required placeholder="0.00"></div>
               <div class="field"><label>Take Profit</label><input type="number" step="any" id="t_tp" class="ltr" required placeholder="0.00"></div>
+              <div class="field"><label>Original SL <span style="color:var(--muted);font-weight:400;font-size:10px;">(if moved to Risk-Free)</span></label><input type="number" step="any" id="t_origsl" class="ltr" placeholder="Leave blank if not risk-free"></div>
               <div class="field"><label>Exit (optional)</label><input type="number" step="any" id="t_exit" class="ltr" placeholder="0.00"></div>
               <div class="field"><label>Lot Size</label><input type="number" step="any" id="t_lot" class="ltr" placeholder="0.10"></div>
+              <div class="field"><label>P&L ($)</label><input type="number" step="any" id="t_pnl" class="ltr" placeholder="0.00"></div>
               <div class="field"><label>Result</label><select id="t_result"><option value="OPEN">Open</option><option value="WIN">Win</option><option value="LOSS">Loss</option><option value="BE">BE</option></select></div>
               <div class="field" style="grid-column:span 2;"><label>Notes / Analysis</label><textarea id="t_notes" placeholder="Why did you enter? What did you learn?"></textarea></div>
             </div>
@@ -1509,9 +1562,6 @@
             <div class="file-row"><div class="upload-area" onclick="document.getElementById('t_screenshot').click()">📎 Upload Screenshot (optional)</div><input type="file" id="t_screenshot" accept="image/*" multiple style="display:none;" onchange="handleScreenshots(event)"></div>
             <div class="thumb-row" id="thumbRow"></div>
             <div class="form-actions">
-              <button type="button" class="btn small gold" onclick="exportExcel()">📊 Excel</button>
-              <button type="button" class="btn small gold" onclick="exportPDF()">📄 PDF</button>
-              <button type="button" class="btn small gold" onclick="exportJSON()">⬇️ JSON</button>
               <button type="button" class="btn" onclick="resetTradeForm()">Clear</button>
               <button type="submit" class="btn primary" id="tradeSubmitBtn">Save Trade ✅</button>
             </div>
@@ -1532,7 +1582,7 @@
             <button class="btn small gold" onclick="exportJSON()">⬇️ JSON</button>
           </div>
           <div class="table-wrap">
-            <table id="journalTable" style="display:none;"><thead><tr><th>#</th><th>Date</th><th>Symbol</th><th>Side</th><th>Setup</th><th>Entry</th><th>SL</th><th>TP</th><th>Session</th><th>Mood</th><th>Result</th><th>R</th><th>Slot</th><th></th></tr></thead><tbody id="journalBody"></tbody></table>
+            <table id="journalTable" style="display:none;"><thead><tr><th>#</th><th>Date</th><th>Symbol</th><th>Side</th><th>Setup</th><th>Entry</th><th>SL</th><th>TP</th><th>Session</th><th>Mood</th><th>Result</th><th>R</th><th>P&L ($)</th><th>Slot</th><th></th></tr></thead><tbody id="journalBody"></tbody></table>
             <div class="empty-state" id="journalEmpty"><div class="ic">📭</div><h3>No trades yet</h3><p>Add your first trade using the form above.</p></div>
           </div>
         </div>
@@ -1592,6 +1642,7 @@
               <div class="field"><label>Entry</label><input type="number" step="any" id="bt_entry" class="ltr" required placeholder="0.00"></div>
               <div class="field"><label>SL</label><input type="number" step="any" id="bt_sl" class="ltr" required placeholder="0.00"></div>
               <div class="field"><label>TP</label><input type="number" step="any" id="bt_tp" class="ltr" required placeholder="0.00"></div>
+              <div class="field"><label>Original SL <span style="color:var(--muted);font-weight:400;font-size:10px;">(if moved to Risk-Free)</span></label><input type="number" step="any" id="bt_origsl" class="ltr" placeholder="Leave blank if not risk-free"></div>
               <div class="field"><label>Result</label><select id="bt_result"><option value="WIN">Win</option><option value="LOSS">Loss</option><option value="BE">BE</option></select></div>
             </div>
             <div class="file-row"><div class="upload-area" onclick="document.getElementById('bt_screenshot').click()">📎 Upload Screenshot (optional)</div><input type="file" id="bt_screenshot" accept="image/*" multiple style="display:none;" onchange="handleBtScreenshots(event)"></div>
@@ -1751,6 +1802,18 @@
     let editingBtId = null;
 
     // ---- HELPERS ----
+    function showLoading(msg = 'Processing…') {
+      const bg = document.getElementById('loadingBg');
+      const text = document.getElementById('loadingText');
+      if (text) text.textContent = msg;
+      if (bg) bg.classList.add('show');
+    }
+
+    function hideLoading() {
+      const bg = document.getElementById('loadingBg');
+      if (bg) bg.classList.remove('show');
+    }
+
     function toast(msg, type = 'success') {
       const stack = document.getElementById('toastStack');
       const el = document.createElement('div');
@@ -1891,13 +1954,64 @@
 
     function fmtNum(n) { if (n === null || n === undefined || isNaN(n)) return '—'; return Number(n).toLocaleString('en-US', { maximumFractionDigits: 5 }); }
 
+    function fmtPnl(n) {
+      if (n === null || n === undefined || isNaN(n)) return '—';
+      const v = Number(n);
+      return (v >= 0 ? '+$' : '-$') + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // Once a trade's stop is moved past entry (into the profit side), it has
+    // become "risk-free" — the current SL no longer represents the original
+    // risk that was actually taken. Math.abs(entry - sl) still returns a tiny
+    // (or arbitrary) distance in that case, so reward / risk explodes into
+    // nonsense multiples like 90R.
+    function isRiskFreeStop(t) {
+      if (t.entry == null || t.sl == null || !t.side) return false;
+      return t.side === 'BUY' ? t.sl >= t.entry : t.sl <= t.entry;
+    }
+
+    // The distance used as the "risk" denominator for R-multiple math. For a
+    // risk-free trade we can't recover the real risk from the current (moved)
+    // SL — but if the trader recorded the ORIGINAL stop (t.origSl, from
+    // before it was moved to breakeven+), that's the real risk that was taken
+    // when the trade was opened, so use it. Otherwise return null rather than
+    // fabricate a number.
+    function riskDistance(t) {
+      if (isRiskFreeStop(t)) {
+        if (t.origSl == null) return null;
+        const validOrig = t.side === 'BUY' ? t.origSl < t.entry : t.origSl > t.entry;
+        return validOrig ? Math.abs(t.entry - t.origSl) : null;
+      }
+      return Math.abs(t.entry - t.sl);
+    }
+
     function resultR(t) {
       if (t.result === 'OPEN' || t.result === 'BE') return 0;
-      const risk = Math.abs(t.entry - t.sl);
+      if (t.sl == null || t.tp == null) return 0; // SL/TP not available for this trade — don't fabricate a risk level
+      const risk = riskDistance(t);
       if (!risk) return 0;
       const reward = Math.abs(t.tp - t.entry);
       const rr = reward / risk;
       return t.result === 'WIN' ? rr : -1;
+    }
+
+    // Whether resultR(t) reflects a real SL/TP-based R multiple, as opposed to
+    // the 0 fallback used internally for stats totals when SL/TP is unknown.
+    // Use this before displaying a per-trade R value so a missing SL/TP shows
+    // "—" instead of a misleading "+0.00R".
+    function hasKnownR(t) {
+      if (t.result === 'OPEN' || t.result === 'BE' || t.sl == null || t.tp == null) return false;
+      const risk = riskDistance(t);
+      return risk != null && risk > 0;
+    }
+
+    // Label for the R column: a real R value, "Risk-Free" when the stop was
+    // moved past entry with no original SL on record, or "—" when there
+    // simply isn't enough data (OPEN/BE/no SL,TP).
+    function rCellLabel(t, r, rKnown) {
+      if (rKnown) return (r >= 0 ? '+' : '') + r.toFixed(2) + 'R';
+      if (isRiskFreeStop(t) && t.result !== 'OPEN' && t.result !== 'BE') return 'Risk-Free';
+      return '—';
     }
 
     function autoDetectSession(dateStr) {
@@ -1917,17 +2031,75 @@
     }
 
     // ---- STORAGE ----
+    // Account registry (username/password hash/security Q&A) stays in localStorage —
+    // it's tiny and never holds screenshots, so quota is never a concern for it.
     function localUsersRegistry() { return JSON.parse(localStorage.getItem('akdivex_users') || '{}'); }
 
     function saveLocalUsersRegistry(reg) { localStorage.setItem('akdivex_users', JSON.stringify(reg)); }
 
     function localDataKey(username, bucket) { return `akdivex_data_${username}_${bucket}`; }
 
-    function loadLocalBucket(username, bucket, fallback) {
-      try { return JSON.parse(localStorage.getItem(localDataKey(username, bucket)) || 'null') ?? fallback; } catch (e) { return fallback; }
+    // Trades/backtest/settings (which can contain many base64 screenshots) live in
+    // IndexedDB instead of localStorage. Browsers cap localStorage around 5-10MB per
+    // origin, which screenshots blow through fast; IndexedDB's quota is typically in
+    // the hundreds of MB to GB range (a share of available disk space), so this removes
+    // the "Storage full" ceiling for all practical journal sizes.
+    let idbPromise = null;
+    function openIdb() {
+      if (idbPromise) return idbPromise;
+      idbPromise = new Promise((resolve, reject) => {
+        if (!('indexedDB' in window)) { reject(new Error('IndexedDB unavailable'));
+          return; }
+        const req = indexedDB.open('akdivex_db', 1);
+        req.onupgradeneeded = () => { req.result.createObjectStore('buckets'); };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+      return idbPromise;
     }
 
-    function saveLocalBucket(username, bucket, data) { localStorage.setItem(localDataKey(username, bucket), JSON.stringify(data)); }
+    async function idbGet(key) {
+      const db = await openIdb();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction('buckets', 'readonly');
+        const req = tx.objectStore('buckets').get(key);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function idbSet(key, value) {
+      const db = await openIdb();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction('buckets', 'readwrite');
+        tx.objectStore('buckets').put(value, key);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
+    }
+
+    async function loadLocalBucket(username, bucket, fallback) {
+      const key = localDataKey(username, bucket);
+      try {
+        const val = await idbGet(key);
+        if (val !== undefined) return val;
+      } catch (e) { console.error('IndexedDB read failed, falling back to localStorage', e); }
+      // One-time migration path: older data (or a browser where IndexedDB failed to
+      // open) may still have this bucket sitting in localStorage — pick it up, move
+      // it over, and stop touching localStorage for it from now on.
+      try {
+        const legacy = JSON.parse(localStorage.getItem(key) || 'null');
+        if (legacy != null) {
+          idbSet(key, legacy).then(() => localStorage.removeItem(key)).catch(() => {});
+          return legacy;
+        }
+      } catch (e) { /* ignore malformed legacy data */ }
+      return fallback;
+    }
+
+    async function saveLocalBucket(username, bucket, data) {
+      await idbSet(localDataKey(username, bucket), data);
+    }
 
     function initCloudIfNeeded() {
       if (!CLOUD_MODE) return;
@@ -1950,9 +2122,9 @@
         const hash = await sha256(password);
         reg[username] = { hash, createdAt: Date.now(), securityQ: secQ, securityA: secA };
         saveLocalUsersRegistry(reg);
-        saveLocalBucket(username, 'settings', { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true });
-        saveLocalBucket(username, 'trades', []);
-        saveLocalBucket(username, 'backtest', []);
+        await saveLocalBucket(username, 'settings', { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true });
+        await saveLocalBucket(username, 'trades', []);
+        await saveLocalBucket(username, 'backtest', []);
         return true;
       }
     }
@@ -1989,24 +2161,32 @@
         const d = doc.data() || {};
         return { settings: d.settings || { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }, trades: d.trades || [], backtestTrades: d.backtestTrades || [] };
       } else {
-        return { settings: loadLocalBucket(username, 'settings', { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }), trades: loadLocalBucket(username, 'trades', []), backtestTrades: loadLocalBucket(username, 'backtest', []) };
+        const [settings, trades, backtestTrades] = await Promise.all([
+          loadLocalBucket(username, 'settings', { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }),
+          loadLocalBucket(username, 'trades', []),
+          loadLocalBucket(username, 'backtest', []),
+        ]);
+        return { settings, trades, backtestTrades };
       }
     }
 
     async function persistAll() {
       if (!currentUser) return;
       setSyncStatus(true);
+      if (CLOUD_MODE) showLoading('Syncing…');
       try {
         if (CLOUD_MODE) {
           const uid = fbAuth.currentUser.uid;
           await fbDb.collection('users').doc(uid).set({ username: currentUser, settings: userSettings, trades, backtestTrades }, { merge: true });
         } else {
-          saveLocalBucket(currentUser, 'settings', userSettings);
-          saveLocalBucket(currentUser, 'trades', trades);
-          saveLocalBucket(currentUser, 'backtest', backtestTrades);
+          await saveLocalBucket(currentUser, 'settings', userSettings);
+          await saveLocalBucket(currentUser, 'trades', trades);
+          await saveLocalBucket(currentUser, 'backtest', backtestTrades);
         }
       } catch (e) { console.error(e);
-        toast('Save error', 'error'); }
+        const isQuota = e && (e.name === 'QuotaExceededError' || e.code === 22 || e.code === 1014);
+        toast(isQuota ? 'Storage full — delete some screenshots to free space' : 'Save error', 'error'); }
+      if (CLOUD_MODE) hideLoading();
       clearTimeout(syncTimeout);
       syncTimeout = setTimeout(() => setSyncStatus(false), 500);
     }
@@ -2072,6 +2252,7 @@
       const btn = document.getElementById('loginBtn');
       btn.disabled = true;
       btn.textContent = 'Logging in...';
+      showLoading('Logging in…');
       try {
         await loginAccount(username, password);
         currentUser = username;
@@ -2079,6 +2260,7 @@
         await loadUserSessionAndBoot();
         toast('Welcome back ' + username + '! 👋');
       } catch (err) { showAuthMsg('loginMsg', err.message || 'Login failed', 'error'); }
+      hideLoading();
       btn.disabled = false;
       btn.textContent = 'Login';
       return false;
@@ -2098,6 +2280,7 @@
       if (!secQ || !secA) { showAuthMsg('registerMsg', 'Security question & answer required', 'error'); return false; }
       btn.disabled = true;
       btn.textContent = 'Creating...';
+      showLoading('Creating account…');
       try {
         await registerAccount(username, p1, secQ, secA);
         showAuthMsg('registerMsg', 'Account created! Logging in...', 'success');
@@ -2106,6 +2289,7 @@
         await loadUserSessionAndBoot();
         toast('Account created successfully 🎉');
       } catch (err) { showAuthMsg('registerMsg', err.message || 'Registration failed', 'error'); }
+      hideLoading();
       btn.disabled = false;
       btn.textContent = 'Create Account';
       return false;
@@ -2123,6 +2307,7 @@
     }
 
     async function loadUserSessionAndBoot() {
+      showLoading('Loading your data…');
       const data = await fetchUserData(currentUser);
       userSettings = Object.assign({ startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }, data.settings);
       trades = data.trades || [];
@@ -2180,13 +2365,41 @@
       btn.classList.add('active');
     });
 
+    // Resize + re-encode an uploaded image to keep localStorage usage small.
+    // Long side is capped at maxDim px and re-encoded as JPEG at the given quality,
+    // which typically shrinks a phone screenshot from a few MB down to ~100-300KB.
+    function compressImageFile(file, maxDim = 1280, quality = 0.72) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            let { width, height } = img;
+            if (width > maxDim || height > maxDim) {
+              if (width >= height) { height = Math.round(height * (maxDim / width));
+                width = maxDim; } else { width = Math.round(width * (maxDim / height));
+                height = maxDim; }
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = reject;
+          img.src = ev.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
     function handleScreenshots(e) {
       const files = Array.from(e.target.files || []);
       files.forEach(f => {
-        const reader = new FileReader();
-        reader.onload = (ev) => { pendingScreenshots.push(ev.target.result);
-          renderThumbs(); };
-        reader.readAsDataURL(f);
+        compressImageFile(f).then((dataUrl) => { pendingScreenshots.push(dataUrl);
+          renderThumbs(); }).catch(() => toast('Could not process image', 'error'));
       });
     }
 
@@ -2228,8 +2441,10 @@
         entry: parseFloat(document.getElementById('t_entry').value),
         sl: parseFloat(document.getElementById('t_sl').value),
         tp: parseFloat(document.getElementById('t_tp').value),
+        origSl: document.getElementById('t_origsl').value ? parseFloat(document.getElementById('t_origsl').value) : null,
         exit: document.getElementById('t_exit').value ? parseFloat(document.getElementById('t_exit').value) : null,
         lot: document.getElementById('t_lot').value ? parseFloat(document.getElementById('t_lot').value) : null,
+        pnl: document.getElementById('t_pnl').value ? parseFloat(document.getElementById('t_pnl').value) : null,
         result: document.getElementById('t_result').value,
         notes: document.getElementById('t_notes').value.trim(),
         mood: currentMood,
@@ -2260,8 +2475,10 @@
       document.getElementById('t_entry').value = t.entry;
       document.getElementById('t_sl').value = t.sl;
       document.getElementById('t_tp').value = t.tp;
+      document.getElementById('t_origsl').value = t.origSl ?? '';
       document.getElementById('t_exit').value = t.exit ?? '';
       document.getElementById('t_lot').value = t.lot ?? '';
+      document.getElementById('t_pnl').value = t.pnl ?? '';
       document.getElementById('t_result').value = t.result;
       document.getElementById('t_notes').value = t.notes || '';
       currentMood = t.mood || 'confident';
@@ -2284,6 +2501,7 @@
     function restoreJournalBackup(e) {
       const file = e.target.files[0];
       if (!file) return;
+      showLoading('Restoring backup…');
       const reader = new FileReader();
       reader.onload = (ev) => {
         try {
@@ -2294,7 +2512,9 @@
           renderEverything();
           toast('Journal backup restored ✅');
         } catch (err) { toast('Invalid file', 'error'); }
+        hideLoading();
       };
+      reader.onerror = () => hideLoading();
       reader.readAsText(file);
     }
 
@@ -2342,7 +2562,8 @@
         else if (nc === 'openprice') colMap.openPrice = idx;
         else if (nc === 'closeprice') colMap.closePrice = idx;
         else if (nc === 'type') colMap.type = idx;
-        else if (['size', 'volume', 'lots', 'direction'].includes(nc)) colMap.size = idx;
+        else if (nc === 'direction') colMap.direction = idx; // MT5 "Deals" table: in/out — NOT a volume column
+        else if (['size', 'volume', 'lots'].includes(nc)) colMap.size = idx;
         else if (['item', 'symbol'].includes(nc)) colMap.item = idx;
         else if (nc === 'sl' || nc === 'stoploss') colMap.sl = idx;
         else if (nc === 'tp' || nc === 'takeprofit') colMap.tp = idx;
@@ -2360,8 +2581,25 @@
         const trs = Array.from(table.querySelectorAll('tr'));
         let colMap = null;
         for (let i = 0; i < trs.length; i++) {
-          const cells = Array.from(trs[i].querySelectorAll('th,td')).map(c => normalizeLocaleDigits(c.textContent).trim());
+          // MT4/5 HTML reports mark some columns class="hidden" — e.g. an extra
+          // comment cell in the "Positions" table, or "Cost" in "Deals". These
+          // exist in the DOM but only appear in *some* rows, so including them
+          // shifts every column index after them and corrupts entry/exit
+          // prices, SL/TP and dates. Drop them before mapping columns.
+          const cellEls = Array.from(trs[i].querySelectorAll('th,td')).filter(c => !c.classList.contains('hidden'));
+          const cells = cellEls.map(c => normalizeLocaleDigits(c.textContent).trim());
           if (!cells.length) continue;
+          // A lone wide cell is a section title ("Positions" / "Orders" /
+          // "Deals") or a blank spacer row. MT reports stack several tables
+          // in one export — closed positions, pending orders, individual
+          // deals — all of which can contain type/symbol/profit-looking
+          // headers. We only want the FIRST closed-trade section; once we've
+          // collected rows and hit the next section, stop so the same trades
+          // aren't re-imported (doubled, or worse, misread) from Orders/Deals.
+          if (cells.length === 1) {
+            if (colMap && results.length) return;
+            continue;
+          }
           const normCells = cells.map(normalizeHeaderKey);
           if (normCells.includes('type') && (normCells.includes('item') || normCells.includes('symbol')) && normCells.includes('profit')) {
             colMap = buildMtColMap(normCells);
@@ -2370,6 +2608,13 @@
           if (colMap) {
             const typeVal = (cells[colMap.type] || '').trim().toLowerCase();
             if (typeVal !== 'buy' && typeVal !== 'sell') { continue; }
+            // A "Deals" table lists each closed trade as TWO rows (entry +
+            // exit). Only the exit ("out") row carries the real profit — skip
+            // the entry row so a single closed trade isn't imported twice.
+            if (colMap.direction != null) {
+              const dirVal = (cells[colMap.direction] || '').trim().toLowerCase();
+              if (dirVal !== 'out') continue;
+            }
             results.push({
               ticket: colMap.ticket != null ? cells[colMap.ticket] : '',
               openTime: colMap.openTime != null ? cells[colMap.openTime] : '',
@@ -2393,17 +2638,48 @@
       const clean = normalizeLocaleDigits(text);
       const lines = clean.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
       if (!lines.length) return [];
-      const splitLine = (line) => {
+      // Comma-delimited MT exports quote fields when the terminal is configured
+      // to do so, but many aren't — and a plain number like a US30/NAS100/XAUUSD
+      // price ("39,412.5") then contains the same comma used as the column
+      // delimiter. That silently inserts an extra cell and shifts every column
+      // after it (including SL/TP) for that one row, so those trades come in
+      // with blank or wrong stop/target values while ordinary forex rows (no
+      // thousands separator in their prices) parse fine. splitCsvLine handles
+      // quoted fields; mergeThousandsSplit re-joins an accidental comma split
+      // back into one numeric cell when it looks like "123,456[.78]".
+      const splitCsvLine = (line) => {
         if (line.includes('\t')) return line.split('\t');
         if (line.includes(';') && !line.includes(',')) return line.split(';');
-        return line.split(',');
+        if (!line.includes('"')) return line.split(',');
+        const out = [];
+        let cur = '', inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const ch = line[i];
+          if (ch === '"') { inQuotes = !inQuotes; continue; }
+          if (ch === ',' && !inQuotes) { out.push(cur);
+            cur = ''; continue; }
+          cur += ch;
+        }
+        out.push(cur);
+        return out;
       };
-      const header = splitLine(lines[0]).map(normalizeHeaderKey);
+      const mergeThousandsSplit = (cells, expectedLen) => {
+        if (!expectedLen || cells.length <= expectedLen) return cells;
+        const out = cells.slice();
+        let i = 0;
+        while (out.length > expectedLen && i < out.length - 1) {
+          if (/^-?\d{1,3}$/.test(out[i].trim()) && /^\d{3}(\.\d+)?$/.test(out[i + 1].trim())) {
+            out.splice(i, 2, out[i].trim() + ',' + out[i + 1].trim());
+          } else { i++; }
+        }
+        return out;
+      };
+      const header = splitCsvLine(lines[0]).map(normalizeHeaderKey);
       const colMap = buildMtColMap(header);
       if (colMap.type === undefined || colMap.profit === undefined) return [];
       const results = [];
       for (let i = 1; i < lines.length; i++) {
-        const cells = splitLine(lines[i]).map(c => c.trim());
+        const cells = mergeThousandsSplit(splitCsvLine(lines[i]), header.length).map(c => c.trim());
         const typeVal = (cells[colMap.type] || '').trim().toLowerCase();
         if (typeVal !== 'buy' && typeVal !== 'sell') continue;
         results.push({
@@ -2433,6 +2709,13 @@
         str = str.replace(/\s/g, '').replace(/[^0-9.\-]/g, '');
         return parseFloat(str) || 0;
       };
+      // Blank AND literal "0"/"0.00" both mean "no SL/TP was set" in MT reports —
+      // no tradable instrument sits at price 0, so a 0 here is never a real
+      // level. Treating it as a real price previously fed a fake risk distance
+      // into resultR() and produced nonsense R multiples.
+      const cleanLevel = (v) => { if (!v) return null;
+        const n = cleanNum(v);
+        return n === 0 ? null : n; };
       const profit = cleanNum(r.profit);
       const result = profit > 0 ? 'WIN' : (profit < 0 ? 'LOSS' : 'BE');
       return {
@@ -2443,10 +2726,11 @@
         session: dateVal ? autoDetectSession(dateVal) : '',
         date: dateVal,
         entry: cleanNum(r.openPrice),
-        sl: cleanNum(r.sl),
-        tp: cleanNum(r.tp),
+        sl: cleanLevel(r.sl),
+        tp: cleanLevel(r.tp),
         exit: r.closePrice ? cleanNum(r.closePrice) : null,
         lot: r.size ? cleanNum(r.size) : null,
+        pnl: profit,
         result: result,
         notes: `Imported from MetaTrader statement${r.ticket ? ' — Ticket #' + r.ticket : ''}`,
         mood: 'calm',
@@ -2457,30 +2741,42 @@
     function importMTStatement(e) {
       const file = e.target.files[0];
       if (!file) return;
+      showLoading('Reading statement…');
       const reader = new FileReader();
       reader.onload = (ev) => {
-        try {
-          const text = ev.target.result;
-          const isHTML = /\.html?$/i.test(file.name) || /<html|<table/i.test(text);
-          const rows = isHTML ? parseMTHtmlStatement(text) : parseMTCsvStatement(text);
-          if (!rows.length) {
-            toast('No closed trades found — if your MT4/5 terminal language isn\'t English, switch it to English before exporting the statement, then try again', 'error');
+        // Let the overlay actually paint before the (synchronous) parsing
+        // work runs, otherwise the browser can batch both into one frame.
+        setTimeout(() => {
+          try {
+            const text = ev.target.result;
+            const isHTML = /\.html?$/i.test(file.name) || /<html|<table/i.test(text);
+            const rows = isHTML ? parseMTHtmlStatement(text) : parseMTCsvStatement(text);
+            if (!rows.length) {
+              toast('No closed trades found — if your MT4/5 terminal language isn\'t English, switch it to English before exporting the statement, then try again', 'error');
+              e.target.value = '';
+              return;
+            }
+            const existingIds = new Set(trades.map(t => t.id));
+            const imported = rows.map(mtRowToTrade).filter(t => !existingIds.has(t.id));
+            if (!imported.length) { toast('These trades were already imported', 'error');
+              e.target.value = '';
+              return; }
+            trades = imported.concat(trades);
+            persistAll();
+            renderEverything();
+            toast(`Imported ${imported.length} trade(s) from MetaTrader ✅`);
+          } catch (err) {
+            console.error(err);
+            toast('Could not read this MetaTrader statement file', 'error');
+          } finally {
+            hideLoading();
             e.target.value = '';
-            return;
           }
-          const existingIds = new Set(trades.map(t => t.id));
-          const imported = rows.map(mtRowToTrade).filter(t => !existingIds.has(t.id));
-          if (!imported.length) { toast('These trades were already imported', 'error');
-            e.target.value = '';
-            return; }
-          trades = imported.concat(trades);
-          persistAll();
-          renderEverything();
-          toast(`Imported ${imported.length} trade(s) from MetaTrader ✅`);
-        } catch (err) {
-          console.error(err);
-          toast('Could not read this MetaTrader statement file', 'error');
-        }
+        }, 30);
+      };
+      reader.onerror = () => {
+        hideLoading();
+        toast('Could not read this file', 'error');
         e.target.value = '';
       };
       reader.readAsText(file, 'UTF-8');
@@ -2496,10 +2792,8 @@
     function handleBtScreenshots(e) {
       const files = Array.from(e.target.files || []);
       files.forEach(f => {
-        const reader = new FileReader();
-        reader.onload = (ev) => { pendingBtScreenshots.push(ev.target.result);
-          renderBtThumbs(); };
-        reader.readAsDataURL(f);
+        compressImageFile(f).then((dataUrl) => { pendingBtScreenshots.push(dataUrl);
+          renderBtThumbs(); }).catch(() => toast('Could not process image', 'error'));
       });
     }
 
@@ -2529,6 +2823,7 @@
         entry: parseFloat(document.getElementById('bt_entry').value),
         sl: parseFloat(document.getElementById('bt_sl').value),
         tp: parseFloat(document.getElementById('bt_tp').value),
+        origSl: document.getElementById('bt_origsl').value ? parseFloat(document.getElementById('bt_origsl').value) : null,
         result: document.getElementById('bt_result').value,
         screenshots: pendingBtScreenshots.slice(),
       };
@@ -2563,6 +2858,7 @@
       document.getElementById('bt_entry').value = t.entry;
       document.getElementById('bt_sl').value = t.sl;
       document.getElementById('bt_tp').value = t.tp;
+      document.getElementById('bt_origsl').value = t.origSl ?? '';
       document.getElementById('bt_result').value = t.result;
       pendingBtScreenshots = (t.screenshots || []).slice();
       renderBtThumbs();
@@ -2579,6 +2875,7 @@
     function restoreBtBackup(e) {
       const file = e.target.files[0];
       if (!file) return;
+      showLoading('Restoring backup…');
       const reader = new FileReader();
       reader.onload = (ev) => {
         try {
@@ -2589,7 +2886,9 @@
           renderBacktest();
           toast('Backtest backup restored ✅');
         } catch (err) { toast('Invalid file', 'error'); }
+        hideLoading();
       };
+      reader.onerror = () => hideLoading();
       reader.readAsText(file);
     }
 
@@ -2647,6 +2946,32 @@
         `<div class="stat-card ${c.cls}"><div class="badge-corner">${c.icon}</div><div class="label">${c.label}</div><div class="value ltr">${c.value}</div><div class="sub">${c.sub}</div>${i===0?`<canvas class="mini-spark" id="miniSpark"></canvas>`:''}</div>`
       ).join('');
       if (rMultipleSeries.length) drawSparkline('miniSpark', rMultipleSeries);
+    }
+
+    // ---- RENDER: JOURNAL WIDGETS ($ P&L + Risk-Free tracking) ----
+    function renderJournalStatsRow() {
+      const el = document.getElementById('journalStatsRow');
+      if (!el) return;
+      const withPnl = trades.filter(t => t.pnl != null && !isNaN(t.pnl));
+      const netPnl = withPnl.reduce((s, t) => s + t.pnl, 0);
+      const winPnl = withPnl.filter(t => t.pnl > 0);
+      const lossPnl = withPnl.filter(t => t.pnl < 0);
+      const avgWinPnl = winPnl.length ? winPnl.reduce((s, t) => s + t.pnl, 0) / winPnl.length : 0;
+      const avgLossPnl = lossPnl.length ? lossPnl.reduce((s, t) => s + t.pnl, 0) / lossPnl.length : 0;
+      const bestPnl = withPnl.length ? Math.max(...withPnl.map(t => t.pnl)) : null;
+      const worstPnl = withPnl.length ? Math.min(...withPnl.map(t => t.pnl)) : null;
+      const closed = trades.filter(t => t.result !== 'OPEN' && t.result !== 'BE');
+      const riskFree = closed.filter(t => isRiskFreeStop(t));
+      const riskFreeResolved = riskFree.filter(t => hasKnownR(t)).length;
+      const cards = [
+        { label: 'Net P&L', value: withPnl.length ? fmtPnl(netPnl) : '—', cls: netPnl >= 0 ? 'pos' : 'neg', sub: `${withPnl.length} trades with $ recorded`, icon: '💵' },
+        { label: 'Avg Win / Loss ($)', value: withPnl.length ? `${fmtPnl(avgWinPnl)} / ${fmtPnl(avgLossPnl)}` : '—', cls: '', sub: 'Per-trade average', icon: '⚖️' },
+        { label: 'Best / Worst Trade ($)', value: withPnl.length ? `${fmtPnl(bestPnl)} / ${fmtPnl(worstPnl)}` : '—', cls: '', sub: 'Single-trade extremes', icon: '🏅' },
+        { label: 'Risk-Free Trades', value: riskFree.length, cls: '', sub: riskFree.length ? `${riskFreeResolved}/${riskFree.length} have an Original SL on file` : 'Stop moved past entry', icon: '🛡️' },
+      ];
+      el.innerHTML = cards.map(c =>
+        `<div class="stat-card ${c.cls}"><div class="badge-corner">${c.icon}</div><div class="label">${c.label}</div><div class="value ltr">${c.value}</div><div class="sub">${c.sub}</div></div>`
+      ).join('');
     }
 
     function drawSparkline(id, series) {
@@ -3007,6 +3332,7 @@
     }
 
     function renderJournal() {
+      renderJournalStatsRow();
       populateSymbolFilter();
       const fSymbol = document.getElementById('filterSymbol').value;
       const fSide = document.getElementById('filterSide').value;
@@ -3037,6 +3363,7 @@
             `<span class="badge be">OPEN</span>`;
           const sideBadge = t.side === 'BUY' ? `<span class="badge buy">BUY</span>` : `<span class="badge sell">SELL</span>`;
           const r = resultR(t);
+          const rKnown = hasKnownR(t);
           const mood = MOOD_META[t.mood]?.emoji || '—';
           const hasScreenshots = t.screenshots && t.screenshots.length > 0;
           return `<tr>
@@ -3051,7 +3378,8 @@
             <td>${sess?`<span class="session-pill"><span class="sdot" style="background:${sess.color}"></span>${sess.label}</span>`:'—'}</td>
             <td>${mood}</td>
             <td>${resultBadge}</td>
-            <td class="ltr" style="color:${r>=0?'var(--mint)':'var(--sell)'};font-weight:700;">${(r>=0?'+':'')+r.toFixed(2)}R</td>
+            <td class="ltr" style="color:${r>=0?'var(--mint)':'var(--sell)'};font-weight:700;">${rCellLabel(t, r, rKnown)}</td>
+            <td class="ltr" style="color:${t.pnl>0?'var(--mint)':t.pnl<0?'var(--sell)':'var(--muted)'};font-weight:700;">${fmtPnl(t.pnl)}</td>
             <td>${slot||'—'}</td>
             <td>
               ${hasScreenshots ? `<span style="cursor:pointer;font-size:14px;" onclick="openModal('${t.screenshots[0]}')">🖼️</span>` : '—'}
@@ -3095,6 +3423,7 @@
             `<span class="badge be">BE</span>`;
           const sideBadge = t.side === 'BUY' ? `<span class="badge buy">BUY</span>` : `<span class="badge sell">SELL</span>`;
           const r = resultR(t);
+          const rKnown = hasKnownR(t);
           const hasScreenshots = t.screenshots && t.screenshots.length > 0;
           return `<tr>
             <td>${backtestTrades.length-i}</td>
@@ -3107,7 +3436,7 @@
             <td class="ltr">${fmtNum(t.tp)}</td>
             <td>${sess?`<span class="session-pill"><span class="sdot" style="background:${sess.color}"></span>${sess.label}</span>`:'—'}</td>
             <td>${resultBadge}</td>
-            <td class="ltr" style="color:${r>=0?'var(--mint)':'var(--sell)'};font-weight:700;">${(r>=0?'+':'')+r.toFixed(2)}R</td>
+            <td class="ltr" style="color:${r>=0?'var(--mint)':'var(--sell)'};font-weight:700;">${rCellLabel(t, r, rKnown)}</td>
             <td>${slot||'—'}</td>
             <td>${hasScreenshots ? `<span style="cursor:pointer;font-size:14px;" onclick="openModal('${t.screenshots[0]}')">🖼️</span>` : '—'}</td>
             <td>
@@ -3171,69 +3500,84 @@
     }
 
     function exportJSON() {
+      showLoading('Exporting…');
       downloadBlob(new Blob([JSON.stringify(trades, null, 2)], { type: 'application/json' }), `akdivex_journal_${currentUser}_${Date.now()}.json`);
+      hideLoading();
       toast('JSON exported');
     }
 
     function exportExcel() {
-      const headers = ['#', 'Date', 'Symbol', 'Side', 'Setup', 'Entry', 'SL', 'TP', 'Exit', 'Lot', 'Session', 'Result', 'R', 'Mood', 'Notes'];
-      const rows = trades.map((t, i) => [i + 1, t.date || '', t.symbol, t.side, t.setup || '', t.entry || '', t.sl || '', t.tp || '', t.exit || '', t.lot || '', t.session || '', t.result, resultR(t).toFixed(2), t.mood || '', (t.notes || '').replace(/,/g, ';')]);
+      showLoading('Exporting…');
+      const headers = ['#', 'Date', 'Symbol', 'Side', 'Setup', 'Entry', 'SL', 'Orig SL', 'TP', 'Exit', 'Lot', 'Session', 'Result', 'R', 'P&L ($)', 'Mood', 'Notes'];
+      const rows = trades.map((t, i) => [i + 1, t.date || '', t.symbol, t.side, t.setup || '', t.entry || '', t.sl || '', t.origSl ?? '', t.tp || '', t.exit || '', t.lot || '', t.session || '', t.result, rCellLabel(t, resultR(t), hasKnownR(t)), t.pnl ?? '', t.mood || '', (t.notes || '').replace(/,/g, ';')]);
       let xml = `<table><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr>`;
       rows.forEach(r => { xml += `<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`; });
       xml += '</table>';
       const style = `<style>th{background:#2BD9A6;color:#000;padding:6px 10px;font-weight:700;}td{padding:4px 10px;border:1px solid #ccc;}</style>`;
       downloadBlob(new Blob([style + xml], { type: 'application/vnd.ms-excel' }), `akdivex_journal_${currentUser}_${Date.now()}.xls`);
+      hideLoading();
       toast('Excel exported');
     }
 
     function exportPDF() {
-      const headers = ['#', 'Date', 'Symbol', 'Side', 'Setup', 'Entry', 'SL', 'TP', 'R', 'Result'];
-      const rows = trades.map((t, i) => [i + 1, (t.date || '').slice(0, 10), t.symbol, t.side, t.setup || '', t.entry || '', t.sl || '', t.tp || '', resultR(t).toFixed(2), t.result]);
+      showLoading('Exporting…');
+      const headers = ['#', 'Date', 'Symbol', 'Side', 'Setup', 'Entry', 'SL', 'TP', 'R', 'P&L ($)', 'Result'];
+      const rows = trades.map((t, i) => [i + 1, (t.date || '').slice(0, 10), t.symbol, t.side, t.setup || '', t.entry || '', t.sl || '', t.tp || '', rCellLabel(t, resultR(t), hasKnownR(t)), t.pnl != null ? fmtPnl(t.pnl) : '—', t.result]);
       let html =
         `<html><head><style>body{font-family:Arial,sans-serif;padding:20px;}h2{color:#2BD9A6;}table{border-collapse:collapse;width:100%;font-size:12px;}th{background:#2BD9A6;color:#000;padding:8px;text-align:left;}td{padding:6px 8px;border-bottom:1px solid #eee;}tr:nth-child(even){background:#f5f5f5;}</style></head><body><h2>AKDIVEX Trading Journal</h2><p>User: ${currentUser} | Exported: ${new Date().toISOString()}</p><table><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr>`;
       rows.forEach(r => { html += `<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`; });
       html += '</table></body></html>';
       downloadBlob(new Blob([html], { type: 'text/html' }), `akdivex_journal_${currentUser}_${Date.now()}.pdf.html`);
+      hideLoading();
       toast('PDF (HTML) exported — open and print to PDF');
     }
 
     // ---- BT EXPORTS ----
     function exportBtJSON() {
+      showLoading('Exporting…');
       downloadBlob(new Blob([JSON.stringify(backtestTrades, null, 2)], { type: 'application/json' }), `akdivex_bt_${currentUser}_${Date.now()}.json`);
+      hideLoading();
       toast('Backtest JSON exported');
     }
 
     function exportBtExcel() {
-      const headers = ['#', 'Date', 'Symbol', 'Side', 'Setup', 'Entry', 'SL', 'TP', 'Session', 'Result', 'R'];
-      const rows = backtestTrades.map((t, i) => [i + 1, t.date || '', t.symbol, t.side, t.setup || '', t.entry || '', t.sl || '', t.tp || '', t.session || '', t.result, resultR(t).toFixed(2)]);
+      showLoading('Exporting…');
+      const headers = ['#', 'Date', 'Symbol', 'Side', 'Setup', 'Entry', 'SL', 'Orig SL', 'TP', 'Session', 'Result', 'R'];
+      const rows = backtestTrades.map((t, i) => [i + 1, t.date || '', t.symbol, t.side, t.setup || '', t.entry || '', t.sl || '', t.origSl ?? '', t.tp || '', t.session || '', t.result, rCellLabel(t, resultR(t), hasKnownR(t))]);
       let xml = `<table><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr>`;
       rows.forEach(r => { xml += `<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`; });
       xml += '</table>';
       const style = `<style>th{background:#2BD9A6;color:#000;padding:6px 10px;font-weight:700;}td{padding:4px 10px;border:1px solid #ccc;}</style>`;
       downloadBlob(new Blob([style + xml], { type: 'application/vnd.ms-excel' }), `akdivex_bt_${currentUser}_${Date.now()}.xls`);
+      hideLoading();
       toast('Backtest Excel exported');
     }
 
     function exportBtPDF() {
+      showLoading('Exporting…');
       const headers = ['#', 'Date', 'Symbol', 'Side', 'Setup', 'Entry', 'SL', 'TP', 'Result', 'R'];
-      const rows = backtestTrades.map((t, i) => [i + 1, (t.date || '').slice(0, 10), t.symbol, t.side, t.setup || '', t.entry || '', t.sl || '', t.tp || '', t.result, resultR(t).toFixed(2)]);
+      const rows = backtestTrades.map((t, i) => [i + 1, (t.date || '').slice(0, 10), t.symbol, t.side, t.setup || '', t.entry || '', t.sl || '', t.tp || '', t.result, rCellLabel(t, resultR(t), hasKnownR(t))]);
       let html =
         `<html><head><style>body{font-family:Arial,sans-serif;padding:20px;}h2{color:#2BD9A6;}table{border-collapse:collapse;width:100%;font-size:12px;}th{background:#2BD9A6;color:#000;padding:8px;text-align:left;}td{padding:6px 8px;border-bottom:1px solid #eee;}tr:nth-child(even){background:#f5f5f5;}</style></head><body><h2>AKDIVEX Backtest</h2><p>User: ${currentUser} | Exported: ${new Date().toISOString()}</p><table><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr>`;
       rows.forEach(r => { html += `<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`; });
       html += '</table></body></html>';
       downloadBlob(new Blob([html], { type: 'text/html' }), `akdivex_bt_${currentUser}_${Date.now()}.pdf.html`);
+      hideLoading();
       toast('Backtest PDF (HTML) exported');
     }
 
     function exportFullBackup() {
+      showLoading('Exporting…');
       const data = { username: currentUser, settings: userSettings, trades, backtestTrades, exportedAt: new Date().toISOString() };
       downloadBlob(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }), `akdivex_full_backup_${currentUser}_${Date.now()}.json`);
+      hideLoading();
       toast('Full backup downloaded');
     }
 
     function restoreFullBackup(e) {
       const file = e.target.files[0];
       if (!file) return;
+      showLoading('Restoring backup…');
       const reader = new FileReader();
       reader.onload = (ev) => {
         try {
@@ -3245,7 +3589,9 @@
           renderEverything();
           toast('Backup restored ✅');
         } catch (err) { toast('Invalid backup file', 'error'); }
+        hideLoading();
       };
+      reader.onerror = () => hideLoading();
       reader.readAsText(file);
     }
 
@@ -3468,13 +3814,15 @@
             document.getElementById('authContainer').style.display = 'flex';
             document.getElementById('mainJournalApp').style.display = 'none';
           }
+          hideLoading();
         });
       } else {
         const saved = localStorage.getItem('akdivex_currentUser');
         if (saved) { currentUser = saved;
-          loadUserSessionAndBoot(); } else {
+          loadUserSessionAndBoot().finally(hideLoading); } else {
           document.getElementById('authContainer').style.display = 'flex';
           document.getElementById('mainJournalApp').style.display = 'none';
+          hideLoading();
         }
       }
     }
@@ -3492,6 +3840,7 @@
       });
     }
 
+    showLoading('Loading AKDIVEX…');
     if (CLOUD_MODE) {
       Promise.all([
         loadScript('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js'),
