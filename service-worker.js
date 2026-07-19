@@ -1,5 +1,5 @@
 // AKDIVEX Trading Journal — Service Worker
-const CACHE_NAME = 'akdivex-cache-v2';
+const CACHE_NAME = 'akdivex-cache-v3';
 const APP_SHELL = [
   './',
   './index.html',
