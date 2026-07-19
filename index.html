@@ -16,6 +16,7 @@
   <meta name="description" content="AKDIVEX Trading Group — Trading Journal, Backtest Lab & Risk Calculator">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap');
 
     * {
       margin: 0;
@@ -96,6 +97,52 @@
       direction: ltr;
       unicode-bidi: isolate;
       font-family: var(--mono);
+    }
+
+    /* ---- RTL (Persian) SUPPORT ---- */
+    body.rtl {
+      font-family: 'Vazirmatn', var(--font);
+    }
+    body.rtl .ltr {
+      direction: ltr;
+      unicode-bidi: isolate;
+    }
+    html[dir="rtl"] body {
+      text-align: right;
+    }
+    html[dir="rtl"] .tabs,
+    html[dir="rtl"] .topbar-right,
+    html[dir="rtl"] .mood-group,
+    html[dir="rtl"] .toggle-group,
+    html[dir="rtl"] .filter-row,
+    html[dir="rtl"] .form-actions,
+    html[dir="rtl"] .file-row,
+    html[dir="rtl"] .thumb-row,
+    html[dir="rtl"] .auth-tabs {
+      direction: rtl;
+    }
+    html[dir="rtl"] .grid-form,
+    html[dir="rtl"] .grid-2,
+    html[dir="rtl"] .grid-3 {
+      direction: rtl;
+    }
+    html[dir="rtl"] select,
+    html[dir="rtl"] input[type="text"],
+    html[dir="rtl"] textarea {
+      text-align: right;
+      direction: rtl;
+    }
+    html[dir="rtl"] input[type="number"],
+    html[dir="rtl"] input[type="datetime-local"] {
+      direction: ltr;
+      text-align: left;
+    }
+    html[dir="rtl"] .stat-card,
+    html[dir="rtl"] .panel h2 {
+      text-align: right;
+    }
+    html[dir="rtl"] .panel-icon {
+      margin-left: 6px;
     }
 
     /* ---- AUTH ---- */
@@ -653,6 +700,46 @@
       resize: vertical;
       min-height: 56px;
     }
+    .field select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%238899AA' d='M5.5 7.5L10 12l4.5-4.5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      padding-right: 32px;
+      cursor: pointer;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    html[dir="rtl"] .field select {
+      background-position: left 10px center;
+      padding-right: 12px;
+      padding-left: 32px;
+    }
+    .field select:hover {
+      border-color: var(--border2);
+    }
+    .field input[type="datetime-local"],
+    .field input[type="date"],
+    .field input[type="time"] {
+      cursor: pointer;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .field input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+    .field input[type="date"]::-webkit-calendar-picker-indicator,
+    .field input[type="time"]::-webkit-calendar-picker-indicator {
+      filter: invert(64%) sepia(59%) saturate(430%) hue-rotate(107deg) brightness(92%);
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 2px;
+      transition: background .15s;
+    }
+    .field input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover,
+    .field input[type="date"]::-webkit-calendar-picker-indicator:hover,
+    .field input[type="time"]::-webkit-calendar-picker-indicator:hover {
+      background: var(--mint-dim);
+    }
     .toggle-group {
       display: flex;
       gap: 6px;
@@ -893,6 +980,26 @@
       outline: none;
       font-family: var(--font);
     }
+    .filter-row select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%238899AA' d='M5.5 7.5L10 12l4.5-4.5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 14px;
+      padding-right: 28px;
+      cursor: pointer;
+      transition: border-color .15s;
+    }
+    html[dir="rtl"] .filter-row select {
+      background-position: left 8px center;
+      padding-right: 12px;
+      padding-left: 28px;
+    }
+    .filter-row select:hover {
+      border-color: var(--border2);
+    }
     .filter-row select:focus,
     .filter-row input:focus {
       border-color: var(--mint);
@@ -1112,6 +1219,169 @@
       grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
+    /* ---- CHECKLIST ---- */
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+      transition: 0.15s;
+    }
+    .check-row.done {
+      border-color: var(--mint);
+      background: var(--mint-dim);
+    }
+    .check-row .box {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      color: transparent;
+      transition: 0.15s;
+    }
+    .check-row.done .box {
+      background: var(--mint);
+      border-color: var(--mint);
+      color: #0A0E14;
+    }
+    .check-row .txt {
+      flex: 1;
+      font-size: 13.5px;
+      cursor: pointer;
+    }
+    .check-row.done .txt {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+    .check-row .del {
+      color: var(--muted2);
+      cursor: pointer;
+      font-size: 15px;
+      padding: 2px 6px;
+    }
+    .check-row .del:hover {
+      color: var(--sell);
+    }
+    /* ---- SESSION CLOCK ---- */
+    .session-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .session-card.active {
+      border-color: var(--mint);
+      box-shadow: 0 0 0 1px var(--mint) inset;
+    }
+    .session-card .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .session-card .name {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .session-card .range {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: var(--mono);
+      margin-top: 4px;
+    }
+    .session-card .stat {
+      font-size: 11px;
+      font-family: var(--mono);
+      margin-top: 10px;
+      color: var(--muted);
+    }
+    .session-card .stat b {
+      color: var(--text);
+    }
+    .session-card .bar-track {
+      height: 5px;
+      border-radius: 4px;
+      background: var(--panel2);
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .session-card .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1s linear;
+    }
+    /* ---- PSYCHOLOGY QUIZ ---- */
+    .quiz-q-title {
+      font-size: 13px;
+      color: var(--muted);
+      font-family: var(--mono);
+      margin-bottom: 6px;
+    }
+    .quiz-q-text {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .quiz-opt {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 13px 16px;
+      margin-bottom: 9px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 13.5px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .quiz-opt:hover {
+      border-color: var(--mint);
+      background: var(--mint-dim);
+    }
+    .quiz-progress {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: var(--mono);
+      margin-bottom: 14px;
+    }
+    .psych-score-ring {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px auto;
+      font-family: var(--mono);
+      font-size: 28px;
+      font-weight: 700;
+      position: relative;
+    }
+    .psych-history-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12.5px;
+    }
+    .psych-history-row:last-child { border-bottom: none; }
     .setting-row {
       display: flex;
       justify-content: space-between;
@@ -1189,6 +1459,126 @@
       border: none;
     }
 
+    /* ---- VOICE NOTE MODAL ---- */
+    .voice-modal-card {
+      position: relative;
+      width: 100%;
+      max-width: 340px;
+      background: linear-gradient(180deg, var(--panel3), var(--panel));
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 26px 22px 22px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .voice-modal-icon {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: var(--mint-dim);
+      color: var(--mint);
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .voice-modal-title {
+      margin-top: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .modal-close-inline {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      color: var(--muted);
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+    html[dir="rtl"] .modal-close-inline { right: auto; left: 12px; }
+
+    /* ---- CUSTOM APP ALERT (replaces native alert()) ---- */
+    .app-alert-card {
+      width: 100%;
+      max-width: 360px;
+      background: linear-gradient(180deg, var(--panel3), var(--panel));
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .app-alert-icon {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      background: var(--mint-dim);
+      color: var(--mint);
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .app-alert-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .app-alert-msg {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.7;
+      white-space: pre-line;
+      margin-bottom: 18px;
+    }
+
+    /* ---- TABLE MICRO-PILLS ---- */
+    .tf-pill {
+      display: inline-block;
+      background: var(--panel3);
+      border: 1px solid var(--border2);
+      color: var(--blue);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+    .tag-cell {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-width: 160px;
+    }
+    .tag-pill {
+      display: inline-block;
+      background: var(--purple, #B47DFF);
+      background: rgba(180, 125, 255, 0.14);
+      color: var(--purple);
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .tag-pill.more {
+      background: var(--panel3);
+      color: var(--muted);
+    }
+    .voice-pill {
+      cursor: pointer;
+      font-size: 15px;
+      display: inline-block;
+      transition: transform .15s;
+    }
+    .voice-pill:hover { transform: scale(1.15); }
+
     /* ---- LOADING OVERLAY ---- */
     .loading-bg {
       position: fixed;
@@ -1246,33 +1636,71 @@
       align-items: center;
     }
     .toast {
-      background: var(--panel3);
+      position: relative;
+      background: linear-gradient(180deg, var(--panel3), var(--panel2));
       border: 1px solid var(--border2);
-      border-radius: 10px;
-      padding: 10px 22px;
+      border-left: 3px solid var(--mint);
+      border-radius: 12px;
+      padding: 11px 18px 11px 14px;
       font-size: 13px;
       box-shadow: var(--shadow);
       display: flex;
       align-items: center;
-      gap: 8px;
-      animation: toastIn 0.2s ease;
+      gap: 10px;
+      min-width: 220px;
+      max-width: min(92vw, 380px);
+      overflow: hidden;
+      animation: toastIn 0.28s cubic-bezier(.2,.9,.3,1.3);
     }
-    .toast.success {
-      border-color: var(--mint);
+    html[dir="rtl"] .toast {
+      border-left: 1px solid var(--border2);
+      border-right: 3px solid var(--mint);
+    }
+    .toast .toast-icon {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      background: var(--mint-dim);
       color: var(--mint);
     }
-    .toast.error {
-      border-color: var(--sell);
-      color: var(--sell);
+    .toast .toast-body {
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .toast .toast-bar {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      background: var(--mint);
+      opacity: .5;
+      animation: toastBar 3.2s linear forwards;
+    }
+    .toast.success { border-left-color: var(--mint); }
+    .toast.success .toast-icon { background: var(--mint-dim); color: var(--mint); }
+    .toast.success .toast-bar { background: var(--mint); }
+    .toast.error { border-left-color: var(--sell); }
+    .toast.error .toast-icon { background: var(--sell-dim); color: var(--sell); }
+    .toast.error .toast-bar { background: var(--sell); }
+    html[dir="rtl"] .toast.success { border-right-color: var(--mint); }
+    html[dir="rtl"] .toast.error { border-right-color: var(--sell); }
+    @keyframes toastBar {
+      from { width: 100%; }
+      to { width: 0%; }
     }
     @keyframes toastIn {
       from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(14px) scale(.96);
       }
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
       }
     }
 
@@ -1395,6 +1823,24 @@
     <img id="modalImg" src="" alt="screenshot">
   </div>
 
+  <div class="modal-bg" id="voiceModalBg">
+    <div class="voice-modal-card">
+      <button class="modal-close-inline" onclick="closeVoiceModal()">&times;</button>
+      <div class="voice-modal-icon">🎙️</div>
+      <div class="voice-modal-title" data-i18n="voice_modal_title">Voice Note</div>
+      <audio id="voiceModalAudio" controls autoplay style="width:100%;margin-top:14px;"></audio>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="appAlertBg">
+    <div class="app-alert-card">
+      <div class="app-alert-icon" id="appAlertIcon">ℹ️</div>
+      <div class="app-alert-title" id="appAlertTitle"></div>
+      <div class="app-alert-msg" id="appAlertMsg"></div>
+      <button class="btn primary app-alert-ok" id="appAlertOk" style="width:100%;justify-content:center;">OK</button>
+    </div>
+  </div>
+
   <!-- ===== AUTH ===== -->
   <div id="authContainer">
     <div class="auth-card">
@@ -1404,8 +1850,8 @@
         <p>TRADING JOURNAL &amp; BACKTEST</p>
       </div>
       <div class="auth-tabs">
-        <div class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Login</div>
-        <div class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Register</div>
+        <div class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')" data-i18n="auth_login">Login</div>
+        <div class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')" data-i18n="auth_register">Register</div>
       </div>
       <form class="auth-form" id="loginForm" onsubmit="return handleLogin(event)">
         <div class="field"><label>Username</label><input type="text" id="loginUsername" autocomplete="username" required></div>
@@ -1417,7 +1863,7 @@
           </div>
         </div>
         <div class="auth-msg" id="loginMsg"></div>
-        <button type="submit" class="btn primary" style="width:100%;justify-content:center;margin-top:6px;" id="loginBtn">Login</button>
+        <button type="submit" class="btn primary" style="width:100%;justify-content:center;margin-top:6px;" id="loginBtn" data-i18n="auth_login">Login</button>
         <div class="auth-link">Forgot password? <a onclick="showForgotPassword()">Reset</a></div>
         <div class="auth-link">Don't have an account? <a onclick="switchAuthTab('register')">Create one</a></div>
       </form>
@@ -1434,7 +1880,7 @@
         <div class="field"><label>Security Question</label><input type="text" id="regSecurityQ" placeholder="e.g. What is your pet's name?" required></div>
         <div class="field"><label>Security Answer</label><input type="text" id="regSecurityA" placeholder="Your answer" required></div>
         <div class="auth-msg" id="registerMsg"></div>
-        <button type="submit" class="btn primary" style="width:100%;justify-content:center;margin-top:6px;" id="registerBtn">Create Account</button>
+        <button type="submit" class="btn primary" style="width:100%;justify-content:center;margin-top:6px;" id="registerBtn" data-i18n="auth_create_account">Create Account</button>
         <div class="auth-link">Already registered? <a onclick="switchAuthTab('login')">Login</a></div>
       </form>
       <div id="forgotPasswordSection" style="display:none;margin-top:16px;">
@@ -1465,40 +1911,64 @@
         <div class="topbar-right">
           <div class="sync-indicator"><span class="sync-dot" id="syncDot"></span><span id="syncText">Saved</span></div>
           <div class="session-clock"><span class="time ltr" id="liveTimerDisplay">00:00:00</span><span class="pill" id="liveSessionName">—</span></div>
+          <button class="icon-btn" id="langToggle" onclick="toggleLanguage()" title="فارسی / English">🌐</button>
           <button class="icon-btn" id="themeToggle" onclick="toggleTheme()">🌙</button>
-          <button class="btn small" onclick="logoutUser()">Logout</button>
+          <button class="btn small" data-i18n="logout" onclick="logoutUser()">Logout</button>
         </div>
       </div>
 
       <!-- TABS -->
       <div class="tabs">
-        <button class="tab-btn active" data-tab="dashboard" onclick="switchTab('dashboard')">📊 Dashboard</button>
-        <button class="tab-btn" data-tab="journal" onclick="switchTab('journal')">📓 Journal</button>
-        <button class="tab-btn" data-tab="backtest" onclick="switchTab('backtest')">🧪 Backtest</button>
-        <button class="tab-btn" data-tab="calculator" onclick="switchTab('calculator')">🧮 Risk Calculator</button>
-        <button class="tab-btn" data-tab="profile" onclick="switchTab('profile')">👤 Profile</button>
-        <button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">⚙️ Settings</button>
+        <button class="tab-btn active" data-tab="dashboard" onclick="switchTab('dashboard')">📊 <span data-i18n="tab_dashboard">Dashboard</span></button>
+        <button class="tab-btn" data-tab="journal" onclick="switchTab('journal')">📓 <span data-i18n="tab_journal">Journal</span></button>
+        <button class="tab-btn" data-tab="backtest" onclick="switchTab('backtest')">🧪 <span data-i18n="tab_backtest">Backtest</span></button>
+        <button class="tab-btn" data-tab="calculator" onclick="switchTab('calculator')">🧮 <span data-i18n="tab_calculator">Risk Calculator</span></button>
+        <button class="tab-btn" data-tab="checklist" onclick="switchTab('checklist')">✅ <span data-i18n="tab_checklist">Checklist</span></button>
+        <button class="tab-btn" data-tab="calendar" onclick="switchTab('calendar')">🗓️ <span data-i18n="tab_calendar">Calendar & Sessions</span></button>
+        <button class="tab-btn" data-tab="psychology" onclick="switchTab('psychology')">🧠 <span data-i18n="tab_psychology">Psychology Test</span></button>
+        <button class="tab-btn" data-tab="profile" onclick="switchTab('profile')">👤 <span data-i18n="tab_profile">Profile</span></button>
+        <button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">⚙️ <span data-i18n="tab_settings">Settings</span></button>
       </div>
+
+      <!-- Shared option lists: users can pick a value OR type their own free text -->
+      <datalist id="symbolList">
+        <option value="XAUUSD"><option value="EURUSD"><option value="GBPUSD"><option value="USDJPY">
+        <option value="AUDUSD"><option value="USDCAD"><option value="NZDUSD"><option value="BTCUSD">
+        <option value="ETHUSD"><option value="US30"><option value="NAS100"><option value="SPX500">
+        <option value="UK100"><option value="DE40"><option value="USOIL"><option value="XAGUSD">
+      </datalist>
+      <datalist id="setupList">
+        <option value="TFC"><option value="3 Push"><option value="Vacuum Spike"><option value="Break & Retest">
+        <option value="Trendline Break"><option value="S/R Bounce"><option value="Pin Bar"><option value="Engulfing">
+      </datalist>
+      <datalist id="timeframeList">
+        <option value="M1"><option value="M5"><option value="M15"><option value="M30">
+        <option value="H1"><option value="H4"><option value="D1"><option value="W1"><option value="MN">
+      </datalist>
+      <datalist id="tagList">
+        <option value="News"><option value="FOMO"><option value="Revenge"><option value="Plan A">
+        <option value="Breakout"><option value="Reversal"><option value="Scalp"><option value="Swing">
+      </datalist>
 
       <!-- ===== DASHBOARD ===== -->
       <div class="view active" id="view-dashboard">
         <div class="stats-row" id="statsRow"></div>
         <div class="grid-2">
-          <div class="panel"><h2><span class="panel-icon">📈</span> Equity Curve <span class="sub" id="equitySub"></span></h2><canvas id="equityChart" style="width:100%;height:200px;"></canvas></div>
-          <div class="panel"><h2><span class="panel-icon">🎯</span> Win / Loss Ratio</h2><div class="donut-wrap"><canvas id="donutChart" width="140" height="140" style="flex-shrink:0;"></canvas><div class="donut-legend" id="donutLegend"></div></div></div>
+          <div class="panel"><h2><span class="panel-icon">📈</span> <span data-i18n="h_equity_curve">Equity Curve</span> <span class="sub" id="equitySub"></span></h2><canvas id="equityChart" style="width:100%;height:200px;"></canvas></div>
+          <div class="panel"><h2><span class="panel-icon">🎯</span> <span data-i18n="h_win_loss">Win / Loss Ratio</span></h2><div class="donut-wrap"><canvas id="donutChart" width="140" height="140" style="flex-shrink:0;"></canvas><div class="donut-legend" id="donutLegend"></div></div></div>
         </div>
         <div class="grid-2">
-          <div class="panel"><h2><span class="panel-icon">🗓️</span> Daily Performance <span class="sub" id="calMonthLabel"></span></h2><div style="display:flex;gap:6px;margin-bottom:10px;"><button class="btn small" onclick="shiftCalMonth(-1)">‹ Prev</button><button class="btn small" onclick="shiftCalMonth(1)">Next ›</button></div><div class="calendar-heat" id="calendarHeat"></div><div class="cal-legend"><span>Loss</span><span class="sq" style="background:var(--sell);"></span><span class="sq" style="background:var(--panel2);border:1px solid var(--border);"></span><span class="sq" style="background:var(--mint);"></span><span>Profit</span></div></div>
-          <div class="panel"><h2><span class="panel-icon">📊</span> R-Multiple Distribution</h2><canvas id="rHistChart" style="width:100%;height:170px;"></canvas></div>
+          <div class="panel"><h2><span class="panel-icon">🗓️</span> <span data-i18n="h_daily_perf">Daily Performance</span> <span class="sub" id="calMonthLabel"></span></h2><div style="display:flex;gap:6px;margin-bottom:10px;"><button class="btn small" onclick="shiftCalMonth(-1)">‹ Prev</button><button class="btn small" onclick="shiftCalMonth(1)">Next ›</button></div><div class="calendar-heat" id="calendarHeat"></div><div class="cal-legend"><span>Loss</span><span class="sq" style="background:var(--sell);"></span><span class="sq" style="background:var(--panel2);border:1px solid var(--border);"></span><span class="sq" style="background:var(--mint);"></span><span>Profit</span></div></div>
+          <div class="panel"><h2><span class="panel-icon">📊</span> <span data-i18n="h_r_dist">R-Multiple Distribution</span></h2><canvas id="rHistChart" style="width:100%;height:170px;"></canvas></div>
         </div>
         <div class="grid-3">
-          <div class="panel"><h2><span class="panel-icon">🌍</span> Session Performance</h2><div id="sessionPerfRows"></div></div>
-          <div class="panel"><h2><span class="panel-icon">🧩</span> Setup Performance</h2><canvas id="setupChart" style="width:100%;height:170px;"></canvas></div>
-          <div class="panel"><h2><span class="panel-icon">💱</span> Symbol Performance</h2><canvas id="symbolChart" style="width:100%;height:170px;"></canvas></div>
+          <div class="panel"><h2><span class="panel-icon">🌍</span> <span data-i18n="h_session_perf">Session Performance</span></h2><div id="sessionPerfRows"></div></div>
+          <div class="panel"><h2><span class="panel-icon">🧩</span> <span data-i18n="h_setup_perf">Setup Performance</span></h2><canvas id="setupChart" style="width:100%;height:170px;"></canvas></div>
+          <div class="panel"><h2><span class="panel-icon">💱</span> <span data-i18n="h_symbol_perf">Symbol Performance</span></h2><canvas id="symbolChart" style="width:100%;height:170px;"></canvas></div>
         </div>
         <div class="grid-2">
-          <div class="panel goal-widget"><h2><span class="panel-icon">🏆</span> Monthly Goal <span class="sub"><a style="color:var(--mint);cursor:pointer;" onclick="editGoal()">✏️ Edit</a></span></h2><div class="goal-row"><span id="goalCurrentLabel">0</span><span id="goalTargetLabel">Target: 0</span></div><div class="bar-track"><div class="bar-fill" id="goalBarFill" style="width:0%;"></div></div><div style="font-size:11px;color:var(--muted);margin-top:4px;" id="goalPercentLabel">0% of monthly goal</div></div>
-          <div class="panel"><h2><span class="panel-icon">🧠</span> Trading Psychology</h2><div id="psychRow" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;"></div><canvas id="moodChart" style="width:100%;height:90px;"></canvas></div>
+          <div class="panel goal-widget"><h2><span class="panel-icon">🏆</span> <span data-i18n="h_monthly_goal">Monthly Goal</span> <span class="sub"><a style="color:var(--mint);cursor:pointer;" onclick="editGoal()">✏️ Edit</a></span></h2><div class="goal-row"><span id="goalCurrentLabel">0</span><span id="goalTargetLabel">Target: 0</span></div><div class="bar-track"><div class="bar-fill" id="goalBarFill" style="width:0%;"></div></div><div style="font-size:11px;color:var(--muted);margin-top:4px;" id="goalPercentLabel">0% of monthly goal</div></div>
+          <div class="panel"><h2><span class="panel-icon">🧠</span> <span data-i18n="h_trading_psych">Trading Psychology</span></h2><div id="psychRow" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;"></div><canvas id="moodChart" style="width:100%;height:90px;"></canvas></div>
         </div>
       </div>
 
@@ -1506,83 +1976,66 @@
       <div class="view" id="view-journal">
         <div class="stats-row stats-row-4" id="journalStatsRow"></div>
         <div class="panel">
-          <h2><span class="panel-icon">➕</span> New Trade</h2>
+          <h2><span class="panel-icon">➕</span> <span data-i18n="panel_new_trade">New Trade</span></h2>
           <form id="tradeForm" onsubmit="return addTrade(event)">
             <div class="grid-form">
               <div class="field">
-                <label>Symbol</label>
-                <select id="t_symbol" required>
-                  <option value="">Select Symbol</option>
-                  <option value="XAUUSD">XAUUSD</option>
-                  <option value="EURUSD">EURUSD</option>
-                  <option value="GBPUSD">GBPUSD</option>
-                  <option value="USDJPY">USDJPY</option>
-                  <option value="AUDUSD">AUDUSD</option>
-                  <option value="USDCAD">USDCAD</option>
-                  <option value="NZDUSD">NZDUSD</option>
-                  <option value="BTCUSD">BTCUSD</option>
-                  <option value="ETHUSD">ETHUSD</option>
-                  <option value="US30">US30</option>
-                  <option value="NAS100">NAS100</option>
-                  <option value="SPX500">SPX500</option>
-                  <option value="UK100">UK100</option>
-                  <option value="DE40">DE40</option>
-                  <option value="USOIL">USOIL</option>
-                  <option value="XAGUSD">XAGUSD</option>
-                </select>
+                <label data-i18n="f_symbol">Symbol</label>
+                <input type="text" id="t_symbol" list="symbolList" required placeholder="Select or type your own…" autocomplete="off">
               </div>
-              <div class="field"><label>Direction</label><div class="toggle-group"><button type="button" class="buy active" id="t_side_buy" onclick="setSide('buy')">BUY</button><button type="button" class="sell" id="t_side_sell" onclick="setSide('sell')">SELL</button></div></div>
+              <div class="field"><label data-i18n="f_direction">Direction</label><div class="toggle-group"><button type="button" class="buy active" id="t_side_buy" onclick="setSide('buy')">BUY</button><button type="button" class="sell" id="t_side_sell" onclick="setSide('sell')">SELL</button></div></div>
               <div class="field">
-                <label>Setup</label>
-                <select id="t_setup">
-                  <option value="">Select Setup</option>
-                  <option value="TFC">TFC</option>
-                  <option value="3 Push">3 Push</option>
-                  <option value="Vacuum Spike">Vacuum Spike</option>
-                  <option value="Break & Retest">Break & Retest</option>
-                  <option value="Trendline Break">Trendline Break</option>
-                  <option value="S/R Bounce">S/R Bounce</option>
-                  <option value="Pin Bar">Pin Bar</option>
-                  <option value="Engulfing">Engulfing</option>
-                </select>
+                <label data-i18n="f_setup">Setup</label>
+                <input type="text" id="t_setup" list="setupList" placeholder="Select or type your own…" autocomplete="off">
               </div>
-              <div class="field"><label>Session</label><select id="t_session"><option value="">— Auto —</option><option value="asian">Asian</option><option value="london">London</option><option value="overlap">Overlap</option><option value="ny">New York</option></select></div>
-              <div class="field"><label>Date & Time</label><input type="datetime-local" id="t_date" class="ltr" required placeholder="YYYY-MM-DD HH:MM"></div>
-              <div class="field"><label>Entry</label><input type="number" step="any" id="t_entry" class="ltr" required placeholder="0.00"></div>
-              <div class="field"><label>Stop Loss</label><input type="number" step="any" id="t_sl" class="ltr" required placeholder="0.00"></div>
-              <div class="field"><label>Take Profit</label><input type="number" step="any" id="t_tp" class="ltr" required placeholder="0.00"></div>
-              <div class="field"><label>Original SL <span style="color:var(--muted);font-weight:400;font-size:10px;">(if moved to Risk-Free)</span></label><input type="number" step="any" id="t_origsl" class="ltr" placeholder="Leave blank if not risk-free"></div>
-              <div class="field"><label>Exit (optional)</label><input type="number" step="any" id="t_exit" class="ltr" placeholder="0.00"></div>
-              <div class="field"><label>Lot Size</label><input type="number" step="any" id="t_lot" class="ltr" placeholder="0.10"></div>
-              <div class="field"><label>P&L ($)</label><input type="number" step="any" id="t_pnl" class="ltr" placeholder="0.00"></div>
-              <div class="field"><label>Result</label><select id="t_result"><option value="OPEN">Open</option><option value="WIN">Win</option><option value="LOSS">Loss</option><option value="BE">BE</option></select></div>
-              <div class="field" style="grid-column:span 2;"><label>Notes / Analysis</label><textarea id="t_notes" placeholder="Why did you enter? What did you learn?"></textarea></div>
+              <div class="field">
+                <label data-i18n="f_timeframe">Timeframe</label>
+                <input type="text" id="t_timeframe" list="timeframeList" placeholder="e.g. H1, or type your own…" autocomplete="off">
+              </div>
+              <div class="field"><label data-i18n="f_session">Session</label><select id="t_session"><option value="" data-i18n="opt_auto">— Auto —</option><option value="asian" data-i18n="opt_asian">Asian</option><option value="london" data-i18n="opt_london">London</option><option value="overlap" data-i18n="opt_overlap">Overlap</option><option value="ny" data-i18n="opt_ny">New York</option></select></div>
+              <div class="field"><label data-i18n="f_datetime">Date & Time</label><input type="datetime-local" id="t_date" class="ltr" required placeholder="YYYY-MM-DD HH:MM"></div>
+              <div class="field"><label data-i18n="f_entry">Entry</label><input type="number" step="any" id="t_entry" class="ltr" required placeholder="0.00"></div>
+              <div class="field"><label data-i18n="f_sl">Stop Loss</label><input type="number" step="any" id="t_sl" class="ltr" required placeholder="0.00"></div>
+              <div class="field"><label data-i18n="f_tp">Take Profit</label><input type="number" step="any" id="t_tp" class="ltr" required placeholder="0.00"></div>
+              <div class="field"><label data-i18n="f_origsl">Original SL <span style="color:var(--muted);font-weight:400;font-size:10px;" data-i18n="f_origsl_hint">(if moved to Risk-Free)</span></label><input type="number" step="any" id="t_origsl" class="ltr" placeholder="Leave blank if not risk-free"></div>
+              <div class="field"><label data-i18n="f_exit">Exit (optional)</label><input type="number" step="any" id="t_exit" class="ltr" placeholder="0.00"></div>
+              <div class="field"><label data-i18n="f_lot">Lot Size</label><input type="number" step="any" id="t_lot" class="ltr" placeholder="0.10"></div>
+              <div class="field"><label data-i18n="f_pnl">P&L ($)</label><input type="number" step="any" id="t_pnl" class="ltr" placeholder="0.00"></div>
+              <div class="field"><label data-i18n="f_result">Result</label><select id="t_result"><option value="OPEN" data-i18n="opt_open">Open</option><option value="WIN" data-i18n="opt_win">Win</option><option value="LOSS" data-i18n="opt_loss">Loss</option><option value="BE" data-i18n="opt_be">BE</option></select></div>
+              <div class="field">
+                <label data-i18n="f_tags">Tags</label>
+                <input type="text" id="t_tags" list="tagList" placeholder="Comma separated — or type your own…" autocomplete="off">
+              </div>
+              <div class="field" style="grid-column:span 2;"><label data-i18n="f_reasons">Entry / Exit Reasons</label><textarea id="t_reasons" data-i18n-ph="ph_reasons" placeholder="Why did you enter, and why did you exit?"></textarea></div>
+              <div class="field" style="grid-column:span 2;"><label data-i18n="f_notes">Notes / Analysis</label><textarea id="t_notes" data-i18n-ph="ph_notes" placeholder="Why did you enter? What did you learn?"></textarea></div>
             </div>
-            <div style="margin-top:12px;"><label style="font-size:11px;color:var(--muted);font-family:var(--mono);display:block;margin-bottom:4px;">Trading Mood</label><div class="mood-group" id="moodGroup"><button type="button" data-mood="confident" class="active">😎<span>Confident</span></button><button type="button" data-mood="calm">😌<span>Calm</span></button><button type="button" data-mood="fomo">😬<span>FOMO</span></button><button type="button" data-mood="revenge">😤<span>Revenge</span></button><button type="button" data-mood="tired">🥱<span>Tired</span></button></div></div>
-            <div class="file-row"><div class="upload-area" onclick="document.getElementById('t_screenshot').click()">📎 Upload Screenshot (optional)</div><input type="file" id="t_screenshot" accept="image/*" multiple style="display:none;" onchange="handleScreenshots(event)"></div>
+            <div style="margin-top:12px;"><label style="font-size:11px;color:var(--muted);font-family:var(--mono);display:block;margin-bottom:4px;" data-i18n="f_mood">Trading Mood</label><div class="mood-group" id="moodGroup"><button type="button" data-mood="confident" class="active">😎<span data-i18n="mood_confident">Confident</span></button><button type="button" data-mood="calm">😌<span data-i18n="mood_calm">Calm</span></button><button type="button" data-mood="fomo">😬<span data-i18n="mood_fomo">FOMO</span></button><button type="button" data-mood="revenge">😤<span data-i18n="mood_revenge">Revenge</span></button><button type="button" data-mood="tired">🥱<span data-i18n="mood_tired">Tired</span></button></div></div>
+            <div class="file-row"><div class="upload-area" onclick="document.getElementById('t_screenshot').click()"><span data-i18n="f_upload_screenshot">📎 Upload Screenshot (optional)</span></div><input type="file" id="t_screenshot" accept="image/*" multiple style="display:none;" onchange="handleScreenshots(event)"></div>
             <div class="thumb-row" id="thumbRow"></div>
+            <div class="file-row"><div class="upload-area" onclick="document.getElementById('t_voice').click()"><span data-i18n="f_upload_voice">🎙️ Upload Voice Note (optional)</span></div><input type="file" id="t_voice" accept="audio/*" style="display:none;" onchange="handleVoiceNote(event)"></div>
+            <div id="voiceNoteRow"></div>
             <div class="form-actions">
-              <button type="button" class="btn" onclick="resetTradeForm()">Clear</button>
-              <button type="submit" class="btn primary" id="tradeSubmitBtn">Save Trade ✅</button>
+              <button type="button" class="btn" onclick="resetTradeForm()" data-i18n="btn_clear">Clear</button>
+              <button type="submit" class="btn primary" id="tradeSubmitBtn" data-i18n="btn_save_trade">Save Trade ✅</button>
             </div>
           </form>
         </div>
         <div class="panel">
-          <h2><span class="panel-icon">📓</span> Trade History <span class="sub" id="journalCount"></span></h2>
+          <h2><span class="panel-icon">📓</span> <span data-i18n="panel_trade_history">Trade History</span> <span class="sub" id="journalCount"></span></h2>
           <div class="filter-row">
-            <select id="filterSymbol" onchange="renderJournal()"><option value="">All Symbols</option></select>
-            <select id="filterSide" onchange="renderJournal()"><option value="">All</option><option value="BUY">BUY</option><option value="SELL">SELL</option></select>
-            <select id="filterResult" onchange="renderJournal()"><option value="">All Results</option><option value="WIN">Win</option><option value="LOSS">Loss</option><option value="BE">BE</option><option value="OPEN">Open</option></select>
-            <input type="text" id="searchTrade" placeholder="Search setup/notes..." oninput="renderJournal()">
+            <select id="filterSymbol" onchange="renderJournal()"><option value="" data-i18n="opt_all_symbols">All Symbols</option></select>
+            <select id="filterSide" onchange="renderJournal()"><option value="" data-i18n="opt_all">All</option><option value="BUY">BUY</option><option value="SELL">SELL</option></select>
+            <select id="filterResult" onchange="renderJournal()"><option value="" data-i18n="opt_all_results">All Results</option><option value="WIN" data-i18n="opt_win">Win</option><option value="LOSS" data-i18n="opt_loss">Loss</option><option value="BE" data-i18n="opt_be">BE</option><option value="OPEN" data-i18n="opt_open">Open</option></select>
+            <input type="text" id="searchTrade" data-i18n-ph="ph_search_trade" placeholder="Search setup/notes..." oninput="renderJournal()">
             <div style="flex:1;"></div>
-            <label class="btn small" style="cursor:pointer;" title="Import a Statement report exported from MetaTrader (File → Save as Report), .html or .csv">📥 Import MT Statement<input type="file" accept=".html,.htm,.csv" style="display:none;" onchange="importMTStatement(event)"></label>
-            <label class="btn small" style="cursor:pointer;">⬆️ Restore<input type="file" accept=".json" style="display:none;" onchange="restoreJournalBackup(event)"></label>
+            <label class="btn small" style="cursor:pointer;" title="Import a Statement report exported from MetaTrader (File → Save as Report), .html or .csv"><span data-i18n="btn_import_mt">📥 Import MT Statement</span><input type="file" accept=".html,.htm,.csv" style="display:none;" onchange="importMTStatement(event)"></label>
+            <label class="btn small" style="cursor:pointer;"><span data-i18n="btn_restore">⬆️ Restore</span><input type="file" accept=".json" style="display:none;" onchange="restoreJournalBackup(event)"></label>
             <button class="btn small gold" onclick="exportExcel()">📊 Excel</button>
             <button class="btn small gold" onclick="exportPDF()">📄 PDF</button>
             <button class="btn small gold" onclick="exportJSON()">⬇️ JSON</button>
           </div>
           <div class="table-wrap">
-            <table id="journalTable" style="display:none;"><thead><tr><th>#</th><th>Date</th><th>Symbol</th><th>Side</th><th>Setup</th><th>Entry</th><th>SL</th><th>TP</th><th>Session</th><th>Mood</th><th>Result</th><th>R</th><th>P&L ($)</th><th>Slot</th><th></th></tr></thead><tbody id="journalBody"></tbody></table>
+            <table id="journalTable" style="display:none;"><thead><tr><th>#</th><th>Date</th><th>Symbol</th><th>Side</th><th>Setup</th><th data-i18n="th_timeframe">Timeframe</th><th>Entry</th><th>SL</th><th>TP</th><th>Session</th><th>Mood</th><th>Result</th><th>R</th><th>P&L ($)</th><th>Slot</th><th data-i18n="th_tags">Tags</th><th data-i18n="th_voice">Voice</th><th></th></tr></thead><tbody id="journalBody"></tbody></table>
             <div class="empty-state" id="journalEmpty"><div class="ic">📭</div><h3>No trades yet</h3><p>Add your first trade using the form above.</p></div>
           </div>
         </div>
@@ -1597,76 +2050,56 @@
           <div class="stat-card"><div class="label">Risk:Reward Ratio</div><div class="value" id="btRR">0</div></div>
         </div>
         <div class="panel">
-          <h2><span class="panel-icon">🧪</span> Add Backtest Scenario</h2>
+          <h2><span class="panel-icon">🧪</span> <span data-i18n="panel_add_backtest">Add Backtest Scenario</span></h2>
           <form id="btForm" onsubmit="return addBacktestTrade(event)">
             <div class="grid-form">
               <div class="field">
-                <label>Symbol</label>
-                <select id="bt_symbol" required>
-                  <option value="">Select Symbol</option>
-                  <option value="XAUUSD">XAUUSD</option>
-                  <option value="EURUSD">EURUSD</option>
-                  <option value="GBPUSD">GBPUSD</option>
-                  <option value="USDJPY">USDJPY</option>
-                  <option value="AUDUSD">AUDUSD</option>
-                  <option value="USDCAD">USDCAD</option>
-                  <option value="NZDUSD">NZDUSD</option>
-                  <option value="BTCUSD">BTCUSD</option>
-                  <option value="ETHUSD">ETHUSD</option>
-                  <option value="US30">US30</option>
-                  <option value="NAS100">NAS100</option>
-                  <option value="SPX500">SPX500</option>
-                  <option value="UK100">UK100</option>
-                  <option value="DE40">DE40</option>
-                  <option value="USOIL">USOIL</option>
-                  <option value="XAGUSD">XAGUSD</option>
-                </select>
+                <label data-i18n="f_symbol">Symbol</label>
+                <input type="text" id="bt_symbol" list="symbolList" required placeholder="Select or type your own…" autocomplete="off">
               </div>
-              <div class="field"><label>Direction</label><div class="toggle-group"><button type="button" class="buy active" id="bt_side_buy" onclick="setBtSide('buy')">BUY</button><button type="button" class="sell" id="bt_side_sell" onclick="setBtSide('sell')">SELL</button></div></div>
+              <div class="field"><label data-i18n="f_direction">Direction</label><div class="toggle-group"><button type="button" class="buy active" id="bt_side_buy" onclick="setBtSide('buy')">BUY</button><button type="button" class="sell" id="bt_side_sell" onclick="setBtSide('sell')">SELL</button></div></div>
               <div class="field">
-                <label>Setup</label>
-                <select id="bt_setup">
-                  <option value="">Select Setup</option>
-                  <option value="TFC">TFC</option>
-                  <option value="3 Push">3 Push</option>
-                  <option value="Vacuum Spike">Vacuum Spike</option>
-                  <option value="Break & Retest">Break & Retest</option>
-                  <option value="Trendline Break">Trendline Break</option>
-                  <option value="S/R Bounce">S/R Bounce</option>
-                  <option value="Pin Bar">Pin Bar</option>
-                  <option value="Engulfing">Engulfing</option>
-                </select>
+                <label data-i18n="f_setup">Setup</label>
+                <input type="text" id="bt_setup" list="setupList" placeholder="Select or type your own…" autocomplete="off">
               </div>
-              <div class="field"><label>Session</label><select id="bt_session"><option value="">Auto</option><option value="asian">Asian</option><option value="london">London</option><option value="overlap">Overlap</option><option value="ny">New York</option></select></div>
-              <div class="field"><label>Date/Time</label><input type="datetime-local" id="bt_date" class="ltr" required placeholder="YYYY-MM-DD HH:MM"></div>
-              <div class="field"><label>Entry</label><input type="number" step="any" id="bt_entry" class="ltr" required placeholder="0.00"></div>
-              <div class="field"><label>SL</label><input type="number" step="any" id="bt_sl" class="ltr" required placeholder="0.00"></div>
-              <div class="field"><label>TP</label><input type="number" step="any" id="bt_tp" class="ltr" required placeholder="0.00"></div>
-              <div class="field"><label>Original SL <span style="color:var(--muted);font-weight:400;font-size:10px;">(if moved to Risk-Free)</span></label><input type="number" step="any" id="bt_origsl" class="ltr" placeholder="Leave blank if not risk-free"></div>
-              <div class="field"><label>Result</label><select id="bt_result"><option value="WIN">Win</option><option value="LOSS">Loss</option><option value="BE">BE</option></select></div>
+              <div class="field">
+                <label data-i18n="f_timeframe">Timeframe</label>
+                <input type="text" id="bt_timeframe" list="timeframeList" placeholder="e.g. H1, or type your own…" autocomplete="off">
+              </div>
+              <div class="field"><label data-i18n="f_session">Session</label><select id="bt_session"><option value="" data-i18n="opt_auto_short">Auto</option><option value="asian" data-i18n="opt_asian">Asian</option><option value="london" data-i18n="opt_london">London</option><option value="overlap" data-i18n="opt_overlap">Overlap</option><option value="ny" data-i18n="opt_ny">New York</option></select></div>
+              <div class="field"><label data-i18n="f_datetime2">Date/Time</label><input type="datetime-local" id="bt_date" class="ltr" required placeholder="YYYY-MM-DD HH:MM"></div>
+              <div class="field"><label data-i18n="f_entry">Entry</label><input type="number" step="any" id="bt_entry" class="ltr" required placeholder="0.00"></div>
+              <div class="field"><label data-i18n="f_sl_short">SL</label><input type="number" step="any" id="bt_sl" class="ltr" required placeholder="0.00"></div>
+              <div class="field"><label data-i18n="f_tp_short">TP</label><input type="number" step="any" id="bt_tp" class="ltr" required placeholder="0.00"></div>
+              <div class="field"><label data-i18n="f_origsl">Original SL <span style="color:var(--muted);font-weight:400;font-size:10px;" data-i18n="f_origsl_hint">(if moved to Risk-Free)</span></label><input type="number" step="any" id="bt_origsl" class="ltr" placeholder="Leave blank if not risk-free"></div>
+              <div class="field">
+                <label data-i18n="f_tags">Tags</label>
+                <input type="text" id="bt_tags" list="tagList" placeholder="Comma separated — or type your own…" autocomplete="off">
+              </div>
+              <div class="field"><label data-i18n="f_result">Result</label><select id="bt_result"><option value="WIN" data-i18n="opt_win">Win</option><option value="LOSS" data-i18n="opt_loss">Loss</option><option value="BE" data-i18n="opt_be">BE</option></select></div>
             </div>
-            <div class="file-row"><div class="upload-area" onclick="document.getElementById('bt_screenshot').click()">📎 Upload Screenshot (optional)</div><input type="file" id="bt_screenshot" accept="image/*" multiple style="display:none;" onchange="handleBtScreenshots(event)"></div>
+            <div class="file-row"><div class="upload-area" onclick="document.getElementById('bt_screenshot').click()"><span data-i18n="f_upload_screenshot">📎 Upload Screenshot (optional)</span></div><input type="file" id="bt_screenshot" accept="image/*" multiple style="display:none;" onchange="handleBtScreenshots(event)"></div>
             <div class="thumb-row" id="btThumbRow"></div>
             <div class="form-actions">
               <button type="button" class="btn small gold" onclick="exportBtExcel()">📊 Excel</button>
               <button type="button" class="btn small gold" onclick="exportBtPDF()">📄 PDF</button>
               <button type="button" class="btn small gold" onclick="exportBtJSON()">⬇️ JSON</button>
-              <label class="btn small" style="cursor:pointer;">⬆️ Restore<input type="file" accept=".json" style="display:none;" onchange="restoreBtBackup(event)"></label>
+              <label class="btn small" style="cursor:pointer;"><span data-i18n="btn_restore">⬆️ Restore</span><input type="file" accept=".json" style="display:none;" onchange="restoreBtBackup(event)"></label>
               <button type="button" class="btn small gold" onclick="backupBacktest()">💾 Backup</button>
-              <button type="submit" class="btn primary">Save Scenario ✅</button>
+              <button type="submit" class="btn primary" data-i18n="btn_save_scenario">Save Scenario ✅</button>
             </div>
           </form>
         </div>
-        <div class="panel"><h2><span class="panel-icon">⏱️</span> Hourly Performance (London–NY: 11:00–23:00 UTC)</h2><div class="slots-grid" id="backtestSlots"></div></div>
-        <div class="panel"><h2><span class="panel-icon">📊</span> Performance Comparison</h2><div class="grid-2"><div class="field"><label>By Symbol</label><canvas id="btSymbolChart" style="width:100%;height:170px;"></canvas></div><div class="field"><label>By Setup</label><canvas id="btSetupChart" style="width:100%;height:170px;"></canvas></div></div></div>
+        <div class="panel"><h2><span class="panel-icon">⏱️</span> <span data-i18n="h_hourly_perf">Hourly Performance (2h blocks, local time)</span></h2><div class="slots-grid" id="backtestSlots"></div></div>
+        <div class="panel"><h2><span class="panel-icon">📊</span> <span data-i18n="h_perf_comparison">Performance Comparison</span></h2><div class="grid-2"><div class="field"><label>By Symbol</label><canvas id="btSymbolChart" style="width:100%;height:170px;"></canvas></div><div class="field"><label>By Setup</label><canvas id="btSetupChart" style="width:100%;height:170px;"></canvas></div></div></div>
         <div class="grid-2">
-          <div class="panel"><h2><span class="panel-icon">📈</span> Backtest Equity Curve</h2><canvas id="btEquityChart" style="width:100%;height:200px;"></canvas></div>
-          <div class="panel"><h2><span class="panel-icon">🎯</span> Win/Loss Ratio</h2><div class="donut-wrap"><canvas id="btDonutChart" width="130" height="130" style="flex-shrink:0;"></canvas><div class="donut-legend" id="btDonutLegend"></div></div></div>
+          <div class="panel"><h2><span class="panel-icon">📈</span> <span data-i18n="h_bt_equity">Backtest Equity Curve</span></h2><canvas id="btEquityChart" style="width:100%;height:200px;"></canvas></div>
+          <div class="panel"><h2><span class="panel-icon">🎯</span> <span data-i18n="h_win_loss2">Win/Loss Ratio</span></h2><div class="donut-wrap"><canvas id="btDonutChart" width="130" height="130" style="flex-shrink:0;"></canvas><div class="donut-legend" id="btDonutLegend"></div></div></div>
         </div>
         <div class="panel">
-          <h2><span class="panel-icon">📋</span> Backtest Scenarios <span class="sub" id="backtestCount"></span></h2>
+          <h2><span class="panel-icon">📋</span> <span data-i18n="h_bt_scenarios">Backtest Scenarios</span> <span class="sub" id="backtestCount"></span></h2>
           <div class="table-wrap">
-            <table id="backtestTable" style="display:none;"><thead><tr><th>#</th><th>Date</th><th>Symbol</th><th>Side</th><th>Setup</th><th>Entry</th><th>SL</th><th>TP</th><th>Session</th><th>Result</th><th>R</th><th>Slot</th><th>Image</th><th></th></tr></thead><tbody id="backtestBody"></tbody></table>
+            <table id="backtestTable" style="display:none;"><thead><tr><th>#</th><th>Date</th><th>Symbol</th><th>Side</th><th>Setup</th><th data-i18n="th_timeframe">Timeframe</th><th>Entry</th><th>SL</th><th>TP</th><th>Session</th><th>Result</th><th>R</th><th>Slot</th><th data-i18n="th_tags">Tags</th><th>Image</th><th></th></tr></thead><tbody id="backtestBody"></tbody></table>
             <div class="empty-state" id="backtestEmpty"><div class="ic">🧪</div><h3>No backtest scenarios yet</h3><p>Test your strategies here before trading live.</p></div>
           </div>
         </div>
@@ -1676,7 +2109,7 @@
       <div class="view" id="view-calculator">
         <div class="grid-2">
           <div class="panel">
-            <h2><span class="panel-icon">🧮</span> Position Size & Risk Calculator</h2>
+            <h2><span class="panel-icon">🧮</span> <span data-i18n="h_position_calc">Position Size & Risk Calculator</span></h2>
             <div class="grid-form" style="grid-template-columns:repeat(2,minmax(0,1fr));">
               <div class="field"><label>Balance</label><input type="number" step="any" id="c_balance" class="ltr" value="1000" placeholder="1000"></div>
               <div class="field"><label>Risk per trade (%)</label><input type="number" step="any" id="c_riskpct" class="ltr" value="1" placeholder="1"></div>
@@ -1689,7 +2122,7 @@
             <div class="calc-result" id="calcResult"></div>
           </div>
           <div class="panel">
-            <h2><span class="panel-icon">💰</span> Compound Growth Calculator</h2>
+            <h2><span class="panel-icon">💰</span> <span data-i18n="h_compound_calc">Compound Growth Calculator</span></h2>
             <div class="grid-form" style="grid-template-columns:repeat(2,minmax(0,1fr));">
               <div class="field"><label>Initial Capital</label><input type="number" step="any" id="cc_start" class="ltr" value="1000" placeholder="1000"></div>
               <div class="field"><label>Monthly Return (%)</label><input type="number" step="any" id="cc_rate" class="ltr" value="10" placeholder="10"></div>
@@ -1702,17 +2135,73 @@
         </div>
       </div>
 
+      <!-- ===== PRE-TRADE CHECKLIST ===== -->
+      <div class="view" id="view-checklist">
+        <div class="panel">
+          <h2><span class="panel-icon">✅</span> <span data-i18n="h_checklist">Pre-Trade Checklist</span></h2>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">Run through your rules before every trade. Discipline beats emotion — check every box before you click buy or sell.</p>
+          <div id="checklistProgressWrap" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px;"><span>Progress</span><span id="checklistProgressLabel" class="ltr">0 / 0</span></div>
+            <div style="height:8px;border-radius:6px;background:var(--panel2);overflow:hidden;"><div id="checklistProgressBar" style="height:100%;width:0%;background:var(--mint);transition:width .25s;"></div></div>
+          </div>
+          <div id="checklistItemsWrap"></div>
+          <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">
+            <input type="text" id="newChecklistItem" placeholder="Add a new rule… e.g. Is my setup aligned with the trend?" style="flex:1;min-width:200px;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:13px;outline:none;">
+            <button class="btn primary" onclick="addChecklistItem()">➕ Add Rule</button>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+            <button class="btn" onclick="resetChecklist()">🔄 Reset All (New Session)</button>
+            <button class="btn" onclick="restoreDefaultChecklist()">↩️ Restore Default List</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ECONOMIC CALENDAR & SESSIONS ===== -->
+      <div class="view" id="view-calendar">
+        <div class="panel">
+          <h2><span class="panel-icon">🌍</span> <span data-i18n="h_market_sessions">Forex Market Sessions</span></h2>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Live status of the four major sessions, in your local time.</p>
+          <div id="sessionClockWrap" class="grid-4"></div>
+        </div>
+        <div class="panel">
+          <h2><span class="panel-icon">🗓️</span> <span data-i18n="h_econ_calendar">Economic Calendar</span></h2>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">High-impact news and events that can move the market.</p>
+          <div id="economicCalendarWrap" style="border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);min-height:520px;"></div>
+        </div>
+      </div>
+
+      <!-- ===== TRADER PSYCHOLOGY TEST ===== -->
+      <div class="view" id="view-psychology">
+        <div class="panel" id="psychIntroPanel">
+          <h2><span class="panel-icon">🧠</span> <span data-i18n="h_psych_test">Trader Psychology Test</span></h2>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">A short self-assessment to reveal how discipline, emotion, and risk control are shaping your trading right now. Answer honestly — this is only for you.</p>
+          <button class="btn primary" style="width:100%;justify-content:center;" onclick="startPsychTest()">▶️ Start Test</button>
+        </div>
+        <div class="panel" id="psychQuizPanel" style="display:none;">
+          <h2><span class="panel-icon">🧠</span> <span data-i18n="h_psych_test2">Trader Psychology Test</span></h2>
+          <div id="psychQuestionWrap"></div>
+        </div>
+        <div class="panel" id="psychResultPanel" style="display:none;">
+          <h2><span class="panel-icon">🏆</span> <span data-i18n="h_your_result">Your Result</span></h2>
+          <div id="psychResultWrap"></div>
+        </div>
+        <div class="panel">
+          <h2><span class="panel-icon">📜</span> <span data-i18n="h_test_history">Test History</span></h2>
+          <div id="psychHistoryWrap"></div>
+        </div>
+      </div>
+
       <!-- ===== PROFILE ===== -->
       <div class="view" id="view-profile">
         <div class="panel">
-          <h2><span class="panel-icon">👤</span> Profile</h2>
+          <h2><span class="panel-icon">👤</span> <span data-i18n="h_profile">Profile</span></h2>
           <div class="setting-row"><div class="info"><b id="profileUsername">—</b><span>Username</span></div><span class="badge buy">Active</span></div>
           <div class="setting-row"><div class="info"><b id="profileTradeCount">0</b><span>Total Trades</span></div><span class="badge win" id="profileWinRate">0% Win Rate</span></div>
           <div class="setting-row"><div class="info"><b id="profileTotalR">0R</b><span>Total R</span></div><span class="badge" id="profileStreak" style="background:var(--mint-dim);color:var(--mint);">Streak: 0</span></div>
           <div class="setting-row"><div class="info"><b id="profileBestTrade">0R</b><span>Best Trade</span></div><span id="profileWorstTrade" style="color:var(--sell);font-family:var(--mono);font-weight:700;">Worst: 0R</span></div>
         </div>
         <div class="panel">
-          <h2><span class="panel-icon">📊</span> Performance Summary</h2>
+          <h2><span class="panel-icon">📊</span> <span data-i18n="h_perf_summary">Performance Summary</span></h2>
           <div class="grid-3" id="profileSummaryCards">
             <div class="stat-card"><div class="label">Avg Win</div><div class="value" id="pAvgWin" style="color:var(--mint);">0R</div></div>
             <div class="stat-card"><div class="label">Avg Loss</div><div class="value" id="pAvgLoss" style="color:var(--sell);">0R</div></div>
@@ -1727,26 +2216,26 @@
       <!-- ===== SETTINGS ===== -->
       <div class="view" id="view-settings">
         <div class="panel">
-          <h2><span class="panel-icon">⚙️</span> Settings</h2>
+          <h2><span class="panel-icon">⚙️</span> <span data-i18n="tab_settings">Settings</span></h2>
           <div class="setting-row"><div class="info"><b>Theme</b><span>Dark / Light</span></div><div class="switch" id="themeSwitch" onclick="toggleTheme()"><div class="knob"></div></div></div>
           <div class="setting-row"><div class="info"><b>Start Balance</b><span>For P&L calculations</span></div><input type="number" step="any" id="s_startBalance" class="ltr" style="width:150px;background:var(--panel2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 12px;" onchange="saveSettingsField('startBalance', this.value)"></div>
           <div class="setting-row"><div class="info"><b>Monthly Goal (%)</b><span>For goal widget</span></div><input type="number" step="any" id="s_monthlyGoal" class="ltr" style="width:150px;background:var(--panel2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 12px;" onchange="saveSettingsField('monthlyGoalPct', this.value)"></div>
           <div class="setting-row"><div class="info"><b>Save Settings</b><span>Save all changes</span></div><button class="btn primary small" onclick="saveAllSettings()">💾 Save</button></div>
         </div>
         <div class="panel">
-          <h2><span class="panel-icon">🔄</span> Backup & Restore</h2>
+          <h2><span class="panel-icon">🔄</span> <span data-i18n="h_backup_restore">Backup & Restore</span></h2>
           <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">Your data is stored locally or in the cloud (if configured). Always keep a backup.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="btn gold" onclick="exportFullBackup()">⬇️ Full Backup (JSON)</button><button class="btn" id="shareBackupBtn" style="display:none;" onclick="shareFullBackup()">📤 Share Backup</button><label class="btn" style="cursor:pointer;">⬆️ Restore Backup<input type="file" accept=".json" style="display:none;" onchange="restoreFullBackup(event)"></label><button class="btn" onclick="forceSyncNow()">🔄 Sync Now</button></div>
         </div>
         <div class="panel">
-          <h2><span class="panel-icon">📱</span> App & Device</h2>
+          <h2><span class="panel-icon">📱</span> <span data-i18n="h_app_device">App & Device</span></h2>
           <div class="setting-row"><div class="info"><b>Connection</b><span>Live sync availability</span></div><span class="badge" id="onlineStatusBadge" style="background:var(--mint-dim);color:var(--mint);">🟢 Online</span></div>
           <div class="setting-row"><div class="info"><b>Install App</b><span id="installStatusText">Add AKDIVEX to your home screen for the full app experience</span></div><button class="btn primary small" id="installAppBtn" onclick="handleInstallClick()" style="display:none;">📲 Install</button></div>
           <div class="setting-row"><div class="info"><b>Haptic Feedback</b><span>Vibration on save / import / errors</span></div><div class="switch" id="hapticsSwitch" onclick="toggleHaptics()"><div class="knob"></div></div></div>
           <div class="setting-row"><div class="info"><b>Open Trades Badge</b><span>Show open trade count on app icon</span></div><div class="switch" id="badgeSwitch" onclick="toggleAppBadge()"><div class="knob"></div></div></div>
         </div>
         <div class="panel">
-          <h2><span class="panel-icon">⚠️</span> Danger Zone</h2>
+          <h2><span class="panel-icon">⚠️</span> <span data-i18n="h_danger_zone">Danger Zone</span></h2>
           <div class="setting-row"><div class="info"><b>Clear All Journal Trades</b><span>Irreversible</span></div><button class="btn small danger" onclick="clearJournalData()">Clear Journal</button></div>
           <div class="setting-row"><div class="info"><b>Clear All Backtest Data</b><span>Irreversible</span></div><button class="btn small danger" onclick="clearBacktestData()">Clear Backtest</button></div>
           <div class="setting-row"><div class="info"><b>Logout</b><span>Sign out of this device</span></div><button class="btn small danger" onclick="logoutUser()">Logout</button></div>
@@ -1774,9 +2263,12 @@
       ny: { label: 'New York', color: '#2BD9A6' },
     };
     const BACKTEST_SLOTS = [
-      { label: '11-13', start: 11, end: 13 }, { label: '13-15', start: 13, end: 15 },
-      { label: '15-17', start: 15, end: 17 }, { label: '17-19', start: 17, end: 19 },
-      { label: '19-21', start: 19, end: 21 }, { label: '21-23', start: 21, end: 23 },
+      { label: '01-03', start: 1, end: 3 }, { label: '03-05', start: 3, end: 5 },
+      { label: '05-07', start: 5, end: 7 }, { label: '07-09', start: 7, end: 9 },
+      { label: '09-11', start: 9, end: 11 }, { label: '11-13', start: 11, end: 13 },
+      { label: '13-15', start: 13, end: 15 }, { label: '15-17', start: 15, end: 17 },
+      { label: '17-19', start: 17, end: 19 }, { label: '19-21', start: 19, end: 21 },
+      { label: '21-23', start: 21, end: 23 }, { label: '23-01', start: 23, end: 1 },
     ];
     const MOOD_META = {
       confident: { emoji: '😎', label: 'Confident' }, calm: { emoji: '😌', label: 'Calm' },
@@ -1788,18 +2280,191 @@
       { s: 'USDJPY', p: 157.22 }, { s: 'ETHUSD', p: 3412 }, { s: 'XAGUSD', p: 29.14 }, { s: 'USOIL', p: 78.6 }
     ];
 
+    const DEFAULT_CHECKLIST = [
+      'Does this setup match my written trading plan?',
+      'Is the higher timeframe trend confirmed?',
+      'Have I marked my stop loss and take profit before entry?',
+      'Is my position size within my max risk per trade?',
+      'Am I trading because of a signal, not FOMO or boredom?',
+      'Have I checked the economic calendar for high-impact news?',
+      'Am I emotionally calm and well-rested right now?',
+      'Have I already hit my daily loss limit? (If yes — stop)',
+    ];
+
+    const FOREX_SESSIONS = [
+      { key: 'sydney', label: 'Sydney', color: '#5B6474', openUTC: 21, closeUTC: 6 },
+      { key: 'tokyo', label: 'Tokyo', color: '#7C9CF5', openUTC: 0, closeUTC: 9 },
+      { key: 'london', label: 'London', color: '#E8B84B', openUTC: 7, closeUTC: 16 },
+      { key: 'newyork', label: 'New York', color: '#2BD9A6', openUTC: 12, closeUTC: 21 },
+    ];
+
+    const PSYCH_QUESTIONS = [
+      { q: 'After a losing trade, what do you usually do next?', opts: [
+          { t: 'Review the trade calmly and move on to the next planned setup', v: 3 },
+          { t: 'Feel uneasy but wait for my next valid signal', v: 2 },
+          { t: 'Immediately look for a trade to "win it back"', v: 0 },
+          { t: 'Increase my position size to recover faster', v: 0 },
+        ] },
+      { q: 'How often do you enter a trade without your stop loss set first?', opts: [
+          { t: 'Never — SL is always set before I enter', v: 3 },
+          { t: 'Rarely, only in unusual situations', v: 2 },
+          { t: 'Sometimes, when I feel confident', v: 1 },
+          { t: 'Often — I set it later "when needed"', v: 0 },
+        ] },
+      { q: 'When you see a big move you missed, what happens?', opts: [
+          { t: 'I let it go — there will be another setup', v: 3 },
+          { t: 'I feel some FOMO but usually don\'t act on it', v: 2 },
+          { t: 'I often jump in late chasing the price', v: 0 },
+          { t: 'I feel frustrated for the rest of the session', v: 1 },
+        ] },
+      { q: 'How closely do you follow your predefined risk per trade?', opts: [
+          { t: 'Always — it is fixed and non-negotiable', v: 3 },
+          { t: 'Mostly, with small exceptions', v: 2 },
+          { t: 'It changes with how confident I feel', v: 1 },
+          { t: 'I don\'t really have a fixed risk rule', v: 0 },
+        ] },
+      { q: 'How do you feel during a losing streak (3+ losses in a row)?', opts: [
+          { t: 'Calm — losing streaks are a normal part of the process', v: 3 },
+          { t: 'A bit anxious but I stick to my plan', v: 2 },
+          { t: 'Frustrated and tempted to change my strategy mid-session', v: 1 },
+          { t: 'Panicked — I often stop following my rules completely', v: 0 },
+        ] },
+      { q: 'Do you keep trading after reaching your daily profit or loss target?', opts: [
+          { t: 'No — I stop the moment I hit either target', v: 3 },
+          { t: 'Usually, but sometimes I push a little further', v: 1 },
+          { t: 'Often — targets feel more like suggestions', v: 0 },
+          { t: 'I don\'t set daily targets', v: 1 },
+        ] },
+      { q: 'How prepared do you feel before your trading session starts?', opts: [
+          { t: 'Fully — I review the calendar, plan, and checklist every time', v: 3 },
+          { t: 'Mostly prepared, I skip steps occasionally', v: 2 },
+          { t: 'I usually just open the charts and start', v: 1 },
+          { t: 'I rarely prepare in advance', v: 0 },
+        ] },
+    ];
+
     let currentUser = null;
     let trades = [];
     let backtestTrades = [];
-    let userSettings = { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true };
+    let userSettings = { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true, lang: 'en' };
+
+    // ---- LANGUAGE / i18n (English / Persian) ----
+    const I18N = {
+      en: {
+        logout: 'Logout',
+        tab_dashboard: 'Dashboard', tab_journal: 'Journal', tab_backtest: 'Backtest',
+        tab_calculator: 'Risk Calculator', tab_checklist: 'Checklist', tab_calendar: 'Calendar & Sessions',
+        tab_psychology: 'Psychology Test', tab_profile: 'Profile', tab_settings: 'Settings',
+        panel_new_trade: 'New Trade', panel_trade_history: 'Trade History', panel_add_backtest: 'Add Backtest Scenario',
+        f_symbol: 'Symbol', f_direction: 'Direction', f_setup: 'Setup', f_timeframe: 'Timeframe', f_session: 'Session',
+        f_datetime: 'Date & Time', f_datetime2: 'Date/Time', f_entry: 'Entry', f_sl: 'Stop Loss', f_sl_short: 'SL',
+        f_tp: 'Take Profit', f_tp_short: 'TP', f_origsl: 'Original SL ', f_origsl_hint: '(if moved to Risk-Free)',
+        f_exit: 'Exit (optional)', f_lot: 'Lot Size', f_pnl: 'P&L ($)', f_result: 'Result', f_tags: 'Tags',
+        f_reasons: 'Entry / Exit Reasons', f_notes: 'Notes / Analysis', f_mood: 'Trading Mood',
+        f_upload_screenshot: '📎 Upload Screenshot (optional)', f_upload_voice: '🎙️ Upload Voice Note (optional)',
+        mood_confident: 'Confident', mood_calm: 'Calm', mood_fomo: 'FOMO', mood_revenge: 'Revenge', mood_tired: 'Tired',
+        opt_auto: '— Auto —', opt_auto_short: 'Auto', opt_asian: 'Asian', opt_london: 'London', opt_overlap: 'Overlap', opt_ny: 'New York',
+        opt_open: 'Open', opt_win: 'Win', opt_loss: 'Loss', opt_be: 'BE',
+        opt_all: 'All', opt_all_symbols: 'All Symbols', opt_all_results: 'All Results',
+        ph_search_trade: 'Search setup/notes...', ph_reasons: 'Why did you enter, and why did you exit?',
+        ph_notes: 'Why did you enter? What did you learn?',
+        btn_import_mt: '📥 Import MT Statement', btn_restore: '⬆️ Restore', btn_clear: 'Clear',
+        btn_save_trade: 'Save Trade ✅', btn_update_trade: 'Update Trade 💾', btn_save_scenario: 'Save Scenario ✅',
+        auth_login: 'Login', auth_register: 'Register', auth_create_account: 'Create Account',
+        h_equity_curve: 'Equity Curve', h_win_loss: 'Win / Loss Ratio', h_daily_perf: 'Daily Performance',
+        h_r_dist: 'R-Multiple Distribution', h_session_perf: 'Session Performance', h_setup_perf: 'Setup Performance',
+        h_symbol_perf: 'Symbol Performance', h_monthly_goal: 'Monthly Goal', h_trading_psych: 'Trading Psychology',
+        h_hourly_perf: 'Hourly Performance (2h blocks, local time)', h_perf_comparison: 'Performance Comparison',
+        h_bt_equity: 'Backtest Equity Curve', h_win_loss2: 'Win/Loss Ratio', h_bt_scenarios: 'Backtest Scenarios',
+        h_position_calc: 'Position Size & Risk Calculator', h_compound_calc: 'Compound Growth Calculator',
+        h_checklist: 'Pre-Trade Checklist', h_market_sessions: 'Forex Market Sessions', h_econ_calendar: 'Economic Calendar',
+        h_psych_test: 'Trader Psychology Test', h_psych_test2: 'Trader Psychology Test', h_your_result: 'Your Result',
+        h_test_history: 'Test History', h_profile: 'Profile', h_perf_summary: 'Performance Summary',
+        h_backup_restore: 'Backup & Restore', h_app_device: 'App & Device', h_danger_zone: 'Danger Zone',
+        th_timeframe: 'Timeframe', th_tags: 'Tags', th_voice: 'Voice', voice_modal_title: 'Voice Note',
+      },
+      fa: {
+        logout: 'خروج',
+        tab_dashboard: 'داشبورد', tab_journal: 'ژورنال‌ها', tab_backtest: 'بک‌تست',
+        tab_calculator: 'ماشین‌حساب ریسک', tab_checklist: 'چک لیست', tab_calendar: 'تقویم و سشن‌ها',
+        tab_psychology: 'تست روانشناسی', tab_profile: 'پروفایل', tab_settings: 'تنظیمات',
+        panel_new_trade: 'افزودن ژورنال جدید', panel_trade_history: 'تاریخچه معاملات', panel_add_backtest: 'افزودن سناریوی بک‌تست',
+        f_symbol: 'نماد معاملاتی', f_direction: 'جهت', f_setup: 'ستاپ', f_timeframe: 'تایم فریم', f_session: 'سشن',
+        f_datetime: 'تاریخ و ساعت', f_datetime2: 'تاریخ/ساعت', f_entry: 'قیمت ورود', f_sl: 'حد ضرر', f_sl_short: 'حد ضرر',
+        f_tp: 'حد سود', f_tp_short: 'حد سود', f_origsl: 'حد ضرر اولیه ', f_origsl_hint: '(در صورت انتقال به ریسک‌فری)',
+        f_exit: 'قیمت خروج (اختیاری)', f_lot: 'حجم معامله', f_pnl: 'سود/زیان ($)', f_result: 'نتیجه', f_tags: 'برچسب‌ها',
+        f_reasons: 'دلایل ورود و خروج', f_notes: 'یادداشت / تحلیل', f_mood: 'حالت روانی معامله',
+        f_upload_screenshot: '📎 آپلود عکس (اختیاری)', f_upload_voice: '🎙️ آپلود ویس (اختیاری)',
+        mood_confident: 'با اعتماد به نفس', mood_calm: 'آرام', mood_fomo: 'ترس از دست دادن', mood_revenge: 'انتقامی', mood_tired: 'خسته',
+        opt_auto: '— خودکار —', opt_auto_short: 'خودکار', opt_asian: 'آسیایی', opt_london: 'لندن', opt_overlap: 'همپوشانی', opt_ny: 'نیویورک',
+        opt_open: 'باز', opt_win: 'برد', opt_loss: 'باخت', opt_be: 'سربه‌سر',
+        opt_all: 'همه', opt_all_symbols: 'همه نمادها', opt_all_results: 'همه نتایج',
+        ph_search_trade: 'جستجو در ستاپ/یادداشت...', ph_reasons: 'چرا وارد شدید و چرا خارج شدید؟',
+        ph_notes: 'چرا وارد شدید؟ چه چیزی یاد گرفتید؟',
+        btn_import_mt: '📥 وارد کردن گزارش متاتریدر', btn_restore: '⬆️ بازیابی', btn_clear: 'پاک کردن',
+        btn_save_trade: 'ذخیره ژورنال ✅', btn_update_trade: 'به‌روزرسانی ژورنال 💾', btn_save_scenario: 'ذخیره سناریو ✅',
+        auth_login: 'ورود', auth_register: 'ثبت‌نام', auth_create_account: 'ایجاد حساب',
+        h_equity_curve: 'منحنی سرمایه', h_win_loss: 'نسبت برد/باخت', h_daily_perf: 'عملکرد روزانه',
+        h_r_dist: 'توزیع ضریب R', h_session_perf: 'عملکرد سشن‌ها', h_setup_perf: 'عملکرد ستاپ‌ها',
+        h_symbol_perf: 'عملکرد نمادها', h_monthly_goal: 'هدف ماهانه', h_trading_psych: 'روانشناسی معامله‌گری',
+        h_hourly_perf: 'عملکرد ساعتی (بازه‌های ۲ ساعته، ساعت محلی)', h_perf_comparison: 'مقایسه عملکرد',
+        h_bt_equity: 'منحنی سرمایه بک‌تست', h_win_loss2: 'نسبت برد/باخت', h_bt_scenarios: 'سناریوهای بک‌تست',
+        h_position_calc: 'ماشین‌حساب حجم و ریسک', h_compound_calc: 'ماشین‌حساب رشد ترکیبی',
+        h_checklist: 'چک‌لیست پیش از معامله', h_market_sessions: 'سشن‌های بازار فارکس', h_econ_calendar: 'تقویم اقتصادی',
+        h_psych_test: 'تست روانشناسی معامله‌گر', h_psych_test2: 'تست روانشناسی معامله‌گر', h_your_result: 'نتیجه شما',
+        h_test_history: 'تاریخچه تست‌ها', h_profile: 'پروفایل', h_perf_summary: 'خلاصه عملکرد',
+        h_backup_restore: 'پشتیبان‌گیری و بازیابی', h_app_device: 'برنامه و دستگاه', h_danger_zone: 'منطقه خطر',
+        th_timeframe: 'تایم فریم', th_tags: 'برچسب‌ها', th_voice: 'ویس', voice_modal_title: 'یادداشت صوتی',
+      },
+    };
+
+    function i18nText(key) {
+      const lang = userSettings.lang || 'en';
+      return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
+    }
+
+    function applyLanguage(lang) {
+      userSettings.lang = lang;
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+      document.body.classList.toggle('rtl', lang === 'fa');
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const val = i18nText(key);
+        if (val !== undefined) el.textContent = val;
+      });
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        const val = i18nText(key);
+        if (val !== undefined) el.setAttribute('placeholder', val);
+      });
+      const btn = document.getElementById('tradeSubmitBtn');
+      if (btn) btn.textContent = editingTradeId ? i18nText('btn_update_trade') : i18nText('btn_save_trade');
+    }
+
+    function toggleLanguage() {
+      const next = (userSettings.lang === 'fa') ? 'en' : 'fa';
+      applyLanguage(next);
+      persistAll();
+      toast(next === 'fa' ? 'زبان به فارسی تغییر کرد' : 'Language switched to English');
+      economicCalendarLoaded = false;
+      const calView = document.getElementById('view-calendar');
+      if (calView && calView.classList.contains('active')) loadEconomicCalendar();
+    }
+    let checklistItems = [];
+    let psychTests = [];
     let currentSide = 'buy';
     let currentBtSide = 'buy';
     let currentMood = 'confident';
     let pendingScreenshots = [];
     let pendingBtScreenshots = [];
+    let pendingVoiceNote = null;
     let calMonthOffset = 0;
     let editingTradeId = null;
     let editingBtId = null;
+    let psychCurrentQ = 0;
+    let psychAnswers = [];
+    let economicCalendarLoaded = false;
 
     // ---- HELPERS ----
     function showLoading(msg = 'Processing…') {
@@ -1814,16 +2479,47 @@
       if (bg) bg.classList.remove('show');
     }
 
-    function toast(msg, type = 'success') {
+    function toast(msg, type = 'success', personalize = false) {
       const stack = document.getElementById('toastStack');
       const el = document.createElement('div');
       el.className = 'toast ' + type;
-      el.innerHTML = (type === 'success' ? '✅ ' : '⚠️ ') + msg;
+      const icon = type === 'success' ? '✅' : (type === 'error' ? '⚠️' : 'ℹ️');
+      const name = (personalize && currentUser) ? `<b>${escapeHtml(currentUser)}</b>, ` : '';
+      el.innerHTML = `<span class="toast-icon">${icon}</span><span class="toast-body">${name}${msg}</span><span class="toast-bar"></span>`;
       stack.appendChild(el);
       hapticPulse(type === 'success' ? 'light' : 'warn');
       setTimeout(() => { el.style.opacity = '0';
+        el.style.transform = 'translateY(-6px) scale(.97)';
         el.style.transition = '.3s';
         setTimeout(() => el.remove(), 300); }, 3200);
+    }
+
+    // ---- CUSTOM APP ALERT (styled replacement for native alert()) ----
+    function showAppAlert(title, message, icon = 'ℹ️') {
+      document.getElementById('appAlertIcon').textContent = icon;
+      document.getElementById('appAlertTitle').textContent = title;
+      document.getElementById('appAlertMsg').textContent = message;
+      const bg = document.getElementById('appAlertBg');
+      bg.classList.add('show');
+      const closeIt = () => bg.classList.remove('show');
+      document.getElementById('appAlertOk').onclick = closeIt;
+      bg.onclick = (e) => { if (e.target === bg) closeIt(); };
+    }
+
+    // ---- VOICE NOTE PLAYER ----
+    function playVoiceNote(id) {
+      const t = trades.find(x => x.id === id);
+      if (!t || !t.voiceNote) return;
+      const audio = document.getElementById('voiceModalAudio');
+      audio.src = t.voiceNote;
+      document.getElementById('voiceModalBg').classList.add('show');
+      audio.play().catch(() => {});
+    }
+    function closeVoiceModal() {
+      const audio = document.getElementById('voiceModalAudio');
+      audio.pause();
+      audio.src = '';
+      document.getElementById('voiceModalBg').classList.remove('show');
     }
 
     // ---- NATIVE DEVICE FEATURES ----
@@ -1911,7 +2607,14 @@
         return;
       }
       if (isIOSDevice()) {
-        alert('To install on iPhone/iPad:\n\n1. Tap the Share icon in Safari\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add"\n\nThe app will then work offline like a native app.');
+        const isFa = (userSettings.lang === 'fa');
+        showAppAlert(
+          isFa ? 'نصب روی آیفون / آیپد' : 'Install on iPhone/iPad',
+          isFa
+            ? '۱. آیکون Share را در سافاری بزنید\n۲. پایین بروید و «Add to Home Screen» را بزنید\n۳. روی «Add» بزنید\n\nپس از آن برنامه مثل یک اپ واقعی و آفلاین کار می‌کند.'
+            : '1. Tap the Share icon in Safari\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add"\n\nThe app will then work offline like a native app.',
+          '📲'
+        );
       }
     }
 
@@ -2026,7 +2729,10 @@
     }
 
     function getSlotLabel(hour) {
-      for (const s of BACKTEST_SLOTS) { if (hour >= s.start && hour < s.end) return s.label; }
+      for (const s of BACKTEST_SLOTS) {
+        if (s.end > s.start) { if (hour >= s.start && hour < s.end) return s.label; }
+        else { if (hour >= s.start || hour < s.end) return s.label; }
+      }
       return null;
     }
 
@@ -2114,7 +2820,7 @@
       username = username.trim();
       if (CLOUD_MODE) {
         const cred = await fbAuth.createUserWithEmailAndPassword(usernameToEmail(username), password);
-        await fbDb.collection('users').doc(cred.user.uid).set({ username, createdAt: Date.now(), securityQ: secQ, securityA: secA, settings: { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }, trades: [], backtestTrades: [] });
+        await fbDb.collection('users').doc(cred.user.uid).set({ username, createdAt: Date.now(), securityQ: secQ, securityA: secA, settings: { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }, trades: [], backtestTrades: [], checklist: defaultChecklistData(), psychTests: [] });
         return true;
       } else {
         const reg = localUsersRegistry();
@@ -2125,6 +2831,8 @@
         await saveLocalBucket(username, 'settings', { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true });
         await saveLocalBucket(username, 'trades', []);
         await saveLocalBucket(username, 'backtest', []);
+        await saveLocalBucket(username, 'checklist', defaultChecklistData());
+        await saveLocalBucket(username, 'psychTests', []);
         return true;
       }
     }
@@ -2154,19 +2862,31 @@
       return true;
     }
 
+    function defaultChecklistData() {
+      return { items: DEFAULT_CHECKLIST.map((t, i) => ({ id: 'c' + i, text: t, done: false })) };
+    }
+
     async function fetchUserData(username) {
       if (CLOUD_MODE) {
         const uid = fbAuth.currentUser.uid;
         const doc = await fbDb.collection('users').doc(uid).get();
         const d = doc.data() || {};
-        return { settings: d.settings || { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }, trades: d.trades || [], backtestTrades: d.backtestTrades || [] };
+        return {
+          settings: d.settings || { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true },
+          trades: d.trades || [],
+          backtestTrades: d.backtestTrades || [],
+          checklist: d.checklist || defaultChecklistData(),
+          psychTests: d.psychTests || [],
+        };
       } else {
-        const [settings, trades, backtestTrades] = await Promise.all([
+        const [settings, trades, backtestTrades, checklist, psychTests] = await Promise.all([
           loadLocalBucket(username, 'settings', { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }),
           loadLocalBucket(username, 'trades', []),
           loadLocalBucket(username, 'backtest', []),
+          loadLocalBucket(username, 'checklist', defaultChecklistData()),
+          loadLocalBucket(username, 'psychTests', []),
         ]);
-        return { settings, trades, backtestTrades };
+        return { settings, trades, backtestTrades, checklist, psychTests };
       }
     }
 
@@ -2177,11 +2897,13 @@
       try {
         if (CLOUD_MODE) {
           const uid = fbAuth.currentUser.uid;
-          await fbDb.collection('users').doc(uid).set({ username: currentUser, settings: userSettings, trades, backtestTrades }, { merge: true });
+          await fbDb.collection('users').doc(uid).set({ username: currentUser, settings: userSettings, trades, backtestTrades, checklist: { items: checklistItems }, psychTests }, { merge: true });
         } else {
           await saveLocalBucket(currentUser, 'settings', userSettings);
           await saveLocalBucket(currentUser, 'trades', trades);
           await saveLocalBucket(currentUser, 'backtest', backtestTrades);
+          await saveLocalBucket(currentUser, 'checklist', { items: checklistItems });
+          await saveLocalBucket(currentUser, 'psychTests', psychTests);
         }
       } catch (e) { console.error(e);
         const isQuota = e && (e.name === 'QuotaExceededError' || e.code === 22 || e.code === 1014);
@@ -2301,6 +3023,8 @@
       currentUser = null;
       trades = [];
       backtestTrades = [];
+      checklistItems = [];
+      psychTests = [];
       document.getElementById('authContainer').style.display = 'flex';
       document.getElementById('mainJournalApp').style.display = 'none';
       toast('Logged out');
@@ -2312,6 +3036,8 @@
       userSettings = Object.assign({ startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }, data.settings);
       trades = data.trades || [];
       backtestTrades = data.backtestTrades || [];
+      checklistItems = (data.checklist && data.checklist.items) || defaultChecklistData().items;
+      psychTests = data.psychTests || [];
       document.getElementById('authContainer').style.display = 'none';
       document.getElementById('mainJournalApp').style.display = 'block';
       document.getElementById('settingsUsername').textContent = currentUser;
@@ -2320,6 +3046,7 @@
       document.getElementById('s_monthlyGoal').value = userSettings.monthlyGoalPct;
       if (userSettings.theme === 'light') applyLightTheme();
       else applyDarkTheme();
+      applyLanguage(userSettings.lang || 'en');
       setSyncStatus(false);
       renderEverything();
     }
@@ -2348,6 +3075,10 @@
       if (tab === 'dashboard') renderDashboard();
       if (tab === 'backtest') renderBacktest();
       if (tab === 'profile') renderProfile();
+      if (tab === 'checklist') renderChecklist();
+      if (tab === 'calendar') { renderSessionClock();
+        loadEconomicCalendar(); }
+      if (tab === 'psychology') renderPsychHistory();
     }
 
     // ---- JOURNAL FORM ----
@@ -2415,6 +3146,35 @@
       renderThumbs();
     }
 
+    // ---- VOICE NOTE (upload an audio file to attach to a trade) ----
+    function handleVoiceNote(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => { pendingVoiceNote = ev.target.result;
+        renderVoiceNote(); };
+      reader.onerror = () => toast('Could not process voice note', 'error');
+      reader.readAsDataURL(file);
+    }
+
+    function renderVoiceNote() {
+      const row = document.getElementById('voiceNoteRow');
+      if (!row) return;
+      if (!pendingVoiceNote) { row.innerHTML = '';
+        return; }
+      row.innerHTML = `<div class="thumb-wrap" style="display:flex;align-items:center;gap:8px;padding:6px 10px;">
+        <audio controls src="${pendingVoiceNote}" style="height:32px;max-width:220px;"></audio>
+        <button type="button" class="thumb-remove" onclick="removeVoiceNote()" title="Remove voice note">✕</button>
+      </div>`;
+    }
+
+    function removeVoiceNote() {
+      pendingVoiceNote = null;
+      const input = document.getElementById('t_voice');
+      if (input) input.value = '';
+      renderVoiceNote();
+    }
+
     function resetTradeForm() {
       document.getElementById('tradeForm').reset();
       setSide('buy');
@@ -2423,8 +3183,10 @@
       document.querySelector('#moodGroup button[data-mood="confident"]').classList.add('active');
       pendingScreenshots = [];
       renderThumbs();
+      pendingVoiceNote = null;
+      renderVoiceNote();
       editingTradeId = null;
-      document.getElementById('tradeSubmitBtn').textContent = 'Save Trade ✅';
+      document.getElementById('tradeSubmitBtn').textContent = i18nText('btn_save_trade');
     }
 
     function addTrade(e) {
@@ -2436,6 +3198,7 @@
         symbol: document.getElementById('t_symbol').value,
         side: currentSide.toUpperCase(),
         setup: document.getElementById('t_setup').value || '',
+        timeframe: document.getElementById('t_timeframe').value.trim(),
         session: sessionVal,
         date: dateVal,
         entry: parseFloat(document.getElementById('t_entry').value),
@@ -2446,9 +3209,12 @@
         lot: document.getElementById('t_lot').value ? parseFloat(document.getElementById('t_lot').value) : null,
         pnl: document.getElementById('t_pnl').value ? parseFloat(document.getElementById('t_pnl').value) : null,
         result: document.getElementById('t_result').value,
+        tags: document.getElementById('t_tags').value.trim(),
+        reasons: document.getElementById('t_reasons').value.trim(),
         notes: document.getElementById('t_notes').value.trim(),
         mood: currentMood,
         screenshots: pendingScreenshots.slice(),
+        voiceNote: pendingVoiceNote || null,
       };
       if (editingTradeId) {
         const idx = trades.findIndex(t => t.id === editingTradeId);
@@ -2459,7 +3225,7 @@
       persistAll();
       resetTradeForm();
       renderEverything();
-      toast(editingTradeId ? 'Trade updated' : 'Trade saved ✅');
+      toast(editingTradeId ? 'Trade updated' : 'Trade saved ✅', 'success', true);
       return false;
     }
 
@@ -2470,6 +3236,7 @@
       document.getElementById('t_symbol').value = t.symbol;
       setSide(t.side.toLowerCase());
       document.getElementById('t_setup').value = t.setup || '';
+      document.getElementById('t_timeframe').value = t.timeframe || '';
       document.getElementById('t_session').value = t.session || '';
       document.getElementById('t_date').value = t.date || '';
       document.getElementById('t_entry').value = t.entry;
@@ -2480,12 +3247,16 @@
       document.getElementById('t_lot').value = t.lot ?? '';
       document.getElementById('t_pnl').value = t.pnl ?? '';
       document.getElementById('t_result').value = t.result;
+      document.getElementById('t_tags').value = t.tags || '';
+      document.getElementById('t_reasons').value = t.reasons || '';
       document.getElementById('t_notes').value = t.notes || '';
       currentMood = t.mood || 'confident';
       document.querySelectorAll('#moodGroup button').forEach(b => b.classList.toggle('active', b.dataset.mood === currentMood));
       pendingScreenshots = (t.screenshots || []).slice();
       renderThumbs();
-      document.getElementById('tradeSubmitBtn').textContent = 'Update Trade 💾';
+      pendingVoiceNote = t.voiceNote || null;
+      renderVoiceNote();
+      document.getElementById('tradeSubmitBtn').textContent = i18nText('btn_update_trade');
       switchTab('journal');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -2495,7 +3266,7 @@
       trades = trades.filter(t => t.id !== id);
       persistAll();
       renderEverything();
-      toast('Trade deleted');
+      toast('Trade deleted', 'success', true);
     }
 
     function restoreJournalBackup(e) {
@@ -2510,7 +3281,7 @@
           trades = data.concat(trades);
           persistAll();
           renderEverything();
-          toast('Journal backup restored ✅');
+          toast('Journal backup restored ✅', 'success', true);
         } catch (err) { toast('Invalid file', 'error'); }
         hideLoading();
       };
@@ -2764,7 +3535,7 @@
             trades = imported.concat(trades);
             persistAll();
             renderEverything();
-            toast(`Imported ${imported.length} trade(s) from MetaTrader ✅`);
+            toast(`Imported ${imported.length} trade(s) from MetaTrader ✅`, 'success', true);
           } catch (err) {
             console.error(err);
             toast('Could not read this MetaTrader statement file', 'error');
@@ -2818,6 +3589,7 @@
         symbol: document.getElementById('bt_symbol').value,
         side: currentBtSide.toUpperCase(),
         setup: document.getElementById('bt_setup').value || '',
+        timeframe: document.getElementById('bt_timeframe').value.trim(),
         session: sessionVal,
         date: dateVal,
         entry: parseFloat(document.getElementById('bt_entry').value),
@@ -2825,6 +3597,7 @@
         tp: parseFloat(document.getElementById('bt_tp').value),
         origSl: document.getElementById('bt_origsl').value ? parseFloat(document.getElementById('bt_origsl').value) : null,
         result: document.getElementById('bt_result').value,
+        tags: document.getElementById('bt_tags').value.trim(),
         screenshots: pendingBtScreenshots.slice(),
       };
       backtestTrades.unshift(trade);
@@ -2834,7 +3607,7 @@
       pendingBtScreenshots = [];
       renderBtThumbs();
       renderBacktest();
-      toast('Backtest scenario saved ✅');
+      toast('Backtest scenario saved ✅', 'success', true);
       return false;
     }
 
@@ -2843,7 +3616,7 @@
       backtestTrades = backtestTrades.filter(t => t.id !== id);
       persistAll();
       renderBacktest();
-      toast('Scenario deleted');
+      toast('Scenario deleted', 'success', true);
     }
 
     function editBtTrade(id) {
@@ -2853,6 +3626,7 @@
       document.getElementById('bt_symbol').value = t.symbol;
       setBtSide(t.side.toLowerCase());
       document.getElementById('bt_setup').value = t.setup || '';
+      document.getElementById('bt_timeframe').value = t.timeframe || '';
       document.getElementById('bt_session').value = t.session || '';
       document.getElementById('bt_date').value = t.date || '';
       document.getElementById('bt_entry').value = t.entry;
@@ -2860,6 +3634,7 @@
       document.getElementById('bt_tp').value = t.tp;
       document.getElementById('bt_origsl').value = t.origSl ?? '';
       document.getElementById('bt_result').value = t.result;
+      document.getElementById('bt_tags').value = t.tags || '';
       pendingBtScreenshots = (t.screenshots || []).slice();
       renderBtThumbs();
       // Remove old, add updated
@@ -2868,7 +3643,7 @@
       backtestTrades.unshift(newTrade);
       persistAll();
       renderBacktest();
-      toast('Scenario updated');
+      toast('Scenario updated', 'success', true);
       switchTab('backtest');
     }
 
@@ -3342,7 +4117,7 @@
         if (fSymbol && t.symbol !== fSymbol) return false;
         if (fSide && t.side !== fSide) return false;
         if (fResult && t.result !== fResult) return false;
-        if (q && !(t.setup || '').toLowerCase().includes(q) && !(t.notes || '').toLowerCase().includes(q)) return false;
+        if (q && !(t.setup || '').toLowerCase().includes(q) && !(t.notes || '').toLowerCase().includes(q) && !(t.tags || '').toLowerCase().includes(q) && !(t.reasons || '').toLowerCase().includes(q) && !(t.timeframe || '').toLowerCase().includes(q)) return false;
         return true;
       });
       document.getElementById('journalCount').textContent = `${trades.length} trades`;
@@ -3366,12 +4141,16 @@
           const rKnown = hasKnownR(t);
           const mood = MOOD_META[t.mood]?.emoji || '—';
           const hasScreenshots = t.screenshots && t.screenshots.length > 0;
+          const tagList = (t.tags || '').split(',').map(x => x.trim()).filter(Boolean);
+          const tagsCell = tagList.length ? `<div class="tag-cell">${tagList.slice(0, 3).map(tg => `<span class="tag-pill">${escapeHtml(tg)}</span>`).join('')}${tagList.length > 3 ? `<span class="tag-pill more">+${tagList.length - 3}</span>` : ''}</div>` : '—';
+          const voiceCell = t.voiceNote ? `<span class="voice-pill" title="Play voice note" onclick="playVoiceNote('${t.id}')">🎙️</span>` : '—';
           return `<tr>
             <td>${list.length-i}</td>
             <td class="ltr">${(t.date||'—').replace('T',' ')}</td>
             <td><b>${t.symbol}</b></td>
             <td>${sideBadge}</td>
             <td>${t.setup||'—'}</td>
+            <td>${t.timeframe ? `<span class="tf-pill">${escapeHtml(t.timeframe)}</span>` : '—'}</td>
             <td class="ltr">${fmtNum(t.entry)}</td>
             <td class="ltr">${fmtNum(t.sl)}</td>
             <td class="ltr">${fmtNum(t.tp)}</td>
@@ -3381,6 +4160,8 @@
             <td class="ltr" style="color:${r>=0?'var(--mint)':'var(--sell)'};font-weight:700;">${rCellLabel(t, r, rKnown)}</td>
             <td class="ltr" style="color:${t.pnl>0?'var(--mint)':t.pnl<0?'var(--sell)':'var(--muted)'};font-weight:700;">${fmtPnl(t.pnl)}</td>
             <td>${slot||'—'}</td>
+            <td>${tagsCell}</td>
+            <td>${voiceCell}</td>
             <td>
               ${hasScreenshots ? `<span style="cursor:pointer;font-size:14px;" onclick="openModal('${t.screenshots[0]}')">🖼️</span>` : '—'}
               <button class="btn small" onclick="editTrade('${t.id}')">✏️</button>
@@ -3425,12 +4206,15 @@
           const r = resultR(t);
           const rKnown = hasKnownR(t);
           const hasScreenshots = t.screenshots && t.screenshots.length > 0;
+          const btTagList = (t.tags || '').split(',').map(x => x.trim()).filter(Boolean);
+          const btTagsCell = btTagList.length ? `<div class="tag-cell">${btTagList.slice(0, 3).map(tg => `<span class="tag-pill">${escapeHtml(tg)}</span>`).join('')}${btTagList.length > 3 ? `<span class="tag-pill more">+${btTagList.length - 3}</span>` : ''}</div>` : '—';
           return `<tr>
             <td>${backtestTrades.length-i}</td>
             <td class="ltr">${(t.date||'—').replace('T',' ')}</td>
             <td><b>${t.symbol}</b></td>
             <td>${sideBadge}</td>
             <td>${t.setup||'—'}</td>
+            <td>${t.timeframe ? `<span class="tf-pill">${escapeHtml(t.timeframe)}</span>` : '—'}</td>
             <td class="ltr">${fmtNum(t.entry)}</td>
             <td class="ltr">${fmtNum(t.sl)}</td>
             <td class="ltr">${fmtNum(t.tp)}</td>
@@ -3438,6 +4222,7 @@
             <td>${resultBadge}</td>
             <td class="ltr" style="color:${r>=0?'var(--mint)':'var(--sell)'};font-weight:700;">${rCellLabel(t, r, rKnown)}</td>
             <td>${slot||'—'}</td>
+            <td>${btTagsCell}</td>
             <td>${hasScreenshots ? `<span style="cursor:pointer;font-size:14px;" onclick="openModal('${t.screenshots[0]}')">🖼️</span>` : '—'}</td>
             <td>
               <button class="btn small" onclick="editBtTrade('${t.id}')">✏️</button>
@@ -3473,12 +4258,10 @@
       backtestTrades.forEach(t => {
         if (!t.date) return;
         const hour = new Date(t.date).getHours();
-        for (const slot of BACKTEST_SLOTS) {
-          if (hour >= slot.start && hour < slot.end) {
-            slotMap[slot.label].totalR += resultR(t);
-            slotMap[slot.label].count++;
-            break;
-          }
+        const label = getSlotLabel(hour);
+        if (label && slotMap[label]) {
+          slotMap[label].totalR += resultR(t);
+          slotMap[label].count++;
         }
       });
       container.innerHTML = BACKTEST_SLOTS.map(slot => {
@@ -3508,8 +4291,8 @@
 
     function exportExcel() {
       showLoading('Exporting…');
-      const headers = ['#', 'Date', 'Symbol', 'Side', 'Setup', 'Entry', 'SL', 'Orig SL', 'TP', 'Exit', 'Lot', 'Session', 'Result', 'R', 'P&L ($)', 'Mood', 'Notes'];
-      const rows = trades.map((t, i) => [i + 1, t.date || '', t.symbol, t.side, t.setup || '', t.entry || '', t.sl || '', t.origSl ?? '', t.tp || '', t.exit || '', t.lot || '', t.session || '', t.result, rCellLabel(t, resultR(t), hasKnownR(t)), t.pnl ?? '', t.mood || '', (t.notes || '').replace(/,/g, ';')]);
+      const headers = ['#', 'Date', 'Symbol', 'Side', 'Setup', 'Timeframe', 'Entry', 'SL', 'Orig SL', 'TP', 'Exit', 'Lot', 'Session', 'Result', 'R', 'P&L ($)', 'Mood', 'Tags', 'Notes'];
+      const rows = trades.map((t, i) => [i + 1, t.date || '', t.symbol, t.side, t.setup || '', t.timeframe || '', t.entry || '', t.sl || '', t.origSl ?? '', t.tp || '', t.exit || '', t.lot || '', t.session || '', t.result, rCellLabel(t, resultR(t), hasKnownR(t)), t.pnl ?? '', t.mood || '', (t.tags || '').replace(/,/g, ';'), (t.notes || '').replace(/,/g, ';')]);
       let xml = `<table><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr>`;
       rows.forEach(r => { xml += `<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`; });
       xml += '</table>';
@@ -3542,8 +4325,8 @@
 
     function exportBtExcel() {
       showLoading('Exporting…');
-      const headers = ['#', 'Date', 'Symbol', 'Side', 'Setup', 'Entry', 'SL', 'Orig SL', 'TP', 'Session', 'Result', 'R'];
-      const rows = backtestTrades.map((t, i) => [i + 1, t.date || '', t.symbol, t.side, t.setup || '', t.entry || '', t.sl || '', t.origSl ?? '', t.tp || '', t.session || '', t.result, rCellLabel(t, resultR(t), hasKnownR(t))]);
+      const headers = ['#', 'Date', 'Symbol', 'Side', 'Setup', 'Timeframe', 'Entry', 'SL', 'Orig SL', 'TP', 'Session', 'Result', 'R', 'Tags'];
+      const rows = backtestTrades.map((t, i) => [i + 1, t.date || '', t.symbol, t.side, t.setup || '', t.timeframe || '', t.entry || '', t.sl || '', t.origSl ?? '', t.tp || '', t.session || '', t.result, rCellLabel(t, resultR(t), hasKnownR(t)), (t.tags || '').replace(/,/g, ';')]);
       let xml = `<table><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr>`;
       rows.forEach(r => { xml += `<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`; });
       xml += '</table>';
@@ -3571,7 +4354,7 @@
       const data = { username: currentUser, settings: userSettings, trades, backtestTrades, exportedAt: new Date().toISOString() };
       downloadBlob(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }), `akdivex_full_backup_${currentUser}_${Date.now()}.json`);
       hideLoading();
-      toast('Full backup downloaded');
+      toast('Full backup downloaded', 'success', true);
     }
 
     function restoreFullBackup(e) {
@@ -3587,7 +4370,7 @@
           if (Array.isArray(data.backtestTrades)) backtestTrades = data.backtestTrades;
           persistAll();
           renderEverything();
-          toast('Backup restored ✅');
+          toast('Backup restored ✅', 'success', true);
         } catch (err) { toast('Invalid backup file', 'error'); }
         hideLoading();
       };
@@ -3608,7 +4391,7 @@
       if (!isNaN(goal)) userSettings.monthlyGoalPct = goal;
       persistAll();
       renderEverything();
-      toast('Settings saved ✅');
+      toast('Settings saved ✅', 'success', true);
     }
 
     function clearJournalData() {
@@ -3689,6 +4472,212 @@
         `<div class="row"><span>Final Capital after ${months} months</span><b class="ltr highlight">${fmtNum(finalBal)}</b></div><div class="row"><span>Total Growth</span><b class="ltr" style="color:var(--mint);">+${growth.toFixed(1)}%</b></div>`;
     }
 
+    // ---- PRE-TRADE CHECKLIST ----
+    function renderChecklist() {
+      const wrap = document.getElementById('checklistItemsWrap');
+      if (!wrap) return;
+      if (!checklistItems.length) {
+        wrap.innerHTML = `<div style="text-align:center;color:var(--muted);font-size:12.5px;padding:20px 0;">No rules yet — add your first one below.</div>`;
+      } else {
+        wrap.innerHTML = checklistItems.map(it => `
+          <div class="check-row ${it.done ? 'done' : ''}">
+            <div class="box" onclick="toggleChecklistItem('${it.id}')">✓</div>
+            <div class="txt" onclick="toggleChecklistItem('${it.id}')">${escapeHtml(it.text)}</div>
+            <div class="del" onclick="deleteChecklistItem('${it.id}')">✕</div>
+          </div>`).join('');
+      }
+      const done = checklistItems.filter(i => i.done).length;
+      const total = checklistItems.length;
+      document.getElementById('checklistProgressLabel').textContent = `${done} / ${total}`;
+      document.getElementById('checklistProgressBar').style.width = total ? (done / total * 100) + '%' : '0%';
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    function toggleChecklistItem(id) {
+      const it = checklistItems.find(i => i.id === id);
+      if (!it) return;
+      it.done = !it.done;
+      renderChecklist();
+      persistAll();
+      if (userSettings.haptics && navigator.vibrate) navigator.vibrate(15);
+    }
+
+    function deleteChecklistItem(id) {
+      checklistItems = checklistItems.filter(i => i.id !== id);
+      renderChecklist();
+      persistAll();
+    }
+
+    function addChecklistItem() {
+      const input = document.getElementById('newChecklistItem');
+      const text = input.value.trim();
+      if (!text) return;
+      checklistItems.push({ id: 'c' + Date.now(), text, done: false });
+      input.value = '';
+      renderChecklist();
+      persistAll();
+      toast('Rule added');
+    }
+
+    function resetChecklist() {
+      checklistItems.forEach(i => i.done = false);
+      renderChecklist();
+      persistAll();
+      toast('Checklist reset for a new session');
+    }
+
+    function restoreDefaultChecklist() {
+      if (!confirm('Replace your current checklist with the default rule list?')) return;
+      checklistItems = defaultChecklistData().items;
+      renderChecklist();
+      persistAll();
+    }
+
+    // ---- FOREX MARKET SESSIONS ----
+    function sessionIsActive(sess, utcHour) {
+      if (sess.openUTC < sess.closeUTC) return utcHour >= sess.openUTC && utcHour < sess.closeUTC;
+      return utcHour >= sess.openUTC || utcHour < sess.closeUTC; // wraps midnight
+    }
+
+    function renderSessionClock() {
+      const wrap = document.getElementById('sessionClockWrap');
+      if (!wrap) return;
+      const now = new Date();
+      const utcHour = now.getUTCHours() + now.getUTCMinutes() / 60;
+      wrap.innerHTML = FOREX_SESSIONS.map(sess => {
+        const active = sessionIsActive(sess, utcHour);
+        const openLocal = utcHourToLocalLabel(sess.openUTC);
+        const closeLocal = utcHourToLocalLabel(sess.closeUTC);
+        let pct = 0;
+        if (active) {
+          const span = sess.openUTC < sess.closeUTC ? (sess.closeUTC - sess.openUTC) : (24 - sess.openUTC + sess.closeUTC);
+          let elapsed = utcHour - sess.openUTC;
+          if (elapsed < 0) elapsed += 24;
+          pct = Math.max(0, Math.min(100, (elapsed / span) * 100));
+        }
+        return `<div class="session-card ${active ? 'active' : ''}">
+            <span class="dot" style="background:${sess.color};"></span><span class="name">${sess.label}</span>
+            <div class="range ltr">${openLocal} – ${closeLocal} (local)</div>
+            <div class="stat">${active ? '<b style="color:var(--mint);">● Open now</b>' : '○ Closed'}</div>
+            <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${sess.color};"></div></div>
+          </div>`;
+      }).join('');
+    }
+
+    function utcHourToLocalLabel(utcHour) {
+      const d = new Date();
+      d.setUTCHours(Math.floor(utcHour), Math.round((utcHour % 1) * 60), 0, 0);
+      return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // ---- ECONOMIC CALENDAR ----
+    function loadEconomicCalendar() {
+      const wrap = document.getElementById('economicCalendarWrap');
+      if (!wrap || economicCalendarLoaded) return;
+      economicCalendarLoaded = true;
+      const isLight = document.body.classList.contains('light');
+      let systemTz = 'Etc/UTC';
+      try { systemTz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Etc/UTC'; } catch (e) {}
+      const container = document.createElement('div');
+      container.innerHTML = `<div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>`;
+      wrap.innerHTML = '';
+      wrap.appendChild(container);
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-events.js';
+      script.async = true;
+      script.innerHTML = JSON.stringify({
+        colorTheme: isLight ? 'light' : 'dark',
+        isTransparent: false,
+        width: '100%',
+        height: '520',
+        locale: (userSettings.lang === 'fa') ? 'fa' : 'en',
+        timezone: systemTz,
+        importanceFilter: '0,1',
+        countryFilter: 'us,eu,gb,jp,au,ca,nz,ch,cn',
+      });
+      container.querySelector('.tradingview-widget-container__widget').appendChild(script);
+    }
+
+    // ---- TRADER PSYCHOLOGY TEST ----
+    function startPsychTest() {
+      psychCurrentQ = 0;
+      psychAnswers = [];
+      document.getElementById('psychIntroPanel').style.display = 'none';
+      document.getElementById('psychResultPanel').style.display = 'none';
+      document.getElementById('psychQuizPanel').style.display = 'block';
+      renderPsychQuestion();
+    }
+
+    function renderPsychQuestion() {
+      const q = PSYCH_QUESTIONS[psychCurrentQ];
+      const wrap = document.getElementById('psychQuestionWrap');
+      wrap.innerHTML = `
+        <div class="quiz-progress ltr">Question ${psychCurrentQ + 1} / ${PSYCH_QUESTIONS.length}</div>
+        <div class="quiz-q-text">${escapeHtml(q.q)}</div>
+        ${q.opts.map((o, i) => `<button class="quiz-opt" onclick="answerPsychQuestion(${i})">${escapeHtml(o.t)}</button>`).join('')}
+      `;
+    }
+
+    function answerPsychQuestion(optIndex) {
+      const q = PSYCH_QUESTIONS[psychCurrentQ];
+      psychAnswers.push(q.opts[optIndex].v);
+      psychCurrentQ++;
+      if (psychCurrentQ < PSYCH_QUESTIONS.length) renderPsychQuestion();
+      else finishPsychTest();
+    }
+
+    function finishPsychTest() {
+      const maxScore = PSYCH_QUESTIONS.length * 3;
+      const score = psychAnswers.reduce((a, b) => a + b, 0);
+      const pct = Math.round((score / maxScore) * 100);
+      let tier, color, tips;
+      if (pct >= 80) { tier = 'Disciplined';
+        color = 'var(--mint)';
+        tips = 'Your answers show strong rule-following and emotional control. Keep using your checklist before every trade to protect this edge.'; } else if (pct >= 55) { tier = 'Balanced';
+        color = 'var(--blue)';
+        tips = 'You mostly follow your plan, but some emotional decisions slip through. Try reviewing your checklist tab before every session.'; } else if (pct >= 30) { tier = 'At Risk';
+        color = 'var(--gold)';
+        tips = 'Your answers suggest FOMO, revenge trading, or inconsistent risk rules are affecting your results. Consider reducing size until this improves.'; } else { tier = 'High Risk';
+        color = 'var(--sell)';
+        tips = 'Your answers point to significant emotional trading. Consider a short break from live trading, paper trade your plan, and rebuild consistency step by step.'; }
+      document.getElementById('psychQuizPanel').style.display = 'none';
+      document.getElementById('psychResultPanel').style.display = 'block';
+      document.getElementById('psychResultWrap').innerHTML = `
+        <div class="psych-score-ring" style="border:6px solid ${color};color:${color};">${pct}%</div>
+        <div style="text-align:center;font-size:18px;font-weight:700;margin-bottom:10px;color:${color};">${tier}</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.6;text-align:center;margin-bottom:18px;">${tips}</p>
+        <button class="btn primary" style="width:100%;justify-content:center;" onclick="restartPsychTest()">🔁 Retake Test</button>
+      `;
+      psychTests.unshift({ date: Date.now(), score: pct, tier });
+      psychTests = psychTests.slice(0, 20);
+      persistAll();
+      renderPsychHistory();
+    }
+
+    function restartPsychTest() {
+      document.getElementById('psychResultPanel').style.display = 'none';
+      document.getElementById('psychIntroPanel').style.display = 'block';
+    }
+
+    function renderPsychHistory() {
+      const wrap = document.getElementById('psychHistoryWrap');
+      if (!wrap) return;
+      if (!psychTests.length) {
+        wrap.innerHTML = `<div style="text-align:center;color:var(--muted);font-size:12.5px;padding:10px 0;">No tests taken yet.</div>`;
+        return;
+      }
+      wrap.innerHTML = psychTests.map(t => `
+        <div class="psych-history-row">
+          <span class="ltr" style="color:var(--muted);">${new Date(t.date).toLocaleDateString()}</span>
+          <b>${escapeHtml(t.tier)}</b>
+          <span class="ltr">${t.score}%</span>
+        </div>`).join('');
+    }
+
     // ---- TICKER ----
     let tickerPrices = TICKER_SYMBOLS.map(t => ({ ...t, base: t.p }));
 
@@ -3730,6 +4719,8 @@
       if (pill) { pill.textContent = label;
         pill.style.background = color;
         pill.style.color = '#0A0E14'; }
+      const calView = document.getElementById('view-calendar');
+      if (calView && calView.classList.contains('active')) renderSessionClock();
     }
 
     // ---- THEME ----
@@ -3756,6 +4747,9 @@
       userSettings.theme = isLight ? 'dark' : 'light';
       persistAll();
       renderEverything();
+      economicCalendarLoaded = false;
+      const calView = document.getElementById('view-calendar');
+      if (calView && calView.classList.contains('active')) loadEconomicCalendar();
     }
 
     // ---- MODAL ----
@@ -3765,6 +4759,7 @@
       modalBg.classList.add('show'); };
     document.getElementById('modalClose').onclick = () => modalBg.classList.remove('show');
     modalBg.onclick = (e) => { if (e.target === modalBg) modalBg.classList.remove('show'); };
+    document.getElementById('voiceModalBg').onclick = (e) => { if (e.target === e.currentTarget) closeVoiceModal(); };
 
     // ---- MASTER RENDER ----
     function renderDashboard() {
@@ -3786,6 +4781,8 @@
       renderJournal();
       renderBacktest();
       renderProfile();
+      renderChecklist();
+      renderPsychHistory();
       updateAppBadge();
     }
 
