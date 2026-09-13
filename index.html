@@ -3048,6 +3048,26 @@
       document.getElementById('tradeSubmitBtn').textContent = i18nText('btn_save_trade');
     }
 
+    // Safe field accessors — a form field can be hidden/removed (e.g. a
+    // commented-out input) without crashing the whole save; the value
+    // just falls back to empty/false instead of throwing.
+    function fieldValue(id) {
+      const el = document.getElementById(id);
+      return el ? el.value : '';
+    }
+    function fieldChecked(id) {
+      const el = document.getElementById(id);
+      return el ? el.checked : false;
+    }
+    function setFieldValue(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.value = val;
+    }
+    function setFieldChecked(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.checked = val;
+    }
+
     function addTrade(e) {
       e.preventDefault();
       const dateVal = document.getElementById('t_date').value;
@@ -3063,8 +3083,8 @@
         entry: parseFloat(document.getElementById('t_entry').value),
         sl: parseFloat(document.getElementById('t_sl').value),
         tp: parseFloat(document.getElementById('t_tp').value),
-        origSl: document.getElementById('t_origsl').value ? parseFloat(document.getElementById('t_origsl').value) : null,
-        riskFree: document.getElementById('t_riskFree').checked,
+        origSl: fieldValue('t_origsl') ? parseFloat(fieldValue('t_origsl')) : null,
+        riskFree: fieldChecked('t_riskFree'),
         exit: document.getElementById('t_exit').value ? parseFloat(document.getElementById('t_exit').value) : null,
         lot: document.getElementById('t_lot').value ? parseFloat(document.getElementById('t_lot').value) : null,
         pnl: document.getElementById('t_pnl').value ? parseFloat(document.getElementById('t_pnl').value) : null,
@@ -3102,8 +3122,8 @@
       document.getElementById('t_entry').value = t.entry;
       document.getElementById('t_sl').value = t.sl;
       document.getElementById('t_tp').value = t.tp;
-      document.getElementById('t_origsl').value = t.origSl ?? '';
-      document.getElementById('t_riskFree').checked = !!t.riskFree;
+      setFieldValue('t_origsl', t.origSl ?? '');
+      setFieldChecked('t_riskFree', !!t.riskFree);
       document.getElementById('t_exit').value = t.exit ?? '';
       document.getElementById('t_lot').value = t.lot ?? '';
       document.getElementById('t_pnl').value = t.pnl ?? '';
