@@ -1,5 +1,7 @@
 // AKDIVEX Trading Journal — Service Worker
-const CACHE_NAME = 'akdivex-cache-v3';
+// v7: درخواست‌های غیرهم‌مبدأ (TradingView، APIهای قیمت و …) دیگر از SW عبور نمی‌کنند تا سریع‌تر بیایند؛
+//     فقط فونت‌ها و فایل‌های خودِ برنامه کش می‌شوند.
+const CACHE_NAME = 'akdivex-cache-v7';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,8 +12,11 @@ const APP_SHELL = [
 ];
 
 self.addEventListener('install', (event) => {
+  // هر فایل جداگانه کش می‌شود تا نبودِ یک آیکون کل نصب را خراب نکند
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)).catch(() => {})
+    caches.open(CACHE_NAME).then((cache) =>
+      Promise.all(APP_SHELL.map((url) => cache.add(url).catch(() => {})))
+    )
   );
   self.skipWaiting();
 });
@@ -25,9 +30,16 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+const FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
+
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+
+  // درخواست‌های بیرونی به‌جز فونت‌ها (ویجت TradingView، Binance، CoinGecko، …) را به مرورگر می‌سپاریم:
+  // هم واسطه‌ی SW حذف می‌شود و هم پاسخ‌های زنده (قیمت/اخبار) هیچ‌وقت قدیمی از کش برنگردانده می‌شوند.
+  if (url.origin !== self.location.origin && !FONT_HOSTS.includes(url.hostname)) return;
 
   // Network-first for the HTML shell so users get the latest version when online,
   // falling back to cache when offline.
@@ -44,7 +56,25 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cache-first for static assets (fonts, icons, etc.)
+  // Fonts: serve from cache instantly, refresh in the background.
+  if (FONT_HOSTS.includes(url.hostname)) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) =>
+        cache.match(req).then((cached) => {
+          const network = fetch(req)
+            .then((res) => {
+              if (res && (res.status === 200 || res.type === 'opaque')) cache.put(req, res.clone());
+              return res;
+            })
+            .catch(() => cached);
+          return cached || network;
+        })
+      )
+    );
+    return;
+  }
+
+  // Cache-first for other static assets (icons, etc.)
   event.respondWith(
     caches.match(req).then((cached) => {
       if (cached) return cached;
