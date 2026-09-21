@@ -1,28 +1,28 @@
 {
   "id": "./index.html",
-  "name": "AKDIVEX Trading Journal",
+  "name": "ژورنال معاملاتی AKDIVEX",
   "short_name": "AKDIVEX",
-  "description": "AKDIVEX Trading Group — Trading Journal, Backtest Lab & Risk Calculator",
+  "description": "گروه معاملاتی AKDIVEX — ژورنال معاملاتی، آزمایشگاه بک‌تست و ماشین‌حساب ریسک",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait-primary",
-  "background_color": "#080C12",
-  "theme_color": "#080C12",
-  "lang": "en",
-  "dir": "ltr",
+  "background_color": "#080B12",
+  "theme_color": "#080B12",
+  "lang": "fa",
+  "dir": "rtl",
   "prefer_related_applications": false,
   "shortcuts": [
     {
-      "name": "New Trade",
-      "short_name": "New Trade",
+      "name": "معامله جدید",
+      "short_name": "معامله جدید",
       "url": "./index.html?action=new-trade",
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Import MT Statement",
-      "short_name": "Import",
+      "name": "وارد کردن گزارش متاتریدر",
+      "short_name": "ورود گزارش",
       "url": "./index.html?action=import-statement",
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     }
