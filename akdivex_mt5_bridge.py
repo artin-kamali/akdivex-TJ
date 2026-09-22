@@ -493,6 +493,57 @@ def modify_position(ticket, sl, tp):
     return {"ok": True, "ticket": ticket, "sl": new_sl, "tp": new_tp}
 
 
+def open_position(symbol, side, volume, sl=None, tp=None):
+    """Opens a new market order (BUY or SELL) on the given symbol."""
+    symbol = (symbol or "").strip().upper()
+    if not symbol:
+        raise RuntimeError("نماد را وارد کنید")
+    try:
+        volume = float(volume)
+    except (TypeError, ValueError):
+        raise RuntimeError("حجم معامله نامعتبر است")
+    if volume <= 0:
+        raise RuntimeError("حجم معامله باید بزرگ‌تر از صفر باشد")
+    is_buy = (side or "").upper() == "BUY"
+
+    if not mt5.symbol_select(symbol, True):
+        raise RuntimeError(f"نماد {symbol} پیدا نشد یا در Market Watch قابل انتخاب نیست")
+    tick = mt5.symbol_info_tick(symbol)
+    if tick is None:
+        raise RuntimeError(f"قیمت زنده‌ای برای {symbol} در دسترس نیست")
+    price = tick.ask if is_buy else tick.bid
+
+    def to_float_or_none(v):
+        if v is None or v == "":
+            return 0.0
+        try:
+            return float(v)
+        except (TypeError, ValueError):
+            return 0.0
+
+    request = {
+        "action": mt5.TRADE_ACTION_DEAL,
+        "symbol": symbol,
+        "volume": volume,
+        "type": mt5.ORDER_TYPE_BUY if is_buy else mt5.ORDER_TYPE_SELL,
+        "price": price,
+        "sl": to_float_or_none(sl),
+        "tp": to_float_or_none(tp),
+        "deviation": 20,
+        "magic": 990099,
+        "comment": "AKDIVEX journal open",
+        "type_time": mt5.ORDER_TIME_GTC,
+        "type_filling": mt5.ORDER_FILLING_IOC,
+    }
+    result = mt5.order_send(request)
+    if result is None or result.retcode != mt5.TRADE_RETCODE_DONE:
+        code = result.retcode if result is not None else mt5.last_error()
+        raise RuntimeError(
+            f"باز کردن معامله ناموفق بود (کد {code}) — مطمئن شوید \"AutoTrading\" در متاتریدر روشن است و حجم/نماد درست است"
+        )
+    return {"ok": True, "ticket": result.order, "symbol": symbol, "side": "BUY" if is_buy else "SELL", "volume": volume, "price": price}
+
+
 # ---- HTTP server --------------------------------------------------------------
 
 CLOSE_PATH_RE = re.compile(r"^/positions/(\d+)/close$")
@@ -591,6 +642,10 @@ class Handler(BaseHTTPRequestHandler):
 
             if not ensure_connected():
                 self._send_json(503, {"error": "به متاتریدر وصل نشد — مطمئن شوید متاتریدر ۵ باز و لاگین است"})
+                return
+
+            if path.endswith("/positions/open"):
+                self._send_json(200, open_position(body.get("symbol"), body.get("side"), body.get("volume"), body.get("sl"), body.get("tp")))
                 return
 
             m = CLOSE_PATH_RE.match(path)
