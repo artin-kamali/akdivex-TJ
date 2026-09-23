@@ -665,6 +665,17 @@ class Handler(BaseHTTPRequestHandler):
                 symbol = (qs.get("symbol", [""])[0])
                 tf = (qs.get("timeframe", ["M15"])[0])
                 self._send_json(200, {"image": capture_screenshot(symbol, tf)})
+            elif path == "/price":
+                qs = parse_qs(urlsplit(self.path).query)
+                symbol = (qs.get("symbol", [""])[0]).strip().upper()
+                if not symbol or not mt5.symbol_select(symbol, True):
+                    self._send_json(404, {"error": f"نماد {symbol} پیدا نشد"})
+                    return
+                tick = mt5.symbol_info_tick(symbol)
+                if tick is None:
+                    self._send_json(404, {"error": "قیمت زنده‌ای در دسترس نیست"})
+                    return
+                self._send_json(200, {"symbol": symbol, "bid": tick.bid, "ask": tick.ask})
             elif "/history-deals/time/" in path:
                 tail = path.split("/history-deals/time/", 1)[1]
                 parts = tail.split("/")
