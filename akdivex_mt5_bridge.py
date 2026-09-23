@@ -444,31 +444,44 @@ def capture_screenshot(symbol, timeframe_key):
     tf_const_name = TIMEFRAME_MAP.get((timeframe_key or "M15").upper(), "TIMEFRAME_M15")
     tf_const = getattr(mt5, tf_const_name)
 
-    with SCREENSHOT_LOCK:
-        if not mt5.symbol_select(symbol, True):
-            raise RuntimeError(f"نماد {symbol} پیدا نشد")
-        chart_id = mt5.chart_open(symbol, tf_const)
-        if not chart_id:
-            raise RuntimeError("باز کردن نمودار در متاتریدر ممکن نشد")
-        try:
-            time.sleep(0.7)  # let the chart actually render before capturing it
-            fd, path = tempfile.mkstemp(suffix=".png", prefix="akdivex_shot_")
-            os.close(fd)
-            ok = mt5.chart_screenshot(chart_id, path, 900, 480)
-            if not ok:
-                raise RuntimeError("گرفتن اسکرین‌شات از نمودار ناموفق بود")
-            with open(path, "rb") as f:
-                data = f.read()
-            return "data:image/png;base64," + base64.b64encode(data).decode("ascii")
-        finally:
+    last_error = None
+    for attempt in range(2):  # one retry — chart_screenshot occasionally misses the
+        # very first render pass, especially right after chart_open()
+        with SCREENSHOT_LOCK:
+            if not mt5.symbol_select(symbol, True):
+                raise RuntimeError(f"نماد {symbol} پیدا نشد")
+            chart_id = mt5.chart_open(symbol, tf_const)
+            if not chart_id:
+                last_error = RuntimeError("باز کردن نمودار در متاتریدر ممکن نشد")
+                time.sleep(0.5)
+                continue
+            path = None
             try:
-                mt5.chart_close(chart_id)
-            except Exception:
-                pass
-            try:
-                os.remove(path)
-            except Exception:
-                pass
+                time.sleep(1.0 if attempt == 0 else 1.6)  # let the chart actually render before capturing it
+                fd, path = tempfile.mkstemp(suffix=".png", prefix="akdivex_shot_")
+                os.close(fd)
+                ok = mt5.chart_screenshot(chart_id, path, 900, 480)
+                if not ok:
+                    code, desc = mt5.last_error()
+                    last_error = RuntimeError(f"گرفتن اسکرین‌شات از نمودار ناموفق بود ({code}: {desc})")
+                    continue
+                with open(path, "rb") as f:
+                    data = f.read()
+                if not data:
+                    last_error = RuntimeError("فایل اسکرین‌شات خالی بود")
+                    continue
+                return "data:image/png;base64," + base64.b64encode(data).decode("ascii")
+            finally:
+                try:
+                    mt5.chart_close(chart_id)
+                except Exception:
+                    pass
+                if path:
+                    try:
+                        os.remove(path)
+                    except Exception:
+                        pass
+    raise last_error or RuntimeError("گرفتن اسکرین‌شات ناموفق بود")
 
 
 def find_position(ticket):
