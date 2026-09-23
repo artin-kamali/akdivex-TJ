@@ -57,6 +57,16 @@ SECURITY & TECHNICAL NOTES:
     "AutoTrading" button in the MetaTrader 5 toolbar must be turned on
     (green).
 
+AUTO-SCREENSHOTS (entry / exit chart snapshots for the journal):
+  When the journal asks for a screenshot, this script opens the right
+  chart for that symbol/timeframe and captures it as-is — it does not
+  draw anything itself. So the Stop Loss / Take Profit / entry-price
+  lines only show up in the picture if MetaTrader is already drawing
+  them, which needs "Show Trade Levels" turned on (Tools > Options >
+  Charts tab) — this is MetaTrader's default, so usually nothing to
+  change. Once a position is closed, MetaTrader removes those lines by
+  itself, so an "exit" screenshot taken after that point won't have them.
+
 MULTIPLE METATRADER INSTALLS ON ONE COMPUTER:
   If you have more than one MetaTrader 5 terminal installed (e.g. one per
   broker), this bridge can see all of them and the journal lets you switch
@@ -64,15 +74,19 @@ MULTIPLE METATRADER INSTALLS ON ONE COMPUTER:
 """
 
 import argparse
+import base64
 import json
 import os
 import re
 import secrets
 import subprocess
 import sys
+import tempfile
+import threading
+import time
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qs
 
 
 def ensure_mt5_package():
@@ -379,6 +393,7 @@ def positions_payload():
             "profit": d.get("profit", 0),
             "swap": d.get("swap", 0),
             "commission": 0,
+            "time": unix_to_iso(d.get("time", 0)),
         })
     return out
 
@@ -406,6 +421,54 @@ def history_deals_payload(start_dt, end_dt):
             "time": unix_to_iso(d.get("time", 0)),
         })
     return out
+
+
+# ---- CHART SCREENSHOTS (entry / exit snapshots for the journal) --------------
+# MetaTrader draws the Stop Loss / Take Profit / entry-price lines on a chart by
+# itself for any symbol with an open position (Tools > Options > Charts > "Show
+# Trade Levels", on by default) — so we don't draw anything ourselves, we just
+# open the right chart and let MT5's own screenshot function capture it. Only
+# one screenshot is taken at a time (SCREENSHOT_LOCK) since opening/switching
+# charts is a shared, terminal-wide action.
+TIMEFRAME_MAP = {
+    "M1": "TIMEFRAME_M1", "M5": "TIMEFRAME_M5", "M15": "TIMEFRAME_M15",
+    "M30": "TIMEFRAME_M30", "H1": "TIMEFRAME_H1", "H4": "TIMEFRAME_H4", "D1": "TIMEFRAME_D1",
+}
+SCREENSHOT_LOCK = threading.Lock()
+
+
+def capture_screenshot(symbol, timeframe_key):
+    symbol = (symbol or "").strip().upper()
+    if not symbol:
+        raise RuntimeError("نماد نامعتبر است")
+    tf_const_name = TIMEFRAME_MAP.get((timeframe_key or "M15").upper(), "TIMEFRAME_M15")
+    tf_const = getattr(mt5, tf_const_name)
+
+    with SCREENSHOT_LOCK:
+        if not mt5.symbol_select(symbol, True):
+            raise RuntimeError(f"نماد {symbol} پیدا نشد")
+        chart_id = mt5.chart_open(symbol, tf_const)
+        if not chart_id:
+            raise RuntimeError("باز کردن نمودار در متاتریدر ممکن نشد")
+        try:
+            time.sleep(0.7)  # let the chart actually render before capturing it
+            fd, path = tempfile.mkstemp(suffix=".png", prefix="akdivex_shot_")
+            os.close(fd)
+            ok = mt5.chart_screenshot(chart_id, path, 900, 480)
+            if not ok:
+                raise RuntimeError("گرفتن اسکرین‌شات از نمودار ناموفق بود")
+            with open(path, "rb") as f:
+                data = f.read()
+            return "data:image/png;base64," + base64.b64encode(data).decode("ascii")
+        finally:
+            try:
+                mt5.chart_close(chart_id)
+            except Exception:
+                pass
+            try:
+                os.remove(path)
+            except Exception:
+                pass
 
 
 def find_position(ticket):
@@ -597,6 +660,11 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_json(200, account_information_payload())
             elif path.endswith("/positions"):
                 self._send_json(200, positions_payload())
+            elif path == "/screenshot":
+                qs = parse_qs(urlsplit(self.path).query)
+                symbol = (qs.get("symbol", [""])[0])
+                tf = (qs.get("timeframe", ["M15"])[0])
+                self._send_json(200, {"image": capture_screenshot(symbol, tf)})
             elif "/history-deals/time/" in path:
                 tail = path.split("/history-deals/time/", 1)[1]
                 parts = tail.split("/")
