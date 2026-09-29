@@ -22,6 +22,8 @@ if CFG_FILE.exists():
 if os.environ.get("AKDIVEX_TOKEN"): CFG["token"] = os.environ["AKDIVEX_TOKEN"]   # pairing values come from the website's launcher
 if os.environ.get("AKDIVEX_PORT", "").isdigit(): CFG["port"] = int(os.environ["AKDIVEX_PORT"])
 if os.environ.get("AKDIVEX_ORIGINS"): CFG["allowed_origins"] = [o for o in os.environ["AKDIVEX_ORIGINS"].split(",") if o]
+# drop unfilled template placeholders (e.g. "__ORIGINS__") that made every connection get rejected
+CFG["allowed_origins"] = [o for o in CFG["allowed_origins"] if o and not str(o).startswith("__")]
 if not CFG["token"]:
     CFG["token"] = secrets.token_urlsafe(16)
 CFG_FILE.write_text(json.dumps(CFG, indent=2), "utf-8")
@@ -31,6 +33,8 @@ async def mt(fn, *a, **k):
     return await asyncio.get_running_loop().run_in_executor(EX, lambda: fn(*a, **k))
 
 CLIENTS, KNOWN, EMITTED = set(), {}, set()
+PAIR = {"open": True, "t0": time.time()}       # one-time auto-pairing window: the website fetches the token by itself
+PAIR_WINDOW = 180
 S = {"ok": False, "offset": 0, "err": "", "login": None}
 REASON = {0: "MANUAL", 1: "MANUAL", 2: "MANUAL", 3: "EA", 4: "SL", 5: "TP", 6: "STOPOUT"}
 OUT = (1, 2, 3)                                  # DEAL_ENTRY_OUT / INOUT / OUT_BY
@@ -224,10 +228,16 @@ def do_switch(tid):
 async def handle(ws):
     try:
         auth = json.loads(await asyncio.wait_for(ws.recv(), 5))
+        if auth.get("type") == "pair":            # automatic pairing (first minutes after start, single use)
+            ok = PAIR["open"] and time.time() - PAIR["t0"] < PAIR_WINDOW
+            if ok: PAIR["open"] = False
+            await ws.send(json.dumps({"type": "paired", "token": CFG["token"]} if ok else {"type": "pair_denied"}))
+            await asyncio.sleep(.3); return
         if auth.get("type") != "auth" or not secrets.compare_digest(str(auth.get("token", "")), CFG["token"]):
             await ws.send(json.dumps({"type": "auth_fail"})); await asyncio.sleep(1); return
     except Exception:
         return
+    PAIR["open"] = False
     CLIENTS.add(ws)
     await ws.send(json.dumps({"type": "hello", "trading": CFG["allow_trading"]}))
     try:
@@ -255,7 +265,8 @@ async def handle(ws):
         CLIENTS.discard(ws)
 
 async def main():
-    kw = {"origins": CFG["allowed_origins"] + [None]} if CFG["allowed_origins"] else {}
+    # "null" = page opened from a local file (file:///...), None = no Origin header. The pairing token still protects the bridge.
+    kw = {"origins": CFG["allowed_origins"] + ["null", None]} if CFG["allowed_origins"] else {}
     async with websockets.serve(handle, CFG["host"], CFG["port"], **kw):
         print(f"\nAKDIVEX bridge listening on ws://{CFG['host']}:{CFG['port']}\nTOKEN: {CFG['token']}\n\nKeep this window open (you can minimize it). Close it to stop the bridge.\n")
         await poll()
