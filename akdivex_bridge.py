@@ -5,7 +5,7 @@ AKDIVEX <-> MetaTrader 5 bridge  (Windows + MT5 terminal running)
   python akdivex_bridge.py
 First run creates bridge_config.json and prints a pairing TOKEN -> paste it in the site (Live tab).
 """
-import asyncio, json, math, secrets, sys, time
+import asyncio, hashlib, json, math, os, secrets, sys, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 try:
@@ -14,15 +14,14 @@ try:
 except ImportError:
     sys.exit("Run:  pip install MetaTrader5 websockets")
 
-EMBED = {"token": "", "port": 0, "origins": []}   # @@EMBED@@ filled in by the website when you download this file
 CFG_FILE = Path(__file__).with_name("bridge_config.json")
 CFG = {"host": "127.0.0.1", "port": 8765, "token": "", "allow_trading": True,
        "allowed_origins": [], "poll_ms": 150, "mt5_path": "", "deviation": 30}
 if CFG_FILE.exists():
     CFG.update(json.loads(CFG_FILE.read_text("utf-8")))
-if EMBED.get("token"): CFG["token"] = EMBED["token"]          # pairing token from the website
-if EMBED.get("port"): CFG["port"] = EMBED["port"]
-if EMBED.get("origins"): CFG["allowed_origins"] = EMBED["origins"]
+if os.environ.get("AKDIVEX_TOKEN"): CFG["token"] = os.environ["AKDIVEX_TOKEN"]   # pairing values come from the website's launcher
+if os.environ.get("AKDIVEX_PORT", "").isdigit(): CFG["port"] = int(os.environ["AKDIVEX_PORT"])
+if os.environ.get("AKDIVEX_ORIGINS"): CFG["allowed_origins"] = [o for o in os.environ["AKDIVEX_ORIGINS"].split(",") if o]
 if not CFG["token"]:
     CFG["token"] = secrets.token_urlsafe(16)
 CFG_FILE.write_text(json.dumps(CFG, indent=2), "utf-8")
@@ -63,7 +62,7 @@ def account():
     return {"login": a.login, "name": a.name, "server": a.server, "currency": a.currency,
             "leverage": a.leverage, "balance": a.balance, "equity": a.equity, "profit": a.profit,
             "margin": a.margin, "free": a.margin_free, "level": a.margin_level,
-            "broker_ok": bool(t and t.connected)}
+            "broker_ok": bool(t and t.connected), "terminal": str(Path(t.path)) if t and t.path else ""}
 
 def build_trade(pid, deals, sl=None, tp=None, first_sl=None, side=None):
     ins = [d for d in deals if d.entry == 0]
@@ -107,6 +106,7 @@ async def poll():
     last_sig, last_sent, tick = None, 0, 0
     while True:
         try:
+            if S.get("busy"): await asyncio.sleep(.1); continue
             if not S["ok"] and not await mt(init):
                 await broadcast({"type": "state", "mt5_ok": False, "error": S["err"]})
                 await asyncio.sleep(3); continue
@@ -182,6 +182,45 @@ def history(days):
     out = [build_trade(pid, ds) for pid, ds in by.items()]
     return sorted([t for t in out if t], key=lambda t: t["close_ts"])
 
+def discover():
+    """Installed MT5 terminals (only these can be selected from the website)."""
+    seen, out = set(), []
+    def add(exe):
+        exe = Path(exe)
+        if exe.name.lower() == "terminal64.exe" and exe.exists() and str(exe).lower() not in seen:
+            seen.add(str(exe).lower())
+            out.append({"id": hashlib.sha1(str(exe).lower().encode()).hexdigest()[:10], "name": exe.parent.name, "path": str(exe), "dir": str(exe.parent)})
+    for env in ("ProgramFiles", "ProgramFiles(x86)"):
+        base = os.environ.get(env)
+        if base and Path(base).exists():
+            for d in Path(base).iterdir(): add(d / "terminal64.exe")
+    ap = os.environ.get("APPDATA")
+    if ap:
+        for f in Path(ap, "MetaQuotes", "Terminal").glob("*/origin.txt"):
+            for enc in ("utf-16", "utf-8"):
+                try: add(Path(f.read_text(enc).strip()) / "terminal64.exe"); break
+                except Exception: pass
+    if CFG["mt5_path"]: add(CFG["mt5_path"])
+    return out
+
+def terminals():
+    ti = mt5.terminal_info() if S["ok"] else None
+    cur = str(Path(ti.path)).lower() if ti and ti.path else ""
+    out = discover()
+    if cur and not any(str(Path(x["dir"])).lower() == cur for x in out):
+        exe = Path(ti.path) / "terminal64.exe"
+        out.append({"id": hashlib.sha1(str(exe).lower().encode()).hexdigest()[:10], "name": Path(ti.path).name, "path": str(exe), "dir": str(Path(ti.path))})
+    for x in out: x["active"] = str(Path(x["dir"])).lower() == cur
+    return out
+
+def do_switch(tid):
+    m = [x for x in terminals() if x["id"] == tid]
+    if not m: return False, "Unknown terminal"
+    mt5.shutdown()
+    CFG["mt5_path"] = m[0]["path"]; CFG_FILE.write_text(json.dumps(CFG, indent=2), "utf-8")
+    ok = init()
+    return ok, "OK" if ok else S["err"]
+
 async def handle(ws):
     try:
         auth = json.loads(await asyncio.wait_for(ws.recv(), 5))
@@ -198,6 +237,13 @@ async def handle(ws):
                 await ws.send(json.dumps({"type": "pong", "ts": m.get("ts")})); continue
             if t == "sync":
                 await ws.send(json.dumps({"type": "history", "trades": await mt(history, m.get("days", 7))})); continue
+            if t == "terminals":
+                await ws.send(json.dumps({"type": "result", "id": rid, "ok": True, "list": await mt(terminals)})); continue
+            if t == "switch":
+                S["busy"] = True
+                try: res = await mt(do_switch, m.get("id"))
+                finally: KNOWN.clear(); S["offset"] = 0; S["busy"] = False
+                await ws.send(json.dumps({"type": "result", "id": rid, "ok": res[0], "msg": res[1]})); continue
             if t in ("modify", "close"):
                 if not CFG["allow_trading"]: res = (False, "Read-only mode (allow_trading=false)")
                 elif t == "modify": res = await mt(do_modify, m["ticket"], m.get("sl"), m.get("tp"))
