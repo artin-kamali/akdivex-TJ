@@ -1,7 +1,8 @@
 // AKDIVEX Trading Journal — Service Worker
+// v9: تب MT5 زنده — دانلود آسان پل، ضدتکرار معاملات و ترجمه‌ی کامل.
 // v7: درخواست‌های غیرهم‌مبدأ (TradingView، APIهای قیمت و …) دیگر از SW عبور نمی‌کنند تا سریع‌تر بیایند؛
 //     فقط فونت‌ها و فایل‌های خودِ برنامه کش می‌شوند.
-const CACHE_NAME = 'akdivex-cache-v7';
+const CACHE_NAME = 'akdivex-cache-v9';
 const APP_SHELL = [
   './',
   './index.html',
