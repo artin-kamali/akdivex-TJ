@@ -226,10 +226,6 @@
 
     /* ---------- تقویم اقتصادی: لودر و پیش‌گرم‌کردن ---------- */
     #economicCalendarWrap { position: relative; min-height: 650px; }
-    /* علت سفید شدن ویجت در تم تیره: صفحه‌ی اصلی color-scheme: dark دارد ولی سند داخل iframe (ویجت TradingView) نه؛
-       مرورگر در این ناهماهنگی پشت iframe یک زمینه‌ی سفید مات می‌کشد. با normal شدن color-scheme خودِ iframe،
-       زمینه‌ی مات حذف می‌شود و رنگ پنل از پشت ویجت دیده می‌شود (تیره در تم تیره، سفید در تم روشن). */
-    #economicCalendarWrap iframe { display: block; border: 0; max-width: 100%; color-scheme: normal; background: transparent; }
     #economicCalendarWrap .news-loading {
       position: absolute; inset: 0; z-index: 2; background: var(--panel);
       display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 28px 16px; overflow: hidden;
@@ -252,6 +248,160 @@
       display: block; visibility: hidden; height: 0; margin: 0; overflow: hidden; pointer-events: none; animation: none;
     }
     @media (prefers-reduced-motion: reduce) { .news-skel i, .news-spinner { animation: none; } }
+
+    /* ---------- آیکون‌های بخش تحلیل بازار ---------- */
+    .ic-analysis, [data-ic="analysis"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath  d='M9 5v4'/%3E%3Crect x='7' y='9' width='4' height='6' rx='1'/%3E%3Cpath  d='M9 15v2M17 3v2'/%3E%3Crect x='15' y='5' width='4' height='8' rx='1'/%3E%3Cpath  d='M17 13v3M3 3v16a2 2 0 0 0 2 2h16'/%3E%3C/svg%3E"); }
+    .ic-search, [data-ic="search"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath  d='M21 21l-4.3-4.3'/%3E%3C/svg%3E"); }
+    .ic-star, [data-ic="star"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath  d='M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21.1 7 14.2 2 9.3l6.9-1z'/%3E%3C/svg%3E"); }
+    .ic-star-fill, [data-ic="star-fill"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath fill='black' d='M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21.1 7 14.2 2 9.3l6.9-1z'/%3E%3C/svg%3E"); }
+    .ic-expand, [data-ic="expand"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath  d='M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3'/%3E%3C/svg%3E"); }
+    .ic-shrink, [data-ic="shrink"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath  d='M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3'/%3E%3C/svg%3E"); }
+    .ic-grid, [data-ic="grid"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='7' height='7' rx='1'/%3E%3Crect x='14' y='3' width='7' height='7' rx='1'/%3E%3Crect x='14' y='14' width='7' height='7' rx='1'/%3E%3Crect x='3' y='14' width='7' height='7' rx='1'/%3E%3C/svg%3E"); }
+    .ic-list, [data-ic="list"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath  d='M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'/%3E%3C/svg%3E"); }
+    .ic-table, [data-ic="table"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='2'/%3E%3Cpath  d='M3 9h18M3 15h18M9 3v18'/%3E%3C/svg%3E"); }
+    .ic-flame, [data-ic="flame"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath  d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5z'/%3E%3C/svg%3E"); }
+    .ic-repeat, [data-ic="repeat"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath  d='M17 2l4 4-4 4M3 11v-1a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v1a4 4 0 0 1-4 4H3'/%3E%3C/svg%3E"); }
+
+    /* =====================================================================
+       تحلیل بازار — ترمینال TradingView (نمودار، تحلیل تکنیکال، اخبار، اسکرینر، هیت‌مپ)
+       ===================================================================== */
+    .cat-all { --c: var(--brand-ink); } .cat-forex { --c: var(--blue); } .cat-metal { --c: var(--gold); }
+    .cat-crypto { --c: var(--purple); } .cat-index { --c: var(--mint); } .cat-stock { --c: var(--sell2); }
+    .an-badge {
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; min-width: 38px; height: 38px; padding: 0 6px;
+      border-radius: 12px; font-size: 11px; font-weight: 900; direction: ltr; color: var(--c, var(--text));
+      background: var(--panel3); background: color-mix(in srgb, var(--c, var(--brand)) 15%, transparent);
+      border: 1px solid var(--border2); border-color: color-mix(in srgb, var(--c, var(--brand)) 34%, transparent);
+    }
+    .an-badge.lg { min-width: 54px; height: 54px; border-radius: 17px; font-size: 14px; box-shadow: 0 0 30px color-mix(in srgb, var(--c, var(--brand)) 26%, transparent); }
+    .an-bar { padding: 16px 18px 14px; z-index: 30; }
+    .an-bar-top { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .an-current { display: flex; align-items: center; gap: 13px; min-width: 0; flex: 0 1 auto; }
+    .an-cur-txt { display: flex; flex-direction: column; line-height: 1.35; min-width: 0; }
+    .an-cur-txt b { font-size: 21px; font-weight: 900; letter-spacing: .3px; }
+    .an-cur-txt small { color: var(--muted); font-size: 12px; }
+    .an-search { position: relative; flex: 1 1 320px; min-width: 220px; }
+    .an-search input {
+      width: 100%; min-height: 50px; padding-inline: 46px; background: var(--input-bg); border: 1px solid var(--border2);
+      border-radius: 16px; color: var(--text); font-size: 14px; outline: none; transition: border-color .15s, box-shadow .15s;
+    }
+    .an-search input:focus { border-color: var(--brand-ink); box-shadow: 0 0 0 4px var(--brand-dim); }
+    .an-search input::placeholder { color: var(--muted2); }
+    .an-search > .ic { position: absolute; inset-inline-start: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--muted); pointer-events: none; }
+    .an-search kbd {
+      position: absolute; inset-inline-end: 12px; top: 50%; transform: translateY(-50%); font: 700 11px var(--font); padding: 2px 8px;
+      border-radius: 7px; border: 1px solid var(--border2); color: var(--muted2); background: var(--panel2); pointer-events: none;
+    }
+    .an-dd {
+      position: absolute; top: calc(100% + 8px); inset-inline: 0; max-height: 400px; overflow: auto; z-index: 60; padding: 6px;
+      background: var(--panel2); border: 1px solid var(--border2); border-radius: 18px; box-shadow: var(--shadow); overscroll-behavior: contain;
+    }
+    .an-dd[hidden] { display: none; }
+    .an-dd-h { display: flex; align-items: center; gap: 7px; padding: 10px 10px 4px; font-size: 11.5px; font-weight: 800; color: var(--c); }
+    .an-dd-h::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
+    .an-opt { display: flex; align-items: center; gap: 11px; padding: 7px 10px; border-radius: 13px; cursor: pointer; }
+    .an-opt:hover, .an-opt.on { background: var(--brand-dim); }
+    .an-opt-main { display: flex; flex-direction: column; flex: 1; min-width: 0; line-height: 1.4; }
+    .an-opt-main b { font-size: 13.5px; font-weight: 800; unicode-bidi: isolate; text-align: start; }
+    .an-opt-main small { color: var(--muted); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .an-opt-ex { font-size: 10.5px; color: var(--muted2); font-weight: 700; direction: ltr; }
+    .an-opt-star { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9px; color: var(--muted2); border: none; background: none; cursor: pointer; }
+    .an-opt-star:hover { color: var(--gold); background: var(--panel3); }
+    .an-opt-star.on { color: var(--gold); }
+    .an-opt-star .ic { width: 16px; height: 16px; }
+    .an-empty { padding: 18px 14px; text-align: center; color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .an-tool {
+      display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; flex-shrink: 0; border-radius: 15px;
+      border: 1px solid var(--border2); background: var(--panel2); color: var(--muted); cursor: pointer; text-decoration: none;
+      transition: color .15s, border-color .15s, background .15s, transform .12s;
+    }
+    .an-tool:hover { color: var(--text); border-color: var(--brand-ink); }
+    .an-tool:active { transform: scale(.94); }
+    .an-tool.on { color: var(--gold); border-color: var(--gold); background: rgba(245, 185, 60, .12); }
+    .an-tool .ic { width: 19px; height: 19px; }
+    .an-tool.sm { width: 36px; height: 36px; border-radius: 12px; }
+    .an-tool.sm .ic { width: 16px; height: 16px; }
+    .an-actions { display: flex; gap: 8px; }
+    .an-cats, .an-favs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px; align-items: center; }
+    .an-cats::-webkit-scrollbar, .an-favs::-webkit-scrollbar { display: none; }
+    .an-cats { margin-top: 14px; } .an-favs { margin-top: 10px; }
+    .an-chip {
+      flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--border); background: transparent;
+      color: var(--muted); font-size: 12.5px; font-weight: 700; padding: 6px 13px; border-radius: 999px; cursor: pointer;
+      transition: color .15s, border-color .15s, background .15s;
+    }
+    .an-chip:hover { color: var(--text); border-color: var(--border2); }
+    .an-chip.active { background: var(--brand-dim); border-color: var(--brand-ink); color: var(--brand-ink); }
+    .an-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+    .an-chip.fav { direction: ltr; }
+    .an-favs-label { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted2); font-weight: 700; }
+    .an-favs-label .ic { width: 14px; height: 14px; color: var(--gold); }
+    .an-main { display: grid; grid-template-columns: minmax(0, 1fr) 350px; gap: 16px; align-items: stretch; margin-bottom: 16px; }
+    .an-main .panel, .an-lower .panel { margin-bottom: 0; }
+    .an-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+    .an-lower { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 16px; }
+    .an-lower:not(.is-stock) #anProfilePanel, .an-lower:not(.is-stock) #anFinPanel { display: none; }
+    .an-lower:not(.is-stock) #anNewsPanel { grid-column: 1 / -1; }
+    .an-lower.is-stock #anFinPanel { grid-column: 1 / -1; }
+    .an-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; min-height: 36px; }
+    .an-panel-head h3 { margin: 0; font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 9px; min-width: 0; }
+    .an-panel-head h3 .ic { width: 18px; height: 18px; color: var(--brand-ink); }
+    .an-panel-head h3 small { color: var(--muted); font-weight: 600; font-size: 12.5px; direction: ltr; }
+    .an-head-actions { display: flex; gap: 8px; }
+    .an-chart-panel::before {
+      content: ''; position: absolute; inset-inline: 28px; top: -1px; height: 2px; border-radius: 2px;
+      background: linear-gradient(90deg, transparent, var(--brand), transparent);
+    }
+    .an-chart-panel { display: flex; flex-direction: column; }
+    .an-chart-host { flex: 1; min-height: 560px; border-radius: 14px; overflow: hidden; }
+    .an-chart-host .tradingview-widget-container { position: absolute; inset: 0; }
+    .an-chart-panel.is-fs { position: fixed; inset: 0; z-index: 300; margin: 0; border-radius: 0; display: flex; flex-direction: column; padding: 14px 16px 16px; }
+    .an-chart-panel.is-fs .an-chart-host { min-height: 0; border-radius: 10px; }
+    .an-mkt-tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding: 4px; width: max-content; max-width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: 17px; }
+    .an-mkt-tabs::-webkit-scrollbar { display: none; }
+    .an-mkt-tab {
+      display: inline-flex; align-items: center; gap: 8px; border: none; background: transparent; color: var(--muted); font-weight: 700; font-size: 13px;
+      padding: 9px 16px; border-radius: 13px; cursor: pointer; white-space: nowrap; transition: background .15s, color .15s;
+    }
+    .an-mkt-tab:hover { color: var(--text); }
+    .an-mkt-tab.active { background: var(--brand); color: var(--on-brand); }
+    .an-mkt-sub { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .an-mkt-sub:empty { display: none; }
+    .an-mkt-host { height: 680px; margin-top: 14px; border-radius: 14px; overflow: hidden; }
+    .an-credit { text-align: center; color: var(--muted2); font-size: 11.5px; line-height: 1.9; margin: 4px 0 10px; }
+    .an-credit a { color: var(--brand-ink); text-decoration: none; font-weight: 700; }
+    .tv-host { position: relative; width: 100%; min-height: 120px; }
+    .tv-host .tradingview-widget-container, .tv-host .tradingview-widget-container__widget { width: 100%; height: 100%; }
+    .tv-host.tv-auto { min-height: 210px; }
+    .tv-host.tv-auto .tradingview-widget-container, .tv-host.tv-auto .tradingview-widget-container__widget { height: auto; }
+    /* علت سفید شدن ویجت‌ها در تم تیره: صفحه‌ی اصلی color-scheme: dark دارد ولی سند داخل iframe (ویجت TradingView) نه؛
+       مرورگر در این ناهماهنگی پشت iframe یک زمینه‌ی سفید مات می‌کشد و شفافیت ویجت را از بین می‌برد. با normal شدن
+       color-scheme خودِ iframe این زمینه‌ی مات حذف می‌شود و رنگ پنل از پشت ویجت دیده می‌شود. */
+    .tv-host iframe, #economicCalendarWrap iframe { display: block; border: 0; max-width: 100%; color-scheme: normal; background: transparent; }
+    .tv-loader {
+      position: absolute; inset: 0; z-index: 2; background: var(--panel); display: flex; flex-direction: column; align-items: center;
+      gap: 12px; padding: 22px 16px; overflow: hidden; color: var(--muted); font-size: 13px;
+    }
+    .tv-loader.is-slow .news-slow { display: flex; }
+    .tv-loader .news-skel i:nth-child(n+4) { display: none; }
+    .tv-error { text-align: center; }
+    @media (max-width: 1279px) {
+      .an-main, .an-lower { grid-template-columns: minmax(0, 1fr); }
+      .an-lower.is-stock #anFinPanel, .an-lower:not(.is-stock) #anNewsPanel { grid-column: auto; }
+      .an-chart-host { flex: none; height: 560px; }
+    }
+    @media (max-width: 768px) {
+      .an-bar { padding: 14px; }
+      .an-cur-txt b { font-size: 18px; }
+      .an-tool { width: 44px; height: 44px; }
+      .an-chart-host { flex: none; height: 520px; }
+      .an-mkt-host { height: 620px; }
+      .an-search kbd { display: none; }
+      .an-current { flex: 1 1 0; }
+      .an-search { order: 3; flex: 1 1 100%; }
+      .an-actions { margin-inline-start: auto; }
+      .an-current { order: 1; } .an-actions { order: 2; }
+    }
 
     /* ---------- ورود / ثبت‌نام ---------- */
     #authContainer {
@@ -783,6 +933,106 @@
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
       .ticker { animation: none !important; }
     }
+  
+    /* ===== MT5 LIVE ===== */
+    .lv-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .lv-st{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:var(--panel);border:1px solid var(--border);font-size:13px;font-weight:700}
+    .lv-st i{width:9px;height:9px;border-radius:50%;background:var(--muted2)}
+    .lv-st.on i{background:var(--mint);box-shadow:0 0 0 4px var(--mint-dim);animation:pulse 1.6s infinite}
+    .lv-st.wait i{background:var(--gold)} .lv-st.off i{background:var(--sell)}
+    .lv-hero{position:relative;overflow:hidden;border-radius:var(--r-lg);padding:24px 26px;margin-bottom:16px;border:1px solid var(--border2);background:radial-gradient(120% 140% at 0% 0%,var(--brand-dim),transparent 60%),var(--panel)}
+    .lv-hero .big{font-size:clamp(34px,6vw,56px);font-weight:800;line-height:1.15;font-variant-numeric:tabular-nums}
+    .lv-hero .lbl{color:var(--muted);font-size:13px;font-weight:600}
+    .lv-hero svg{position:absolute;inset-inline-end:0;bottom:0;width:55%;height:70%;opacity:.55;pointer-events:none}
+    .lv-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:18px;position:relative}
+    .lv-kpi{background:color-mix(in srgb,var(--panel2) 80%,transparent);border:1px solid var(--border);border-radius:var(--r-md);padding:10px 14px}
+    .lv-kpi b{display:block;font-size:17px;font-variant-numeric:tabular-nums}
+    .lv-kpi span{font-size:12px;color:var(--muted)}
+    .lv-up{color:var(--mint)} .lv-dn{color:var(--sell)}
+    .lv-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+    .lv-pos{background:var(--panel2);border:1px solid var(--border);border-radius:var(--r-md);padding:14px 16px;position:relative;overflow:hidden;animation:popIn .25s}
+    .lv-pos:before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:4px;background:var(--mint)}
+    .lv-pos.sell:before{background:var(--sell)}
+    .lv-h{display:flex;align-items:center;gap:8px}.lv-h .sym{font-size:17px}
+    .chip{font-size:11.5px;font-weight:800;padding:2px 10px;border-radius:999px;background:var(--mint-dim);color:var(--mint)}
+    .sell .chip{background:var(--sell-dim);color:var(--sell)}
+    .lv-pl{margin-inline-start:auto;font-size:21px;font-weight:800;font-variant-numeric:tabular-nums}
+    .lv-track{position:relative;height:6px;border-radius:9px;margin:16px 0 10px;background:linear-gradient(90deg,var(--sell),var(--panel3) 50%,var(--mint));opacity:.9}
+    .lv-track i{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;transform:translate(-50%,-50%);background:var(--text);border:3px solid var(--panel2);transition:left .25s}
+    .lv-track i.en{width:3px;height:14px;border-radius:2px;border:0;background:var(--muted)}
+    .lv-g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:12px;color:var(--muted)}
+    .lv-g b{display:block;color:var(--text);font-size:13px;font-variant-numeric:tabular-nums}
+    .lv-acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+    .lv-edit{display:none;gap:8px;margin-top:10px;flex-wrap:wrap}.lv-edit.show{display:flex}
+    .lv-edit input{flex:1;min-width:90px;background:var(--input-bg);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);padding:8px 10px}
+    .lv-feed div{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;flex-wrap:wrap}
+    .lv-feed div:last-child{border:0}.lv-feed .lat{font-size:11.5px;color:var(--brand-ink);background:var(--brand-dim);padding:1px 9px;border-radius:999px}
+    #lvSetup{display:none}#lvSetup.show{display:block}
+.ic-wallet, [data-ic="wallet"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7a2 2 0 0 1 2-2h13v4M3 7v10a2 2 0 0 0 2 2h14V9H5a2 2 0 0 1-2-2zM16 14h2'/%3E%3C/svg%3E"); }
+.ic-pulse, [data-ic="pulse"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12h4l3-8 4 16 3-8h4'/%3E%3C/svg%3E"); }
+.ic-gauge, [data-ic="gauge"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 18a8 8 0 1 1 16 0M12 18l4-6'/%3E%3C/svg%3E"); }
+.ic-lock, [data-ic="lock"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 11h12v9H6zM8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E"); }
+.ic-unlock, [data-ic="unlock"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 11h12v9H6zM8 11V8a4 4 0 0 1 7.5-2'/%3E%3C/svg%3E"); }
+.ic-swap, [data-ic="swap"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7'/%3E%3C/svg%3E"); }
+.ic-monitor, [data-ic="monitor"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4h18v12H3zM8 20h8M12 16v4'/%3E%3C/svg%3E"); }
+.ic-shield, [data-ic="shield"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z'/%3E%3C/svg%3E"); }
+.ic-equal, [data-ic="equal"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 9h14M5 15h14'/%3E%3C/svg%3E"); }
+.ic-scissors, [data-ic="scissors"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM8.6 7.8L20 18M8.6 16.2L20 6'/%3E%3C/svg%3E"); }
+    .lv-kpi .ic,.lv-ico{width:14px;height:14px;display:inline-block;vertical-align:-2px;margin-inline-end:5px;color:var(--brand-ink)}.lv-kpi em{font-style:normal}
+    .lv-kpi{animation:lvUp .5s both;transition:transform .2s,border-color .2s}.lv-kpi:hover{transform:translateY(-3px);border-color:var(--brand)}
+    .lv-kpi:nth-child(2){animation-delay:.06s}.lv-kpi:nth-child(3){animation-delay:.12s}.lv-kpi:nth-child(4){animation-delay:.18s}.lv-kpi:nth-child(5){animation-delay:.24s}
+    @keyframes lvUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    @keyframes lvFu{0%{color:var(--mint);text-shadow:0 0 14px var(--mint)}100%{text-shadow:0 0 0 transparent}}
+    @keyframes lvFd{0%{color:var(--sell);text-shadow:0 0 14px var(--sell)}100%{text-shadow:0 0 0 transparent}}
+    .lv-fu{animation:lvFu .9s}.lv-fd{animation:lvFd .9s}
+    @keyframes lvGlow{0%,100%{opacity:.5}50%{opacity:.9}}.lv-hero:after{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 100% 100%,var(--brand-dim),transparent);animation:lvGlow 4s infinite;pointer-events:none}
+    @keyframes lvDraw{from{stroke-dasharray:400;stroke-dashoffset:400}to{stroke-dashoffset:0}}.lv-line{animation:lvDraw 1.4s ease-out}
+    @keyframes lvFloat{50%{transform:translateY(-8px)}}.lv-float{width:44px;height:44px;display:block;margin:0 auto 10px;color:var(--muted2);animation:lvFloat 3s ease-in-out infinite}
+    @keyframes lvSpin{to{transform:rotate(360deg)}}.btn.spin:before{animation:lvSpin .9s linear}
+    .lv-pos{box-shadow:0 8px 26px -14px var(--g,transparent);transition:box-shadow .4s,transform .2s}.lv-pos:hover{transform:translateY(-2px)}
+    .lv-pos .chip:before{content:"▲ "}.lv-pos.sell .chip:before{content:"▼ "}
+    .lv-feed div{animation:lvUp .35s both}.lv-step{transition:transform .2s,border-color .2s}.lv-step:hover{transform:translateX(-3px);border-color:var(--brand)}
+    .lv-term-card{max-width:460px;text-align:start}.lv-term-card .voice-modal-title,.lv-term-card .voice-modal-icon{text-align:center}.lv-term-card .lv-note{text-align:center}
+    .lv-tlist{display:grid;gap:10px;margin:14px 0}
+    .lv-term{display:flex;align-items:center;gap:12px;width:100%;text-align:start;padding:12px 14px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--panel2);color:var(--text);cursor:pointer;animation:lvUp .4s both;transition:transform .2s,border-color .2s,background .2s}
+    .lv-term:hover{transform:translateY(-2px);border-color:var(--brand)}.lv-term>.ic:first-child{width:24px;height:24px;flex:none;color:var(--brand-ink)}
+    .lv-term .tx{flex:1;min-width:0}.lv-term b{display:block;font-size:14px}.lv-term small{display:block;color:var(--muted);font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .lv-term.on{border-color:var(--mint);background:var(--mint-dim);cursor:default}.lv-on{font-style:normal;font-size:11.5px;font-weight:800;color:var(--mint)}
+    .lv-term.busy{opacity:.7;pointer-events:none;animation:lvGlow 1s infinite}
+    .lv-skel{height:58px;border-radius:var(--r-md);background:linear-gradient(90deg,var(--panel2),var(--panel3),var(--panel2));background-size:200% 100%;animation:lvSh 1.2s infinite}@keyframes lvSh{to{background-position:-200% 0}}
+
+    /* MT5 paywall */
+    #view-live.lv-locked > :not(#lvLock){display:none!important}
+    #view-live:not(.lv-locked) > #lvLock{display:none}
+    .lv-lock{max-width:460px;margin:40px auto;text-align:center;padding:36px 26px;border:1px solid var(--border2);border-radius:var(--r-lg);background:var(--panel);animation:lvUp .5s both}
+    .lv-lock-ic{width:76px;height:76px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;background:var(--brand-dim);color:var(--brand-ink);box-shadow:0 0 0 0 var(--brand-dim);animation:lvLockPulse 2.4s infinite}
+    .lv-lock-ic .ic{width:34px;height:34px;animation:lvFloat 3s ease-in-out infinite}
+    @keyframes lvLockPulse{0%{box-shadow:0 0 0 0 var(--brand-dim)}70%,100%{box-shadow:0 0 0 22px transparent}}
+    .lv-lock p{color:var(--muted);font-size:13.5px;line-height:1.9;margin:10px 0 20px}
+    .lv-lock-acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.lv-lock-acts a{text-decoration:none}
+    .lv-pw{display:flex;gap:8px;justify-content:center;margin-bottom:14px}.lv-pw input{flex:1;max-width:220px;background:var(--input-bg);border:1px solid var(--border2);border-radius:var(--r-md);padding:10px 14px;color:var(--text);text-align:center}
+    .lv-pw.bad{animation:lvShake .4s}@keyframes lvShake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+    .lv-lock small{display:block;margin-top:14px;color:var(--muted);font-size:12px;min-height:16px}
+    .tab-btn.lv-tab-locked:after{content:"🔒";font-size:11px;margin-inline-start:6px;opacity:.8}
+    /* MT5 switch modal: fixed header/footer, scrolling list, clear close button */
+    .lv-term-card{display:flex;flex-direction:column;max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:hidden}
+    .lv-term-card .voice-modal-icon,.lv-term-card .voice-modal-title,.lv-term-card .lv-note,.lv-term-card .form-actions{flex:none}
+    .lv-tlist{grid-template-columns:minmax(0,1fr);align-content:start;flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:6px 4px;margin:10px -4px;scrollbar-width:thin;scrollbar-color:var(--border2) transparent}
+    .lv-tlist::-webkit-scrollbar{width:6px}.lv-tlist::-webkit-scrollbar-thumb{background:var(--border2);border-radius:9px}
+    .lv-term small.ltr{direction:ltr;text-align:start}
+    .lv-term-card .lv-x{width:34px;height:34px;border-radius:50%;background:var(--panel3);color:var(--text);font-size:22px;display:grid;place-items:center;top:12px;z-index:3;transition:background .2s,transform .2s}
+    .lv-term-card .lv-x:hover{background:var(--sell);color:#fff;transform:rotate(90deg)}
+    .lv-tempty{text-align:center;color:var(--muted);font-size:13px;padding:18px}.lv-tempty .ic{display:block;width:32px;height:32px;margin:0 auto 8px}
+    @media (prefers-reduced-motion:reduce){.lv-kpi,.lv-feed div,.lv-term,.lv-float,.lv-line,.lv-hero:after,.lv-fu,.lv-fd{animation:none!important}}
+    .lv-note{color:var(--muted);font-size:13px;line-height:1.9;margin:0 0 10px}
+    .lv-note code,.lv-steps code,.lv-more code{direction:ltr;unicode-bidi:isolate;background:var(--panel3);padding:1px 7px;border-radius:6px;font-size:12px}
+    .lv-steps{display:grid;gap:10px;margin:14px 0}
+    .lv-step{display:flex;gap:14px;align-items:flex-start;background:var(--panel2);border:1px solid var(--border);border-radius:var(--r-md);padding:14px 16px}
+    .lv-step>b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--brand-dim);color:var(--brand-ink);font-weight:800}
+    .lv-step h4{margin:0 0 4px;font-size:14.5px}.lv-step p{margin:0;color:var(--muted);font-size:13px;line-height:1.9}
+    .lv-more{margin-top:8px;border:1px solid var(--border);border-radius:var(--r-md);padding:10px 14px}
+    .lv-more summary{cursor:pointer;font-weight:700;font-size:13.5px}
+    .lv-more ul{margin:10px 0 2px;padding-inline-start:20px;color:var(--muted);font-size:13px;line-height:1.95}
   </style>
 </head>
 <body class="rtl">
@@ -799,6 +1049,16 @@
     <img id="modalImg" src="" alt="تصویر معامله">
   </div>
 
+  <div class="modal-bg" id="lvTermBg" onclick="if(event.target===this)liveTermClose()">
+    <div class="voice-modal-card lv-term-card">
+      <button class="modal-close-inline lv-x" onclick="liveTermClose()" aria-label="Close">&times;</button>
+      <div class="voice-modal-icon"><i class="ic ic-swap"></i></div>
+      <div class="voice-modal-title" data-lv="term_t"></div>
+      <p class="lv-note" data-lv="term_s"></p>
+      <div id="lvTermList" class="lv-tlist"></div>
+      <div class="form-actions"><button class="btn small" data-ic="refresh" onclick="liveTermLoad()"><span data-lv="term_ref"></span></button></div>
+    </div>
+  </div>
   <div class="modal-bg" id="voiceModalBg">
     <div class="voice-modal-card">
       <button class="modal-close-inline" onclick="closeVoiceModal()">&times;</button>
@@ -918,7 +1178,9 @@
       <div class="tabs">
         <button class="tab-btn active" data-tab="dashboard" onclick="switchTab('dashboard')"><i class="ic ic-dashboard"></i><span data-i18n="tab_dashboard">داشبورد</span></button>
         <button class="tab-btn" data-tab="journal" onclick="switchTab('journal')"><i class="ic ic-journal"></i><span data-i18n="tab_journal">ژورنال‌ها</span></button>
+        <button class="tab-btn" data-tab="live" onclick="switchTab('live')"><i class="ic ic-refresh"></i><span data-lv="tab">MT5 زنده</span></button>
         <button class="tab-btn" data-tab="backtest" onclick="switchTab('backtest')"><i class="ic ic-backtest"></i><span data-i18n="tab_backtest">بک‌تست</span></button>
+        <button class="tab-btn" data-tab="analysis" onclick="switchTab('analysis')"><i class="ic ic-analysis"></i><span data-i18n="tab_analysis">تحلیل بازار</span></button>
         <button class="tab-btn" data-tab="calculator" onclick="switchTab('calculator')"><i class="ic ic-calculator"></i><span data-i18n="tab_calculator">ماشین‌حساب ریسک</span></button>
         <button class="tab-btn" data-tab="calendar" onclick="switchTab('calendar')"><i class="ic ic-calendar"></i><span data-i18n="tab_calendar">تقویم و سشن‌ها</span></button>
         <button class="tab-btn" data-tab="profile" onclick="switchTab('profile')"><i class="ic ic-profile"></i><span data-i18n="tab_profile">پروفایل</span></button>
@@ -1099,7 +1361,74 @@
         </div>
       </div>
 
-      <!-- ===== BACKTEST ===== -->
+      <!-- ===== MT5 LIVE ===== -->
+      <div class="view" id="view-live">
+        <div class="lv-lock" id="lvLock">
+          <div class="lv-lock-ic"><i class="ic ic-lock"></i></div>
+          <h2 data-lv="lock_t"></h2>
+          <p data-lv="lock_s"></p>
+          <div class="lv-pw" id="lvPw" style="display:none">
+            <input class="ltr" id="lvPwIn" type="password" autocomplete="off" data-lv-ph="lock_pw_ph" onkeydown="if(event.key==='Enter')mt5Unlock()">
+            <button class="btn primary" onclick="mt5Unlock()" data-lv="lock_pw_btn"></button>
+          </div>
+          <div class="lv-lock-acts">
+            <a class="btn primary" id="lvLockContact" target="_blank" rel="noopener" data-lv="lock_contact"></a>
+            <button class="btn" id="lvLockRe" onclick="mt5Gate(true)" data-lv="lock_recheck"></button>
+          </div>
+          <small id="lvLockMsg"></small>
+        </div>
+        <div class="lv-bar">
+          <span class="lv-st" id="lvSt"><i></i><span id="lvStT"></span></span>
+          <span class="sub" id="lvPing" style="color:var(--muted);font-size:12.5px"></span>
+          <div style="flex:1"></div>
+          <label style="display:flex;gap:6px;align-items:center;font-size:13px;cursor:pointer"><input type="checkbox" id="lvAuto" checked onchange="liveSetAuto(this.checked)" style="accent-color:var(--brand)"> <span data-lv="auto"></span></label>
+          <button class="btn small" data-ic="refresh" onclick="liveSync();this.classList.add('spin');setTimeout(()=>this.classList.remove('spin'),900)"><span data-lv="sync"></span></button>
+          <button class="btn small" data-ic="swap" onclick="liveTermOpen()"><span data-lv="term_btn"></span></button>
+          <button class="btn small" data-ic="settings" onclick="document.getElementById('lvSetup').classList.toggle('show')"><span data-lv="setup_btn"></span></button>
+        </div>
+        <div class="panel" id="lvSetup">
+          <h2 data-lv="g_title"></h2>
+          <p class="lv-note" data-lv-html="g_intro"></p>
+          <p class="lv-note" data-lv-html="g_req"></p>
+          <div class="lv-steps">
+            <div class="lv-step"><b>1</b><div><h4 data-lv="s1_t"></h4><p data-lv-html="s1_b"></p>
+              <div class="form-actions" style="justify-content:flex-start;margin-top:10px"><button class="btn primary" data-ic="download" onclick="liveDownload(false)"><span data-lv="dl"></span></button></div></div></div>
+            <div class="lv-step"><b>2</b><div><h4 data-lv="s2_t"></h4><p data-lv-html="s2_b"></p></div></div>
+            <div class="lv-step"><b>3</b><div><h4 data-lv="s3_t"></h4><p data-lv-html="s3_b"></p></div></div>
+          </div>
+          <details class="lv-more"><summary data-lv="tips_t"></summary><ul data-lv-html="tips_b"></ul></details>
+          <details class="lv-more"><summary data-lv="tb_t"></summary><ul data-lv-html="tb_b"></ul></details>
+          <details class="lv-more"><summary data-lv="adv_t"></summary>
+            <div class="grid-form" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:10px">
+              <div class="field"><label data-lv="f_url"></label><input class="ltr" id="lvUrl" value="ws://127.0.0.1:8765"></div>
+              <div class="field"><label data-lv="f_tok"></label><input class="ltr" id="lvTok" type="password" autocomplete="off"></div>
+              <div class="field"><label data-lv="f_days"></label><select id="lvDays"><option>3</option><option selected>7</option><option>30</option><option>90</option></select></div>
+            </div>
+            <div class="form-actions"><button class="btn" onclick="liveDownload(true)"><span data-lv="renew"></span></button><button class="btn primary" onclick="liveSaveConnect()"><span data-lv="save_conn"></span></button></div>
+          </details>
+        </div>
+        <div class="lv-hero">
+          <svg id="lvSpark" viewBox="0 0 100 40" preserveAspectRatio="none"><defs><linearGradient id="lvG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--brand-ink)" stop-opacity=".35"/><stop offset="1" style="stop-color:var(--brand-ink)" stop-opacity="0"/></linearGradient></defs><polygon fill="url(#lvG)" points=""/><polyline class="lv-line" fill="none" stroke="var(--brand-ink)" stroke-width="1.4" vector-effect="non-scaling-stroke" points=""/></svg>
+          <div class="lbl" id="lvAcc"></div>
+          <div class="lbl" style="margin-top:10px"><i class="ic ic-chart lv-ico"></i> <span data-lv="equity"></span></div>
+          <div class="big ltr" id="lvEq">—</div>
+          <div class="lv-kpis">
+            <div class="lv-kpi"><span><i class="ic ic-wallet"></i><em data-lv="balance"></em></span><b class="ltr" id="lvBal">—</b></div>
+            <div class="lv-kpi"><span><i class="ic ic-pulse"></i><em data-lv="floating"></em></span><b class="ltr" id="lvFl">—</b></div>
+            <div class="lv-kpi"><span><i class="ic ic-lock"></i><em data-lv="margin"></em></span><b class="ltr" id="lvMg">—</b></div>
+            <div class="lv-kpi"><span><i class="ic ic-unlock"></i><em data-lv="free"></em></span><b class="ltr" id="lvFr">—</b></div>
+            <div class="lv-kpi"><span><i class="ic ic-gauge"></i><em data-lv="level"></em></span><b class="ltr" id="lvLv">—</b></div>
+          </div>
+        </div>
+        <div class="panel"><h2><span data-lv="open_t"></span> <span class="sub" id="lvCnt"></span></h2>
+          <div class="lv-list" id="lvPos"></div>
+          <div class="empty-state" id="lvEmpty"><i class="ic ic-monitor lv-float"></i><h3 data-lv="empty_t"></h3><p data-lv="empty_b"></p></div>
+        </div>
+        <div class="panel"><h2><span data-lv="feed_t"></span> <span class="sub" data-lv="feed_s"></span></h2><div class="lv-feed" id="lvFeed"></div></div>
+      </div>
+
+      
+<!-- ===== BACKTEST ===== -->
       <div class="view" id="view-backtest">
         <div class="stats-row stats-row-4">
           <div class="stat-card"><div class="label">تعداد بک‌تست‌ها</div><div class="value ltr" id="btCount">0</div></div>
@@ -1191,6 +1520,75 @@
             <div class="calc-result" id="compoundResult"></div>
           </div>
         </div>
+      </div>
+
+
+      <!-- ===== MARKET ANALYSIS (TradingView) ===== -->
+      <div class="view" id="view-analysis">
+        <div class="panel an-bar">
+          <div class="an-bar-top">
+            <div class="an-current" id="anCurrent"></div>
+            <div class="an-search" id="anSearchBox">
+              <i class="ic ic-search"></i>
+              <input id="anSearch" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" dir="auto" data-an-ph="ph" aria-label="search">
+              <kbd>/</kbd>
+              <div class="an-dd" id="anDropdown" role="listbox" hidden></div>
+            </div>
+            <div class="an-actions">
+              <button type="button" class="an-tool" id="anStarBtn" onclick="anToggleFav()"><i class="ic ic-star"></i></button>
+              <a class="an-tool" id="anTvLink" target="_blank" rel="noopener" data-an-title="open_tv"><i class="ic ic-external"></i></a>
+            </div>
+          </div>
+          <div class="an-cats" id="anCats"></div>
+          <div class="an-favs" id="anFavs"></div>
+        </div>
+
+        <div class="an-main">
+          <div class="panel an-chart-panel" id="anChartPanel">
+            <div class="an-panel-head">
+              <h3><i class="ic ic-analysis"></i><span data-an="chart"></span><small id="anChartSym"></small></h3>
+              <div class="an-head-actions">
+                <button type="button" class="an-tool sm" onclick="anReloadChart()" data-an-title="reload"><i class="ic ic-refresh"></i></button>
+                <button type="button" class="an-tool sm" id="anFsBtn" onclick="anToggleFs()" data-an-title="fs"><i class="ic ic-expand"></i></button>
+              </div>
+            </div>
+            <div class="tv-host an-chart-host" id="tvChart"></div>
+          </div>
+          <div class="an-side">
+            <div class="panel">
+              <div class="an-panel-head"><h3><i class="ic ic-list"></i><span data-an="info"></span></h3></div>
+              <div class="tv-host tv-auto" id="tvInfo"></div>
+            </div>
+            <div class="panel">
+              <div class="an-panel-head"><h3><i class="ic ic-chart"></i><span data-an="ta"></span></h3></div>
+              <div class="tv-host" id="tvTA" style="height:450px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="an-lower" id="anLower">
+          <div class="panel" id="anNewsPanel">
+            <div class="an-panel-head"><h3><i class="ic ic-file-text"></i><span data-an="news"></span></h3></div>
+            <div class="tv-host" id="tvNews" style="height:520px;"></div>
+          </div>
+          <div class="panel" id="anProfilePanel">
+            <div class="an-panel-head"><h3><i class="ic ic-profile"></i><span data-an="profile"></span></h3></div>
+            <div class="tv-host" id="tvProfile" style="height:520px;"></div>
+          </div>
+          <div class="panel" id="anFinPanel">
+            <div class="an-panel-head"><h3><i class="ic ic-sheet"></i><span data-an="fin"></span></h3></div>
+            <div class="tv-host" id="tvFin" style="height:580px;"></div>
+          </div>
+        </div>
+
+        <div class="panel" id="anExplorer">
+          <div class="an-panel-head"><h3><i class="ic ic-grid"></i><span data-an="explorer"></span></h3></div>
+          <div class="an-mkt-tabs" id="anMktTabs"></div>
+          <div class="an-mkt-sub" id="anMktSub"></div>
+          <div class="tv-host an-mkt-host" id="tvMarket"></div>
+        </div>
+
+        <p class="an-credit" id="anCredit"></p>
       </div>
 
       <!-- ===== ECONOMIC CALENDAR & SESSIONS ===== -->
@@ -1287,7 +1685,16 @@
     // AKDIVEX v3 — COMPLETE ENGINE
     // =================================================================
 
-    const FIREBASE_CONFIG = null;
+    // Paste your Firebase web-app config here (Firebase Console > Project settings > Your apps > Web).
+    // While apiKey is empty the site works locally only; once it is filled, accounts + data sync across all devices.
+    const FIREBASE_CONFIG = {
+      apiKey: '',
+      authDomain: '',
+      projectId: '',
+      storageBucket: '',
+      messagingSenderId: '',
+      appId: ''
+    };
     const CLOUD_MODE = !!(FIREBASE_CONFIG && FIREBASE_CONFIG.apiKey);
     let fbAuth = null,
       fbDb = null;
@@ -1795,6 +2202,7 @@
 "مشاهده در TradingView": "View on TradingView",
 "خبری با این فیلترها یافت نشد.": "No news matches these filters.",
 "اتصال به TradingView کند است…": "Connection to TradingView is slow…",
+"تحلیل بازار": "Market Analysis",
 "مهم": "High",
 "متوسط": "Medium",
 "کم‌اهمیت": "Low",
@@ -1803,6 +2211,11 @@
 });
     const TH_EN = {"ورود": "Entry", "حد ضرر": "SL", "حد سود": "TP", "خروج": "Exit", "حد ضرر اولیه": "Orig SL", "حجم": "Lot"};
     const EN_RX = [["^\\((\\d+) معامله، (\\d+)% برد\\)$", "($1 trades, $2% win)"], ["^\\((\\d+) معامله\\)$", "($1 trades)"], ["^میانگین \\((\\d+)% وین‌ریت\\)$", "average ($1% win rate)"], ["^در (\\d+) روز، بیش از حد معامله کرده‌اید و نتیجه منفی شده — مراقب اوِرترید \\(معامله‌ی بیش‌ازحد\\) باشید$", "On $1 day(s) you overtraded and finished negative — watch out for overtrading"], ["^(\\d+) معامله بسته‌شده$", "$1 closed trades"], ["^(\\d+) برد / (\\d+) باخت$", "$1 W / $2 L"], ["^(\\d+) معامله$", "$1 trades"], ["^(\\d+) سناریو$", "$1 scenarios"], ["^1 برد 🔥$", "1 Win 🔥"], ["^1 باخت ❄️$", "1 Loss ❄️"], ["^(\\d+) برد 🔥$", "$1 Wins 🔥"], ["^(\\d+) باخت ❄️$", "$1 Losses ❄️"], ["^(\\d+)% وین‌ریت$", "$1% Win Rate"], ["^روند: (\\d+) برد$", "Streak: $1 Win"], ["^روند: (\\d+) باخت$", "Streak: $1 Loss"], ["^روند: (\\d+)\\s*$", "Streak: $1"], ["^بدترین: (.+)$", "Worst: $1"], ["^هدف: (.+)$", "Target: $1"], ["^(.+) در این ماه$", "$1 this month"], ["^(\\d+)% از هدف ماهانه محقق شده است$", "$1% of monthly goal achieved"], ["^(\\d+)% از هدف ماهانه$", "$1% of monthly goal"], ["^روز (\\d+)$", "Day $1"], ["^گروه معاملاتی AKDIVEX — (.*)$", "AKDIVEX Trading Group — $1"], ["^خوش برگشتید (.+)! 👋$", "Welcome back $1! 👋"], ["^(\\d+) معامله از متاتریدر وارد شد ✅$", "Imported $1 trade(s) from MetaTrader ✅"], ["^سرمایه‌ی نهایی پس از (\\d+) ماه$", "Final Capital after $1 months"], ["^(\\d+) معامله دارای مبلغ دلاری$", "$1 trades with $ recorded"], ["^(\\d+) از (\\d+) دارای حد ضرر اولیه‌ی ثبت‌شده$", "$1/$2 have an Original SL on file"], ["^(.+?)\\ معامله\\ از\\ متاتریدر\\ وارد\\ شد\\ ✅$", "Imported $1 trade(s) from MetaTrader ✅"], ["^(.+?)\\ معامله\\ بسته‌شده$", "$1 closed trades"], ["^(.+?)\\ برد\\ /\\ (.+?)\\ باخت$", "$1 W / $2 L"], ["^(.+?)\\ معامله\\ دارای\\ مبلغ\\ دلاری$", "$1 trades with $ recorded"], ["^(.+?)\\ از\\ (.+?)\\ دارای\\ حد\\ ضرر\\ اولیه‌ی\\ ثبت‌شده$", "$1/$2 have an Original SL on file"], ["^(.+?)\\ معامله$", "$1 trades"], ["^rgba\\(46,230,166,(.+?)\\)$", "rgba(43,217,166,$1)"], ["^rgba\\(255,92,122,(.+?)\\)$", "rgba(255,94,122,$1)"], ["^روز\\ (.+?)$", "Day $1"], ["^هدف:\\ (.+?)%$", "Target: $1%"], ["^(.+?)%\\ از\\ هدف\\ ماهانه\\ محقق\\ شده\\ است$", "$1% of monthly goal achieved"], ["^(.+?)\\ معامله$", "$1 trades"], ["^(.+?)\\ معامله$", "$1 trades"], ["^(.+?)\\ سناریو$", "$1 scenarios"]].map(([src, tpl]) => [new RegExp(src), tpl]);
+    (function () {
+      const R = { 'حد سود \\(TP\\)': 'Take profit (TP)', 'حد ضرر \\(SL\\)': 'Stop loss (SL)', 'بستن دستی': 'Manual close', 'ربات': 'Expert Advisor', 'استاپ‌اوت': 'Stop-out' };
+      for (const k in R) EN_RX.push([new RegExp('^ثبت خودکار MT5 — تیکت #(.+?) — بسته شد با: ' + k + '$'), 'Auto-journaled from MT5 — ticket #$1 — closed by: ' + R[k]]);
+      EN_RX.push([/^(\d+) معامله از متاتریدر وارد شد ✅ — (\d+) معامله‌ی تکراری نادیده گرفته شد$/, 'Imported $1 trade(s) from MetaTrader ✅ — $2 duplicate(s) skipped']);
+    })();
     const I18N = { fa: {
 "auth_create_account": "ایجاد حساب",
 "auth_login": "ورود",
@@ -2001,6 +2414,7 @@
       if (CUR_LANG === 'en') xTree(de); else rTree(de);
       document.querySelectorAll('.lang-label').forEach(el => { el.textContent = CUR_LANG === 'fa' ? 'EN' : 'فارسی'; });
       document.querySelectorAll('#langSeg button').forEach(b => b.classList.toggle('active', b.dataset.lang === CUR_LANG));
+      if (typeof liveApplyLang === 'function') liveApplyLang();
       i18nObserver.takeRecords();
     }
     function setLanguage(l) {
@@ -2010,6 +2424,7 @@
         persistAll();
         renderEverything();
         if (typeof economicCalendarLoaded !== 'undefined' && economicCalendarLoaded) { economicCalendarLoaded = false; loadEconomicCalendar(); }
+        if (typeof anOnLanguage === 'function') anOnLanguage();
       }
     }
     function toggleLanguage() { setLanguage(CUR_LANG === 'fa' ? 'en' : 'fa'); }
@@ -2449,6 +2864,29 @@
         fbDb = firebase.firestore(); } catch (e) { console.error('Firebase init failed', e); }
     }
 
+    // ---- cloud storage: big arrays (with base64 screenshots) are split into <=250k-char chunks under users/{uid}/blobs ----
+    const CLOUD_CHUNK = 250000, _cloudCache = {};
+    const cloudBlobs = () => fbDb.collection('users').doc(fbAuth.currentUser.uid).collection('blobs');
+    function cloudSplit(str) { const a = []; for (let i = 0; i < str.length; i += CLOUD_CHUNK) a.push(str.slice(i, i + CLOUD_CHUNK)); return a.length ? a : ['']; }
+    async function cloudWriteBlob(name, value, prevCount) {
+      const parts = cloudSplit(JSON.stringify(value)), col = cloudBlobs();
+      for (let i = 0; i < parts.length; i++) {                       // write only chunks that changed since last save
+        const key = name + '_' + i;
+        if (_cloudCache[key] !== parts[i]) { await col.doc(key).set({ name, i, data: parts[i] }); _cloudCache[key] = parts[i]; }
+      }
+      const old = _cloudCache[name + '#n'] ?? prevCount ?? 0;         // remove leftover chunks if the data shrank
+      for (let i = parts.length; i < old; i++) { try { await col.doc(name + '_' + i).delete(); } catch (e) {} delete _cloudCache[name + '_' + i]; }
+      _cloudCache[name + '#n'] = parts.length;
+      return parts.length;
+    }
+    async function cloudReadBlob(name, n) {
+      const col = cloudBlobs();
+      const docs = await Promise.all(Array.from({ length: n }, (_, i) => col.doc(name + '_' + i).get()));
+      const parts = docs.map((d, i) => { const v = d.exists ? d.data().data : ''; _cloudCache[name + '_' + i] = v; return v; });
+      _cloudCache[name + '#n'] = n;
+      return parts.length ? JSON.parse(parts.join('') || '[]') : [];
+    }
+
     function usernameToEmail(username) { return username.toLowerCase().trim() + '@akdivex.local'; }
 
     async function registerAccount(username, password, secQ, secA) {
@@ -2486,6 +2924,7 @@
 
     async function resetPasswordFlow(username, answer, newPass) {
       username = username.trim();
+      if (CLOUD_MODE) throw new Error('بازیابی رمز در حالت ابری فعلاً از طریق پشتیبانی انجام می‌شود');
       const reg = localUsersRegistry();
       if (!reg[username]) throw new Error('کاربری با این نام پیدا نشد');
       if (reg[username].securityA !== answer.trim()) throw new Error('پاسخ سؤال امنیتی اشتباه است');
@@ -2500,10 +2939,12 @@
         const uid = fbAuth.currentUser.uid;
         const doc = await fbDb.collection('users').doc(uid).get();
         const d = doc.data() || {};
+        const b = d.blobs || null;
+        const [tr, bt] = b ? await Promise.all([cloudReadBlob('trades', b.trades || 0), cloudReadBlob('backtestTrades', b.backtestTrades || 0)]) : [d.trades || [], d.backtestTrades || []];
         return {
           settings: d.settings || { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true },
-          trades: d.trades || [],
-          backtestTrades: d.backtestTrades || [],
+          trades: tr,
+          backtestTrades: bt,
         };
       } else {
         const [settings, trades, backtestTrades] = await Promise.all([
@@ -2515,14 +2956,18 @@
       }
     }
 
-    async function persistAll() {
+    async function persistAll(silent) {
       if (!currentUser) return;
       setSyncStatus(true);
-      if (CLOUD_MODE) showLoading('در حال همگام‌سازی…');
+      if (CLOUD_MODE && silent !== true) showLoading('در حال همگام‌سازی…');
       try {
         if (CLOUD_MODE) {
           const uid = fbAuth.currentUser.uid;
-          await fbDb.collection('users').doc(uid).set({ username: currentUser, settings: userSettings, trades, backtestTrades }, { merge: true });
+          const prev = (window._cloudCounts = window._cloudCounts || {});
+          const nt = await cloudWriteBlob('trades', trades, prev.trades), nb = await cloudWriteBlob('backtestTrades', backtestTrades, prev.backtestTrades);
+          prev.trades = nt; prev.backtestTrades = nb;
+          const DEL = firebase.firestore.FieldValue.delete();
+          await fbDb.collection('users').doc(uid).set({ username: currentUser, settings: userSettings, blobs: { trades: nt, backtestTrades: nb }, trades: DEL, backtestTrades: DEL }, { merge: true });
         } else {
           await saveLocalBucket(currentUser, 'settings', userSettings);
           await saveLocalBucket(currentUser, 'trades', trades);
@@ -2531,7 +2976,7 @@
       } catch (e) { console.error(e);
         const isQuota = e && (e.name === 'QuotaExceededError' || e.code === 22 || e.code === 1014);
         toast(isQuota ? 'حافظه پر است — چند تصویر را حذف کنید تا فضا آزاد شود' : 'خطا در ذخیره‌سازی', 'error'); }
-      if (CLOUD_MODE) hideLoading();
+      if (CLOUD_MODE && silent !== true) hideLoading();
       clearTimeout(syncTimeout);
       syncTimeout = setTimeout(() => setSyncStatus(false), 500);
     }
@@ -2670,12 +3115,15 @@
       setSyncStatus(false);
       renderEverything();
       resetTradeForm();
-      setTimeout(prewarmEconomicCalendar, 900);
+      if (window.__pendingSymbol) { const ps = window.__pendingSymbol; window.__pendingSymbol = null; anOpenSymbol(ps); }
+      else setTimeout(prewarmEconomicCalendar, 900);
     }
 
     // ---- TAB SWITCHING ----
     function handleShortcutAction() {
       const params = new URLSearchParams(window.location.search);
+      const tvSym = params.get('tvwidgetsymbol');   // کلیک روی یک نماد داخل ویجت‌های TradingView
+      if (tvSym) { window.__pendingSymbol = tvSym; history.replaceState(null, '', window.location.pathname); return; }
       const action = params.get('action');
       if (!action) return;
       if (action === 'new-trade') {
@@ -2696,9 +3144,12 @@
       document.getElementById('view-' + tab).classList.add('active');
       if (tab === 'dashboard') renderDashboard();
       if (tab === 'backtest') renderBacktest();
+      if (tab === 'live') mt5Gate().then((ok) => { if (ok && !LIVE.started) { LIVE.started = true; liveConnect(); } });
       if (tab === 'profile') renderProfile();
       if (tab === 'calendar') { renderSessionClock();
         loadEconomicCalendar(); }
+      if (tab === 'analysis') initAnalysis();
+      else if (typeof anToggleFs === 'function') anToggleFs(false);
     }
 
     // ---- JOURNAL FORM ----
@@ -2889,6 +3340,8 @@
 
     async function deleteTrade(id) {
       if (!(await appConfirm(tr('حذف معامله'), tr('این معامله حذف شود؟'), { danger: true, okText: tr('حذف شود') }))) return;
+      const gone = trades.find(t => t.id === id);
+      if (gone && (gone.auto || String(gone.id).startsWith('mt_'))) { const L = userSettings.mtDeleted = userSettings.mtDeleted || []; if (!L.includes(id)) L.push(id); if (L.length > 1000) L.splice(0, L.length - 1000); }
       trades = trades.filter(t => t.id !== id);
       persistAll();
       renderEverything();
@@ -3116,6 +3569,7 @@
       const profit = cleanNum(r.profit);
       const result = profit > 0 ? 'WIN' : (profit < 0 ? 'LOSS' : 'BE');
       return {
+        ticket: r.ticket ? r.ticket.toString().replace(/[^a-zA-Z0-9]/g, '') : null,
         id: 'mt_' + (r.ticket ? r.ticket.toString().replace(/[^a-zA-Z0-9]/g, '') : (Date.now() + Math.random().toString(36).slice(2))),
         symbol: (r.item || '').toString().trim().toUpperCase(),
         side: r.type.toUpperCase(),
@@ -3153,15 +3607,19 @@
               e.target.value = '';
               return;
             }
-            const existingIds = new Set(trades.map(t => t.id));
-            const imported = rows.map(mtRowToTrade).filter(t => !existingIds.has(t.id));
-            if (!imported.length) { toast('این معاملات قبلاً وارد شده‌اند', 'error');
+            const imported = []; let dups = 0;
+            rows.map(mtRowToTrade).forEach(n => {
+              const d = mtFindDup(n);
+              if (d) { mtAdopt(d, n); dups++; return; }
+              mtUniqId(n); trades.unshift(n); imported.push(n);
+              if (userSettings.mtDeleted) userSettings.mtDeleted = userSettings.mtDeleted.filter(x => x !== n.id);
+            });
+            if (!imported.length) { if (dups) persistAll(); toast('این معاملات قبلاً وارد شده‌اند', 'error');
               e.target.value = '';
               return; }
-            trades = imported.concat(trades);
             persistAll();
             renderEverything();
-            toast(`${imported.length} معامله از متاتریدر وارد شد ✅`, 'success', true);
+            toast(`${imported.length} معامله از متاتریدر وارد شد ✅` + (dups ? ` — ${dups} معامله‌ی تکراری نادیده گرفته شد` : ''), 'success', true);
           } catch (err) {
             console.error(err);
             toast('خواندن این گزارش متاتریدر ممکن نبود', 'error');
@@ -4562,6 +5020,559 @@
       loadEconomicCalendar();
     }
 
+
+    // =====================================================================
+    // تحلیل بازار — ترمینال TradingView
+    // نمودار پیشرفته، اطلاعات نماد، تحلیل تکنیکال، اخبار، پروفایل/صورت‌های مالی (سهام) و کاوشگر بازار
+    // (نمای کلی، اسکرینر، هیت‌مپ، برترین‌ها، کراس‌ریت). همه‌ی ویجت‌ها رسمیِ TradingView هستند.
+    // =====================================================================
+    const AN_STORE = 'akdivex_analysis_v1';
+    const AN_CATS = [
+      { id: 'all',    fa: 'همه',            en: 'All' },
+      { id: 'forex',  fa: 'فارکس',          en: 'Forex' },
+      { id: 'metal',  fa: 'فلزات و انرژی',  en: 'Metals & Energy' },
+      { id: 'crypto', fa: 'کریپتو',         en: 'Crypto' },
+      { id: 'index',  fa: 'شاخص‌ها',        en: 'Indices' },
+      { id: 'stock',  fa: 'سهام',           en: 'Stocks' },
+    ];
+    // [نماد TradingView, نام کوتاه, نام فارسی, نام انگلیسی, دسته]
+    const AN_SYMBOLS = [
+      ['FX:EURUSD','EURUSD','یورو / دلار','Euro / US Dollar','forex'],
+      ['FX:GBPUSD','GBPUSD','پوند / دلار','British Pound / US Dollar','forex'],
+      ['FX:USDJPY','USDJPY','دلار / ین','US Dollar / Japanese Yen','forex'],
+      ['FX:USDCHF','USDCHF','دلار / فرانک سوئیس','US Dollar / Swiss Franc','forex'],
+      ['FX:AUDUSD','AUDUSD','دلار استرالیا / دلار','Australian Dollar / US Dollar','forex'],
+      ['FX:USDCAD','USDCAD','دلار / دلار کانادا','US Dollar / Canadian Dollar','forex'],
+      ['FX:NZDUSD','NZDUSD','دلار نیوزیلند / دلار','New Zealand Dollar / US Dollar','forex'],
+      ['FX:EURGBP','EURGBP','یورو / پوند','Euro / British Pound','forex'],
+      ['FX:EURJPY','EURJPY','یورو / ین','Euro / Japanese Yen','forex'],
+      ['FX:GBPJPY','GBPJPY','پوند / ین','British Pound / Japanese Yen','forex'],
+      ['FX:AUDJPY','AUDJPY','دلار استرالیا / ین','Australian Dollar / Japanese Yen','forex'],
+      ['FX:CADJPY','CADJPY','دلار کانادا / ین','Canadian Dollar / Japanese Yen','forex'],
+      ['FX:CHFJPY','CHFJPY','فرانک / ین','Swiss Franc / Japanese Yen','forex'],
+      ['FX:NZDJPY','NZDJPY','دلار نیوزیلند / ین','New Zealand Dollar / Japanese Yen','forex'],
+      ['FX:EURCHF','EURCHF','یورو / فرانک','Euro / Swiss Franc','forex'],
+      ['FX:EURAUD','EURAUD','یورو / دلار استرالیا','Euro / Australian Dollar','forex'],
+      ['FX:EURCAD','EURCAD','یورو / دلار کانادا','Euro / Canadian Dollar','forex'],
+      ['FX:GBPCHF','GBPCHF','پوند / فرانک','British Pound / Swiss Franc','forex'],
+      ['FX:GBPAUD','GBPAUD','پوند / دلار استرالیا','British Pound / Australian Dollar','forex'],
+      ['FX:AUDCAD','AUDCAD','دلار استرالیا / دلار کانادا','Australian Dollar / Canadian Dollar','forex'],
+      ['FX:AUDNZD','AUDNZD','دلار استرالیا / دلار نیوزیلند','Australian Dollar / New Zealand Dollar','forex'],
+      ['FX:USDTRY','USDTRY','دلار / لیر ترکیه','US Dollar / Turkish Lira','forex'],
+      ['OANDA:XAUUSD','XAUUSD','طلا / دلار (اونس)','Gold / US Dollar','metal'],
+      ['OANDA:XAGUSD','XAGUSD','نقره / دلار','Silver / US Dollar','metal'],
+      ['OANDA:XPTUSD','XPTUSD','پلاتین / دلار','Platinum / US Dollar','metal'],
+      ['OANDA:XPDUSD','XPDUSD','پالادیوم / دلار','Palladium / US Dollar','metal'],
+      ['OANDA:XCUUSD','XCUUSD','مس / دلار','Copper / US Dollar','metal'],
+      ['OANDA:WTICOUSD','WTICOUSD','نفت خام آمریکا (WTI)','US Crude Oil (WTI)','metal'],
+      ['OANDA:BCOUSD','BCOUSD','نفت برنت','Brent Crude Oil','metal'],
+      ['OANDA:NATGASUSD','NATGASUSD','گاز طبیعی','Natural Gas','metal'],
+      ['OANDA:SPX500USD','SPX500USD','اس‌اندپی ۵۰۰','S&P 500','index'],
+      ['OANDA:NAS100USD','NAS100USD','نزدک ۱۰۰','Nasdaq 100','index'],
+      ['OANDA:US30USD','US30USD','داوجونز ۳۰','Dow Jones 30','index'],
+      ['OANDA:DE30EUR','DE30EUR','داکس آلمان ۴۰','Germany 40 (DAX)','index'],
+      ['OANDA:UK100GBP','UK100GBP','فوتسی ۱۰۰ بریتانیا','UK 100 (FTSE)','index'],
+      ['OANDA:JP225USD','JP225USD','نیکی ۲۲۵ ژاپن','Japan 225 (Nikkei)','index'],
+      ['OANDA:AU200AUD','AU200AUD','شاخص ۲۰۰ استرالیا','Australia 200','index'],
+      ['TVC:DXY','DXY','شاخص دلار آمریکا','US Dollar Index','index'],
+      ['TVC:VIX','VIX','شاخص ترس (VIX)','Volatility Index (VIX)','index'],
+      ['TVC:US10Y','US10Y','بازده اوراق ۱۰ ساله آمریکا','US 10Y Treasury Yield','index'],
+      ['BINANCE:BTCUSDT','BTCUSDT','بیت‌کوین','Bitcoin','crypto'],
+      ['BINANCE:ETHUSDT','ETHUSDT','اتریوم','Ethereum','crypto'],
+      ['BINANCE:BNBUSDT','BNBUSDT','بایننس کوین','BNB','crypto'],
+      ['BINANCE:SOLUSDT','SOLUSDT','سولانا','Solana','crypto'],
+      ['BINANCE:XRPUSDT','XRPUSDT','ریپل','XRP','crypto'],
+      ['BINANCE:ADAUSDT','ADAUSDT','کاردانو','Cardano','crypto'],
+      ['BINANCE:DOGEUSDT','DOGEUSDT','دوج‌کوین','Dogecoin','crypto'],
+      ['BINANCE:TRXUSDT','TRXUSDT','ترون','TRON','crypto'],
+      ['BINANCE:AVAXUSDT','AVAXUSDT','آوالانچ','Avalanche','crypto'],
+      ['BINANCE:LINKUSDT','LINKUSDT','چین‌لینک','Chainlink','crypto'],
+      ['BINANCE:DOTUSDT','DOTUSDT','پولکادات','Polkadot','crypto'],
+      ['BINANCE:LTCUSDT','LTCUSDT','لایت‌کوین','Litecoin','crypto'],
+      ['BINANCE:TONUSDT','TONUSDT','تون‌کوین','Toncoin','crypto'],
+      ['BINANCE:SHIBUSDT','SHIBUSDT','شیبا','Shiba Inu','crypto'],
+      ['BINANCE:PEPEUSDT','PEPEUSDT','پپه','Pepe','crypto'],
+      ['BINANCE:NEARUSDT','NEARUSDT','نیر','NEAR Protocol','crypto'],
+      ['BINANCE:ATOMUSDT','ATOMUSDT','کازماس','Cosmos','crypto'],
+      ['BINANCE:UNIUSDT','UNIUSDT','یونی‌سواپ','Uniswap','crypto'],
+      ['BINANCE:ETCUSDT','ETCUSDT','اتریوم کلاسیک','Ethereum Classic','crypto'],
+      ['BINANCE:BCHUSDT','BCHUSDT','بیت‌کوین کش','Bitcoin Cash','crypto'],
+      ['BINANCE:XLMUSDT','XLMUSDT','استلار','Stellar','crypto'],
+      ['BINANCE:SUIUSDT','SUIUSDT','سوی','Sui','crypto'],
+      ['NASDAQ:AAPL','AAPL','اپل','Apple Inc.','stock'],
+      ['NASDAQ:MSFT','MSFT','مایکروسافت','Microsoft','stock'],
+      ['NASDAQ:NVDA','NVDA','انویدیا','NVIDIA','stock'],
+      ['NASDAQ:GOOGL','GOOGL','آلفابت (گوگل)','Alphabet (Google)','stock'],
+      ['NASDAQ:AMZN','AMZN','آمازون','Amazon','stock'],
+      ['NASDAQ:META','META','متا (فیسبوک)','Meta Platforms','stock'],
+      ['NASDAQ:TSLA','TSLA','تسلا','Tesla','stock'],
+      ['NASDAQ:NFLX','NFLX','نتفلیکس','Netflix','stock'],
+      ['NASDAQ:AMD','AMD','ای‌ام‌دی','AMD','stock'],
+      ['NASDAQ:INTC','INTC','اینتل','Intel','stock'],
+      ['NASDAQ:AVGO','AVGO','برادکام','Broadcom','stock'],
+      ['NASDAQ:COIN','COIN','کوین‌بیس','Coinbase','stock'],
+      ['NASDAQ:MSTR','MSTR','مایکرواستراتژی','Strategy (MicroStrategy)','stock'],
+      ['NASDAQ:PLTR','PLTR','پلانتیر','Palantir','stock'],
+      ['NYSE:JPM','JPM','جی‌پی‌مورگان','JPMorgan Chase','stock'],
+      ['NYSE:GS','GS','گلدمن ساکس','Goldman Sachs','stock'],
+      ['NYSE:V','V','ویزا','Visa','stock'],
+      ['NYSE:WMT','WMT','والمارت','Walmart','stock'],
+      ['NYSE:DIS','DIS','دیزنی','Disney','stock'],
+      ['NYSE:BA','BA','بوئینگ','Boeing','stock'],
+      ['NYSE:KO','KO','کوکاکولا','Coca-Cola','stock'],
+      ['NYSE:XOM','XOM','اکسون‌موبیل','Exxon Mobil','stock'],
+      ['NYSE:ORCL','ORCL','اوراکل','Oracle','stock'],
+      ['NYSE:TSM','TSM','تی‌اس‌ام‌سی','TSMC','stock'],
+      ['NYSE:BABA','BABA','علی‌بابا','Alibaba','stock'],
+    ];
+    const AN_DEFAULT_FAVS = ['OANDA:XAUUSD', 'FX:EURUSD', 'FX:GBPUSD', 'BINANCE:BTCUSDT', 'BINANCE:ETHUSDT', 'OANDA:NAS100USD'];
+    const AN_TXT = {
+      chart:   ['نمودار زنده', 'Live chart'],
+      info:    ['قیمت و آمار نماد', 'Price & stats'],
+      ta:      ['تحلیل تکنیکال', 'Technical analysis'],
+      news:    ['اخبار نماد', 'Symbol news'],
+      profile: ['پروفایل شرکت', 'Company profile'],
+      fin:     ['صورت‌های مالی', 'Financials'],
+      explorer:['کاوشگر بازار', 'Market explorer'],
+      watch:   ['دیده‌بان', 'Watchlist'],
+      ph:      ['جستجوی نماد… (طلا، BTC، EURUSD یا NASDAQ:AAPL)', 'Search symbol… (Gold, BTC, EURUSD or NASDAQ:AAPL)'],
+      open_tv: ['باز کردن در TradingView', 'Open in TradingView'],
+      fav_add: ['افزودن به دیده‌بان', 'Add to watchlist'],
+      fav_del: ['حذف از دیده‌بان', 'Remove from watchlist'],
+      reload:  ['بارگذاری دوباره', 'Reload'],
+      fs:      ['تمام‌صفحه', 'Fullscreen'],
+      fs_exit: ['خروج از تمام‌صفحه', 'Exit fullscreen'],
+      loading: ['در حال بارگذاری…', 'Loading…'],
+      slow:    ['اتصال به TradingView کند است…', 'Connection to TradingView is slow…'],
+      retry:   ['تلاش دوباره', 'Try again'],
+      err:     ['بارگذاری ویجت ناموفق بود — اتصال اینترنت را بررسی کنید.', 'Failed to load the widget — check your internet connection.'],
+      none:    ['نمادی پیدا نشد. هر نماد TradingView را با فرمت EXCHANGE:SYMBOL وارد کنید، مثلاً NASDAQ:AAPL یا لینک صفحه‌ی نماد را بچسبانید.', 'No match. Enter any TradingView symbol as EXCHANGE:SYMBOL, e.g. NASDAQ:AAPL, or paste a symbol page link.'],
+      custom:  ['استفاده از «{s}» به‌عنوان نماد', 'Use “{s}” as symbol'],
+      credit:  ['نمودارها و ویجت‌ها توسط {tv} ارائه می‌شوند. این بخش صرفاً اطلاعاتی است و توصیه‌ی مالی یا سیگنال معاملاتی نیست.', 'Charts and widgets are provided by {tv}. This section is for information only and is not financial advice or a trading signal.'],
+    };
+    const AN_MKT = [
+      { id: 'overview', fa: 'نمای کلی',   en: 'Overview',  ic: 'list' },
+      { id: 'screener', fa: 'اسکرینر',    en: 'Screener',  ic: 'table',
+        subs: [['forex','فارکس','Forex'], ['crypto','کریپتو','Crypto'], ['america','سهام آمریکا','US stocks'], ['cfd','CFD','CFD']] },
+      { id: 'heatmap',  fa: 'هیت‌مپ',     en: 'Heatmap',   ic: 'grid',
+        subs: [['crypto','کریپتو','Crypto'], ['forex','فارکس','Forex'], ['stocks','سهام S&P 500','S&P 500 stocks']] },
+      { id: 'hot',      fa: 'برترین‌ها',  en: 'Top movers', ic: 'flame',
+        subs: [['US','کل بازار آمریکا','All US'], ['NASDAQ','NASDAQ','NASDAQ'], ['NYSE','NYSE','NYSE']] },
+      { id: 'cross',    fa: 'کراس‌ریت ارزها', en: 'Cross rates', ic: 'repeat' },
+    ];
+
+    const an = {
+      symbol: 'OANDA:XAUUSD', favs: AN_DEFAULT_FAVS.slice(), cat: 'all', mkt: 'overview',
+      sub: { screener: 'forex', heatmap: 'crypto', hot: 'US' },
+      inited: false, dirty: false, lazyLower: false, lazyMarket: false, ddIdx: 0, ddItems: [], stateLoaded: false,
+    };
+    function an$(fa, en) { return CUR_LANG === 'en' ? en : fa; }
+    function anT(key, vars) {
+      const t = AN_TXT[key]; let out = t ? an$(t[0], t[1]) : key;
+      if (vars) for (const k in vars) out = out.replace('{' + k + '}', vars[k]);
+      return out;
+    }
+    function anViewActive() { const v = document.getElementById('view-analysis'); return !!(v && v.classList.contains('active')); }
+
+    function anLoadState() {
+      if (an.stateLoaded) return;
+      an.stateLoaded = true;
+      try {
+        const raw = JSON.parse(localStorage.getItem(AN_STORE) || 'null');
+        if (raw && typeof raw === 'object') {
+          if (typeof raw.symbol === 'string' && raw.symbol) an.symbol = raw.symbol;
+          if (Array.isArray(raw.favs)) an.favs = raw.favs.filter(x => typeof x === 'string').slice(0, 40);
+        }
+      } catch (e) {}
+    }
+    function anSaveState() {
+      try { localStorage.setItem(AN_STORE, JSON.stringify({ symbol: an.symbol, favs: an.favs })); } catch (e) {}
+    }
+
+    // ---- نماد‌ها ----
+    function anNorm(s) {
+      return String(s || '').toLowerCase()
+        .replace(/[يى]/g, 'ی').replace(/ك/g, 'ک')
+        .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+        .replace(/[\u200c\u200f\u200e\s\/\-_.:()&]/g, '');
+    }
+    function anGuessCat(sym) {
+      const ex = (String(sym).split(':')[0] || '').toUpperCase();
+      if (!String(sym).includes(':')) return 'stock';
+      if (['BINANCE', 'BITSTAMP', 'COINBASE', 'BYBIT', 'OKX', 'KRAKEN', 'BITFINEX', 'KUCOIN', 'CRYPTOCAP', 'MEXC', 'GATEIO'].includes(ex)) return 'crypto';
+      if (['FX', 'FX_IDC', 'OANDA', 'FOREXCOM', 'FXCM', 'SAXO', 'PEPPERSTONE', 'ICMARKETS', 'EIGHTCAP'].includes(ex)) return 'forex';
+      if (['TVC', 'SP', 'DJ', 'CBOE', 'NASDAQ_DLY'].includes(ex)) return 'index';
+      if (['COMEX', 'NYMEX', 'CBOT', 'ICEEUR', 'TVC_GOLD'].includes(ex)) return 'metal';
+      return 'stock';
+    }
+    function anItem(sym) {
+      const up = String(sym).toUpperCase();
+      const hit = AN_SYMBOLS.find(x => x[0].toUpperCase() === up);
+      if (hit) return { sym: hit[0], short: hit[1], fa: hit[2], en: hit[3], cat: hit[4], known: true };
+      const short = String(sym).split(':').pop();
+      return { sym: String(sym), short, fa: short, en: short, cat: anGuessCat(sym), known: false };
+    }
+    function anName(it) { return an$(it.fa, it.en); }
+    function anBadgeText(it) {
+      let b = it.short.replace(/(USDT|USDC|USD|EUR|GBP)$/i, '') || it.short;
+      if (it.cat === 'forex' && /^[A-Z]{6}$/.test(it.short)) b = it.short.slice(0, 3);
+      return b.slice(0, 4);
+    }
+    function anCatLabel(id) { const c = AN_CATS.find(x => x.id === id); return c ? an$(c.fa, c.en) : id; }
+    function anParseCustom(text) {
+      let t = String(text || '').trim();
+      if (!t) return null;
+      let m = t.match(/tradingview\.com\/symbols\/([A-Za-z0-9_]+)-([A-Za-z0-9_.!]+)/i);
+      if (m) return (m[1] + ':' + m[2]).toUpperCase();
+      m = t.match(/[?&](?:tvwidgetsymbol|symbol)=([^&#]+)/i);
+      if (m) { try { t = decodeURIComponent(m[1]); } catch (e) { t = m[1]; } }
+      t = t.toUpperCase().replace(/\s+/g, '');
+      if (/^[A-Z0-9_]{2,20}:[A-Z0-9_.!\-]{1,24}$/.test(t)) return t;
+      if (/^[A-Z0-9_.!\-]{1,15}$/.test(t)) return t;
+      return null;
+    }
+    function anTvUrl(sym) { return 'https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(sym); }
+    function anLargeChartUrl() {
+      return /^https?:$/.test(location.protocol) ? (location.origin + location.pathname) : '';
+    }
+
+    // ---- متن‌های ثابت (فارسی/انگلیسی) ----
+    function anApplyText() {
+      document.querySelectorAll('#view-analysis [data-an]').forEach(el => { el.textContent = anT(el.dataset.an); });
+      document.querySelectorAll('#view-analysis [data-an-ph]').forEach(el => { el.placeholder = anT(el.dataset.anPh); });
+      document.querySelectorAll('#view-analysis [data-an-title]').forEach(el => { el.title = anT(el.dataset.anTitle); el.setAttribute('aria-label', el.title); });
+      const cr = document.getElementById('anCredit');
+      if (cr) cr.innerHTML = anT('credit', { tv: '<a href="https://www.tradingview.com" target="_blank" rel="noopener">TradingView</a>' });
+    }
+
+    // ---- نوار نماد ----
+    function anRenderBar() {
+      const it = anItem(an.symbol);
+      const ex = an.symbol.includes(':') ? an.symbol.split(':')[0] : '';
+      const cur = document.getElementById('anCurrent');
+      if (cur) cur.innerHTML =
+        `<span class="an-badge lg cat-${it.cat}">${escapeHtml(anBadgeText(it))}</span>` +
+        `<span class="an-cur-txt"><b dir="ltr">${escapeHtml(it.short)}</b><small>${escapeHtml(anName(it))}${ex ? ` · <span dir="ltr">${escapeHtml(ex)}</span>` : ''}</small></span>`;
+      const isFav = an.favs.includes(an.symbol);
+      const star = document.getElementById('anStarBtn');
+      if (star) {
+        star.classList.toggle('on', isFav);
+        star.innerHTML = `<i class="ic ${isFav ? 'ic-star-fill' : 'ic-star'}"></i>`;
+        star.title = anT(isFav ? 'fav_del' : 'fav_add');
+        star.setAttribute('aria-label', star.title);
+      }
+      const link = document.getElementById('anTvLink');
+      if (link) link.href = anTvUrl(an.symbol);
+      const cs = document.getElementById('anChartSym');
+      if (cs) cs.textContent = it.short;
+
+      const cats = document.getElementById('anCats');
+      if (cats) cats.innerHTML = AN_CATS.map(c =>
+        `<button type="button" class="an-chip cat-${c.id} ${an.cat === c.id ? 'active' : ''}" onclick="anSetCat('${c.id}')">${c.id === 'all' ? '' : '<i class="dot"></i>'}${escapeHtml(an$(c.fa, c.en))}</button>`).join('');
+
+      const favs = document.getElementById('anFavs');
+      if (favs) favs.innerHTML = an.favs.length
+        ? `<span class="an-favs-label"><i class="ic ic-star-fill"></i>${escapeHtml(anT('watch'))}</span>` +
+          an.favs.map(sym => { const f = anItem(sym);
+            return `<button type="button" class="an-chip fav cat-${f.cat} ${sym === an.symbol ? 'active' : ''}" onclick="anSetSymbol('${escapeHtml(sym)}')" title="${escapeHtml(anName(f))}"><i class="dot"></i>${escapeHtml(f.short)}</button>`; }).join('')
+        : '';
+    }
+    function anSetCat(id) { an.cat = id; anRenderBar(); anRenderDD(true); const i = document.getElementById('anSearch'); if (i) i.focus(); }
+
+    // ---- جستجو و لیست کشویی ----
+    function anRenderDD(forceOpen) {
+      const dd = document.getElementById('anDropdown'), input = document.getElementById('anSearch');
+      if (!dd || !input) return;
+      const raw = input.value, q = anNorm(raw);
+      let items = AN_SYMBOLS.filter(x => (an.cat === 'all' || x[4] === an.cat) &&
+        (!q || anNorm(x[0] + x[1] + x[2] + x[3]).includes(q)));
+      const custom = anParseCustom(raw);
+      const customOk = custom && !AN_SYMBOLS.some(x => x[0].toUpperCase() === custom);
+      const flat = [];
+      let html = '';
+      const catOrder = ['forex', 'metal', 'crypto', 'index', 'stock'];
+      catOrder.forEach(cid => {
+        const list = items.filter(x => x[4] === cid);
+        if (!list.length) return;
+        if (an.cat === 'all') html += `<div class="an-dd-h cat-${cid}">${escapeHtml(anCatLabel(cid))}</div>`;
+        list.forEach(x => {
+          const it = anItem(x[0]); const idx = flat.length; flat.push(x[0]);
+          html += anOptHtml(it, idx);
+        });
+      });
+      if (customOk) {
+        const it = anItem(custom); const idx = flat.length; flat.push(custom);
+        html += `<div class="an-dd-h cat-all">${escapeHtml(an$('نماد سفارشی', 'Custom symbol'))}</div>` + anOptHtml(it, idx, anT('custom', { s: custom }));
+      }
+      if (!flat.length) html = `<div class="an-empty">${escapeHtml(anT('none'))}</div>`;
+      an.ddItems = flat;
+      if (an.ddIdx >= flat.length) an.ddIdx = 0;
+      dd.innerHTML = html;
+      const on = dd.querySelector(`.an-opt[data-i="${an.ddIdx}"]`); if (on) on.classList.add('on');
+      if (forceOpen || document.activeElement === input) dd.hidden = false;
+    }
+    function anOptHtml(it, idx, label) {
+      const fav = an.favs.includes(it.sym);
+      const ex = it.sym.includes(':') ? it.sym.split(':')[0] : '';
+      return `<div class="an-opt" role="option" data-i="${idx}" data-sym="${escapeHtml(it.sym)}">` +
+        `<span class="an-badge cat-${it.cat}">${escapeHtml(anBadgeText(it))}</span>` +
+        `<span class="an-opt-main"><b>${escapeHtml(it.short)}</b><small>${escapeHtml(label || anName(it))}</small></span>` +
+        `<span class="an-opt-ex">${escapeHtml(ex)}</span>` +
+        `<button type="button" class="an-opt-star ${fav ? 'on' : ''}" data-star="${escapeHtml(it.sym)}" tabindex="-1"><i class="ic ${fav ? 'ic-star-fill' : 'ic-star'}"></i></button></div>`;
+    }
+    function anCloseDD() { const dd = document.getElementById('anDropdown'); if (dd) dd.hidden = true; }
+    function anMoveDD(delta) {
+      const n = (an.ddItems || []).length; if (!n) return;
+      an.ddIdx = (an.ddIdx + delta + n) % n;
+      const dd = document.getElementById('anDropdown');
+      dd.querySelectorAll('.an-opt').forEach(el => el.classList.toggle('on', +el.dataset.i === an.ddIdx));
+      const on = dd.querySelector('.an-opt.on'); if (on) on.scrollIntoView({ block: 'nearest' });
+    }
+    function anBindSearch() {
+      const input = document.getElementById('anSearch'), dd = document.getElementById('anDropdown');
+      if (!input || !dd) return;
+      input.addEventListener('focus', () => { an.ddIdx = 0; anRenderDD(true); });
+      input.addEventListener('input', () => { an.ddIdx = 0; anRenderDD(true); });
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') { e.preventDefault(); anMoveDD(1); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); anMoveDD(-1); }
+        else if (e.key === 'Enter') {
+          e.preventDefault();
+          const sym = (an.ddItems || [])[an.ddIdx];
+          if (sym) { anSetSymbol(sym); input.value = ''; input.blur(); anCloseDD(); }
+        } else if (e.key === 'Escape') { anCloseDD(); input.blur(); }
+      });
+      dd.addEventListener('mousedown', (e) => {
+        e.preventDefault(); // فوکوس input از بین نرود
+        const star = e.target.closest('[data-star]');
+        if (star) { anToggleFav(star.dataset.star); anRenderDD(true); return; }
+        const opt = e.target.closest('.an-opt');
+        if (opt) { anSetSymbol(opt.dataset.sym); input.value = ''; input.blur(); anCloseDD(); }
+      });
+      document.addEventListener('mousedown', (e) => { if (!e.target.closest('#anSearchBox')) anCloseDD(); });
+      input.addEventListener('blur', () => setTimeout(anCloseDD, 120));
+    }
+
+    function anToggleFav(sym) {
+      sym = sym || an.symbol;
+      const i = an.favs.indexOf(sym);
+      if (i >= 0) an.favs.splice(i, 1); else an.favs.unshift(sym);
+      anSaveState(); anRenderBar();
+      if (typeof hapticPulse === 'function') hapticPulse('light');
+    }
+    function anSetSymbol(sym) {
+      const c = anParseCustom(sym); if (!c) return;
+      an.symbol = c; anSaveState();
+      if (an.inited && anViewActive()) { anRenderBar(); anMountSymbol(); }
+      else { an.dirty = true; }
+    }
+    // برای لینک‌های عمیق (کلیک روی نماد داخل ویجت‌ها) و اجرای از بیرون
+    function anOpenSymbol(sym) {
+      anLoadState();
+      const c = anParseCustom(sym);
+      if (c) { an.symbol = c; anSaveState(); an.dirty = true; }
+      switchTab('analysis');
+    }
+
+    // ---- ساخت ویجت‌های TradingView ----
+    function tvBase() {
+      return { colorTheme: document.body.classList.contains('light') ? 'light' : 'dark', locale: CUR_LANG === 'en' ? 'en' : 'fa', isTransparent: true };
+    }
+    function tvVar(name) { return getComputedStyle(document.body).getPropertyValue(name).trim(); }
+    function tvMount(hostRef, file, build, opts) {
+      const host = typeof hostRef === 'string' ? document.getElementById(hostRef) : hostRef;
+      if (!host) return;
+      opts = opts || {};
+      const token = (host.__tvToken = (host.__tvToken || 0) + 1);
+      host.__tvRemount = () => tvMount(host, file, build, opts);
+      host.classList.add('tv-host');
+      host.innerHTML = '';
+      const container = document.createElement('div');
+      container.className = 'tradingview-widget-container';
+      const inner = document.createElement('div');
+      inner.className = 'tradingview-widget-container__widget';
+      container.appendChild(inner);
+      host.appendChild(container);
+
+      const loader = document.createElement('div');
+      loader.className = 'tv-loader';
+      loader.innerHTML = `<div class="news-spinner"></div><div>${escapeHtml(anT('loading'))}</div>
+        <div class="news-slow"><span style="font-size:12px;">${escapeHtml(anT('slow'))}</span>
+        <button type="button" class="btn small" data-ic="refresh" onclick="document.getElementById('${host.id}').__tvRemount()">${escapeHtml(anT('retry'))}</button></div>
+        <div class="news-skel"><i></i><i></i><i></i></div>`;
+      host.appendChild(loader);
+
+      let ready = false, slowTimer = null, obs = null;
+      const finish = () => {
+        if (ready || token !== host.__tvToken) return;
+        ready = true; clearTimeout(slowTimer); if (obs) obs.disconnect(); loader.remove();
+      };
+      obs = new MutationObserver(() => {
+        const f = container.querySelector('iframe');
+        if (f && !f.__hooked) { f.__hooked = true; f.addEventListener('load', finish, { once: true }); }
+      });
+      obs.observe(container, { childList: true, subtree: true });
+      slowTimer = setTimeout(() => { if (!ready && token === host.__tvToken) loader.classList.add('is-slow'); }, 8000);
+
+      let cfg;
+      try { cfg = build({ w: host.clientWidth, h: host.clientHeight }); } catch (e) { cfg = {}; }
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.async = true;
+      script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-' + file + '.js';
+      script.text = JSON.stringify(cfg);
+      script.onload = () => setTimeout(finish, 6000);
+      script.onerror = () => {
+        if (token !== host.__tvToken) return;
+        clearTimeout(slowTimer); if (obs) obs.disconnect();
+        loader.className = 'tv-loader tv-error';
+        loader.innerHTML = `<div style="font-size:26px;">⚠️</div><div>${escapeHtml(anT('err'))}</div>
+          <button type="button" class="btn small" data-ic="refresh" onclick="document.getElementById('${host.id}').__tvRemount()">${escapeHtml(anT('retry'))}</button>`;
+      };
+      container.appendChild(script);
+    }
+    function tvUnmount(id) { const h = document.getElementById(id); if (h) { h.__tvToken = (h.__tvToken || 0) + 1; h.__tvRemount = null; h.innerHTML = ''; } }
+
+    function anMountSymbol() {
+      const it = anItem(an.symbol), stock = it.cat === 'stock';
+      const lower = document.getElementById('anLower');
+      if (lower) lower.classList.toggle('is-stock', stock);
+      tvMount('tvChart', 'advanced-chart', () => {
+        const light = document.body.classList.contains('light');
+        return {
+          autosize: true, symbol: an.symbol, interval: '60',
+          timezone: (Intl.DateTimeFormat().resolvedOptions().timeZone || 'Etc/UTC'),
+          theme: light ? 'light' : 'dark', style: '1', locale: CUR_LANG === 'en' ? 'en' : 'fa',
+          backgroundColor: tvVar('--panel') || (light ? '#FFFFFF' : '#10151F'),
+          gridColor: light ? 'rgba(20,30,70,0.06)' : 'rgba(150,165,205,0.07)',
+          withdateranges: true, hide_side_toolbar: false, allow_symbol_change: false, save_image: true,
+          calendar: false, details: false, hotlist: false, studies: [], support_host: 'https://www.tradingview.com',
+        };
+      });
+      tvMount('tvInfo', 'symbol-info', () => Object.assign(tvBase(), { symbol: an.symbol, width: '100%' }), { auto: true });
+      tvMount('tvTA', 'technical-analysis', (c) => Object.assign(tvBase(), {
+        symbol: an.symbol, interval: '1h', width: '100%', height: c.h || 450, showIntervalTabs: true, displayMode: 'single' }));
+      if (an.lazyLower) anMountLower();
+    }
+    function anMountLower() {
+      const stock = anItem(an.symbol).cat === 'stock';
+      tvMount('tvNews', 'timeline', (c) => Object.assign(tvBase(), {
+        feedMode: 'symbol', symbol: an.symbol, displayMode: 'regular', width: '100%', height: c.h || 520 }));
+      if (stock) {
+        tvMount('tvProfile', 'symbol-profile', () => Object.assign(tvBase(), { symbol: an.symbol, width: '100%', height: '100%' }));
+        tvMount('tvFin', 'financials', () => Object.assign(tvBase(), { symbol: an.symbol, width: '100%', height: '100%', displayMode: 'adaptive', largeChartUrl: '' }));
+      } else { tvUnmount('tvProfile'); tvUnmount('tvFin'); }
+    }
+
+    // ---- کاوشگر بازار ----
+    function anOverviewTabs() {
+      const pick = (arr) => arr.map(sym => { const it = anItem(sym); return { s: sym, d: it.short }; });
+      return [
+        { title: an$('فارکس', 'Forex'), originalTitle: 'Forex', symbols: pick(['FX:EURUSD','FX:GBPUSD','FX:USDJPY','FX:USDCHF','FX:AUDUSD','FX:USDCAD']) },
+        { title: an$('فلزات و انرژی', 'Metals & Energy'), originalTitle: 'Commodities', symbols: pick(['OANDA:XAUUSD','OANDA:XAGUSD','OANDA:WTICOUSD','OANDA:BCOUSD','OANDA:NATGASUSD','OANDA:XCUUSD']) },
+        { title: an$('شاخص‌ها', 'Indices'), originalTitle: 'Indices', symbols: pick(['OANDA:SPX500USD','OANDA:NAS100USD','OANDA:US30USD','OANDA:DE30EUR','OANDA:UK100GBP','TVC:DXY']) },
+        { title: an$('کریپتو', 'Crypto'), originalTitle: 'Crypto', symbols: pick(['BINANCE:BTCUSDT','BINANCE:ETHUSDT','BINANCE:SOLUSDT','BINANCE:XRPUSDT','BINANCE:BNBUSDT','BINANCE:DOGEUSDT']) },
+        { title: an$('سهام', 'Stocks'), originalTitle: 'Stocks', symbols: pick(['NASDAQ:AAPL','NASDAQ:NVDA','NASDAQ:MSFT','NASDAQ:TSLA','NASDAQ:AMZN','NASDAQ:META']) },
+      ];
+    }
+    function anMktBuild(id, sub) {
+      const base = tvBase(), url = anLargeChartUrl();
+      const up = 'rgba(46,230,166,1)', down = 'rgba(255,92,122,1)';
+      const fit = { width: '100%', height: '100%' };
+      if (id === 'overview') return ['market-overview', Object.assign(base, fit, {
+        dateRange: '12M', showChart: true, largeChartUrl: url, showSymbolLogo: true, showFloatingTooltip: true,
+        plotLineColorGrowing: up, plotLineColorFalling: down, gridLineColor: 'rgba(150,165,205,0.08)', scaleFontColor: 'rgba(150,165,205,1)',
+        belowLineFillColorGrowing: 'rgba(46,230,166,0.12)', belowLineFillColorFalling: 'rgba(255,92,122,0.12)',
+        belowLineFillColorGrowingBottom: 'rgba(46,230,166,0)', belowLineFillColorFallingBottom: 'rgba(255,92,122,0)',
+        symbolActiveColor: 'rgba(124,108,255,0.14)', tabs: anOverviewTabs() })];
+      if (id === 'screener') return ['screener', Object.assign(base, fit, {
+        defaultColumn: 'overview', defaultScreen: 'general', market: sub, showToolbar: true, largeChartUrl: url })];
+      if (id === 'heatmap') {
+        if (sub === 'forex') return ['forex-heat-map', Object.assign(base, fit, { currencies: ['EUR','USD','JPY','GBP','CHF','AUD','CAD','NZD','CNY'] })];
+        if (sub === 'stocks') return ['stock-heatmap', Object.assign(base, fit, {
+          exchanges: [], dataSource: 'SPX500', grouping: 'sector', blockSize: 'market_cap_basic', blockColor: 'change',
+          symbolUrl: url, hasTopBar: true, isDataSetEnabled: true, isZoomEnabled: true, hasSymbolTooltip: true, isMonoSize: false })];
+        return ['crypto-coins-heatmap', Object.assign(base, fit, {
+          dataSource: 'Crypto', blockSize: 'market_cap_calc', blockColor: 'change', symbolUrl: url,
+          hasTopBar: true, isDataSetEnabled: true, isZoomEnabled: true, hasSymbolTooltip: true, isMonoSize: false })];
+      }
+      if (id === 'hot') return ['hotlists', Object.assign(base, fit, {
+        exchange: sub, dateRange: '12M', showChart: true, largeChartUrl: url, showSymbolLogo: true, showFloatingTooltip: false,
+        plotLineColorGrowing: up, plotLineColorFalling: down, gridLineColor: 'rgba(150,165,205,0.08)', scaleFontColor: 'rgba(150,165,205,1)' })];
+      return ['forex-cross-rates', Object.assign(base, fit, { currencies: ['EUR','USD','JPY','GBP','CHF','AUD','CAD','NZD','CNY'] })];
+    }
+    function anRenderMktTabs() {
+      const tabs = document.getElementById('anMktTabs'), subBox = document.getElementById('anMktSub');
+      if (tabs) tabs.innerHTML = AN_MKT.map(t =>
+        `<button type="button" class="an-mkt-tab ${an.mkt === t.id ? 'active' : ''}" data-ic="${t.ic}" onclick="anSetMkt('${t.id}')">${escapeHtml(an$(t.fa, t.en))}</button>`).join('');
+      const cur = AN_MKT.find(t => t.id === an.mkt);
+      if (subBox) subBox.innerHTML = (cur && cur.subs) ? cur.subs.map(s =>
+        `<button type="button" class="an-chip ${an.sub[cur.id] === s[0] ? 'active' : ''}" onclick="anSetMktSub('${s[0]}')">${escapeHtml(an$(s[1], s[2]))}</button>`).join('') : '';
+    }
+    function anSetMkt(id) { an.mkt = id; anRenderMktTabs(); anMountMarket(); }
+    function anSetMktSub(v) { an.sub[an.mkt] = v; anRenderMktTabs(); anMountMarket(); }
+    function anMountMarket() {
+      const id = an.mkt;
+      tvMount('tvMarket', anMktBuild(id, an.sub[id])[0], () => anMktBuild(id, an.sub[id])[1]);
+    }
+
+    // ---- تمام‌صفحه و بارگذاری دوباره‌ی نمودار ----
+    function anToggleFs(force) {
+      const p = document.getElementById('anChartPanel'); if (!p) return;
+      if (force === false && !p.classList.contains('is-fs')) return;
+      const on = typeof force === 'boolean' ? force : !p.classList.contains('is-fs');
+      p.classList.toggle('is-fs', on);
+      document.body.style.overflow = on ? 'hidden' : '';
+      const b = document.getElementById('anFsBtn');
+      if (b) { b.innerHTML = `<i class="ic ${on ? 'ic-shrink' : 'ic-expand'}"></i>`; b.title = anT(on ? 'fs_exit' : 'fs'); b.setAttribute('aria-label', b.title); }
+    }
+    function anReloadChart() { const h = document.getElementById('tvChart'); if (h && h.__tvRemount) h.__tvRemount(); }
+
+    // ---- ورود به تب، تم/زبان ----
+    function anRemountAll() {
+      document.querySelectorAll('#view-analysis .tv-host').forEach(h => { if (h.__tvRemount) h.__tvRemount(); });
+    }
+    function anRefreshAll() {            // تغییر تم
+      if (!an.inited) return;
+      if (anViewActive()) { anRenderBar(); anRemountAll(); } else an.dirty = true;
+    }
+    function anOnLanguage() {            // تغییر زبان
+      if (!an.inited) return;
+      anApplyText(); anRenderBar(); anRenderMktTabs();
+      if (anViewActive()) anRemountAll(); else an.dirty = true;
+    }
+    function anBindLazy() {
+      const targets = [['anLower', () => { an.lazyLower = true; anMountLower(); }], ['anExplorer', () => { an.lazyMarket = true; anMountMarket(); }]];
+      if (!('IntersectionObserver' in window)) { targets.forEach(t => t[1]()); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const id = e.target.id;
+          if (id === 'anLower' && !an.lazyLower) { an.lazyLower = true; anMountLower(); io.unobserve(e.target); }
+          if (id === 'anExplorer' && !an.lazyMarket) { an.lazyMarket = true; anMountMarket(); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '600px 0px' });
+      targets.forEach(t => { const el = document.getElementById(t[0]); if (el) io.observe(el); });
+    }
+    function initAnalysis() {
+      anLoadState();
+      if (!an.inited) {
+        an.inited = true; an.dirty = false;
+        anApplyText(); anRenderBar(); anRenderMktTabs(); anBindSearch();
+        anMountSymbol(); anBindLazy();
+        document.addEventListener('keydown', (e) => {
+          if (!anViewActive()) return;
+          if (e.key === 'Escape') { const p = document.getElementById('anChartPanel'); if (p && p.classList.contains('is-fs')) anToggleFs(false); }
+          if (e.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test((e.target.tagName || '')) ) { e.preventDefault(); const i = document.getElementById('anSearch'); if (i) i.focus(); }
+        });
+      } else if (an.dirty) {
+        an.dirty = false;
+        anApplyText(); anRenderBar(); anRenderMktTabs();
+        anMountSymbol();
+        anRemountAll();
+      }
+    }
+
     // ---- TICKER (قیمت زنده) ----
     // نکته: nobitex.ir از خیلی از IP‌های خارج ایران اصلاً قابل‌دسترس نیست (DNS/شبکه fail
     // می‌شه) و پروکسی‌های عمومی CORS (allorigins / codetabs / corsproxy / thingproxy)
@@ -4885,6 +5896,7 @@
       economicCalendarLoaded = false;
       const calView = document.getElementById('view-calendar');
       if (calView && (calView.classList.contains('active') || calView.classList.contains('prewarm'))) loadEconomicCalendar();
+      anRefreshAll();
     }
 
     // ---- MODAL ----
@@ -4921,6 +5933,389 @@
       renderProfile();
       updateAppBadge();
     }
+
+    // ================= MT5 LIVE =================
+        const LV_RAW = 'https://raw.githubusercontent.com/artin-kamali/akdivex-TJ/main/akdivex_bridge.py';
+    const LV_BAT = String.raw`@echo off
+title AKDIVEX MT5 Bridge
+cd /d "%~dp0"
+set "AKDIVEX_TOKEN=__TOKEN__"
+set "AKDIVEX_PORT=__PORT__"
+set "AKDIVEX_ORIGINS=__ORIGINS__"
+set "BRIDGE_URL=https://raw.githubusercontent.com/artin-kamali/akdivex-TJ/main/akdivex_bridge.py"
+if "%AKDIVEX_TOKEN:~0,4%"=="__TO" set "AKDIVEX_TOKEN="
+if "%AKDIVEX_PORT:~0,4%"=="__PO" set "AKDIVEX_PORT="
+if "%AKDIVEX_ORIGINS:~0,4%"=="__OR" set "AKDIVEX_ORIGINS="
+set "PY="
+where py >nul 2>nul && set "PY=py -3"
+if not defined PY python -c "import sys" >nul 2>nul && set "PY=python"
+if not defined PY goto nopy
+echo Checking required packages (first run takes about a minute)...
+%PY% -m pip install --quiet --disable-pip-version-check MetaTrader5 websockets
+if errorlevel 1 goto pipfail
+echo Downloading the latest bridge...
+%PY% -c "import os,urllib.request as u;u.urlretrieve(os.environ['BRIDGE_URL'],'akdivex_bridge.tmp')" 2>nul
+if not errorlevel 1 goto gotit
+set "BRIDGE_URL=%BRIDGE_URL:.py=%"
+%PY% -c "import os,urllib.request as u;u.urlretrieve(os.environ['BRIDGE_URL'],'akdivex_bridge.tmp')"
+if errorlevel 1 goto dlfail
+:gotit
+move /y akdivex_bridge.tmp akdivex_bridge.py >nul
+goto run
+:dlfail
+if not exist akdivex_bridge.py goto nofile
+echo Download failed. Using the saved copy.
+:run
+echo.
+echo Make sure MetaTrader 5 is open and logged in.
+:loop
+%PY% akdivex_bridge.py
+set "RC=%errorlevel%"
+if "%RC%"=="0" exit /b 0
+if "%RC%"=="3" goto busy
+echo.
+echo The bridge stopped unexpectedly. Restarting in 5 seconds... (close this window to quit)
+timeout /t 5 /nobreak >nul
+goto loop
+:busy
+echo.
+echo The bridge is already running in another window. You can close this one.
+pause
+exit /b 0
+:nopy
+echo Python was not found. Trying to install it with winget...
+winget install -e --id Python.Python.3.12 --accept-package-agreements --accept-source-agreements
+echo If the installation succeeded, CLOSE this window and run this file again.
+echo Otherwise install 64-bit Python from https://www.python.org/downloads/ (tick Add to PATH).
+pause
+exit /b 1
+:pipfail
+echo Package installation failed. Check your internet connection and use 64-bit Python.
+pause
+exit /b 1
+:nofile
+echo Could not download the bridge file from GitHub (see the error above).
+echo Check your internet connection, and that the repo is public and contains akdivex_bridge.py
+pause
+exit /b 1
+`;
+    const LVT = { fa: {
+      tab: 'MT5 زنده', lock_t: 'MT5 زنده ویژه‌ی اعضای Pro است', lock_pw_ph: 'رمز دسترسی', lock_pw_btn: 'باز کردن', lock_pw_bad: 'رمز اشتباه است', lock_s: 'اتصال زنده به متاتریدر، ثبت خودکار معاملات و مدیریت پوزیشن‌ها فقط برای کاربران فعال‌شده در دسترس است. برای فعال‌سازی با ما در تماس باشید.', lock_contact: 'درخواست دسترسی', lock_recheck: 'بررسی دوباره', lock_checking: 'در حال بررسی دسترسی…', lock_none: 'دسترسی برای این حساب فعال نیست', lock_exp: 'اشتراک شما منقضی شده است', lock_err: 'بررسی دسترسی ممکن نشد؛ اینترنت را چک کنید', term_btn: 'تغییر متاتریدر', term_t: 'انتخاب متاتریدر', term_s: 'متاتریدرهای نصب‌شده روی این کامپیوتر. با انتخاب هر کدام، اتصال به همان ترمینال و حسابش عوض می‌شود.', term_ref: 'بازخوانی لیست', term_active: 'فعال', term_off: 'ابتدا به پل وصل شوید.', term_old: 'پل شما قدیمی است. AKDIVEX_Start.bat را دوباره دانلود و اجرا کنید.', term_empty: 'متاتریدر ۵ نصب‌شده‌ای پیدا نشد.', term_ok: 'متاتریدر عوض شد ✅', term_wait: 'در حال جابه‌جایی…', st_off: 'آفلاین', st_wait: 'در حال اتصال…', st_on: 'متصل به MT5', st_setup: 'نیاز به تنظیم', st_tok: 'توکن اشتباه است — فایل‌ها را دوباره دانلود کنید',
+      st_nomt: 'MT5 در دسترس نیست — ترمینال را باز کنید و وارد حساب شوید', st_nobroker: 'اتصال بروکر قطع است', ping: 'تأخیر شبکه: {0}ms',
+      auto: 'ژورنال خودکار', sync: 'همگام‌سازی گذشته', setup_btn: 'راه‌اندازی و راهنما',
+      g_title: 'اتصال آسان به متاتریدر ۵',
+      g_intro: 'پل یک برنامه‌ی کوچک روی همین کامپیوتر شماست که MT5 را به ژورنال وصل می‌کند: حساب و معاملات باز به‌صورت زنده دیده می‌شوند و هر معامله‌ای که ببندید خودکار در ژورنال ثبت می‌شود. اطلاعات شما به هیچ سروری فرستاده نمی‌شود؛ ارتباط فقط بین مرورگر و همین کامپیوتر است.',
+      g_req: '<b>پیش‌نیاز:</b> ویندوز، ترمینال دسکتاپ MT5 (نصب‌شده)، و مرورگر Chrome یا Edge روی <b>همین کامپیوتر</b>. (روی گوشی یا مک کار نمی‌کند.)',
+      s1_t: 'دانلود فایل‌های پل', s1_b: 'با دکمه‌ی زیر فقط یک فایل کوچک <code>AKDIVEX_Start.bat</code> دانلود می‌شود. آن را هر جا خواستید (مثلاً دسکتاپ) بگذارید. توکن اتصال داخل آن است و برنامه‌ی اصلی پل را خودش از GitHub می‌گیرد و همیشه به‌روز نگه می‌دارد.',
+      dl: 'دانلود فایل اجرا (BAT)',
+      s2_t: 'MT5 را باز کنید', s2_b: 'وارد حساب خود شوید و دکمه‌ی <b>Algo Trading</b> بالای MT5 را روشن (سبز) کنید — فقط برای بستن یا ویرایش معامله از داخل سایت لازم است؛ نمایش زنده و ژورنال خودکار بدون آن هم کار می‌کند.',
+      s3_t: 'فایل AKDIVEX_Start.bat را اجرا کنید', s3_b: 'روی آن دو بار کلیک کنید. بار اول پایتون و بسته‌های لازم را خودش نصب می‌کند (حدود یک دقیقه). پنجره‌ی سیاه را باز بگذارید (Minimize کنید). وقتی نشانگر بالای همین صفحه سبز شد، همه‌چیز وصل است.',
+      tips_t: 'نکته‌ها', tips_b: '<li>برای اجرای خودکار با روشن شدن ویندوز: کلیدهای <code>Win+R</code> را بزنید، بنویسید <code>shell:startup</code> و یک میان‌بر از <code>AKDIVEX_Start.bat</code> در آن پوشه بگذارید.</li><li>برای حالت فقط‌خواندنی (بدون امکان بستن معامله از سایت) در فایل <code>bridge_config.json</code> مقدار <code>allow_trading</code> را <code>false</code> کنید.</li><li>توکن مثل رمز است؛ فایل <code>bridge_config.json</code> را برای کسی نفرستید.</li><li>معاملاتی که قبلاً در ژورنال هستند (با تیکت یا مشخصات معامله) دوباره ثبت نمی‌شوند.</li>',
+      tb_t: 'مشکل دارید؟', tb_b: '<li><b>ویندوز می‌گوید «These files can\'t be opened»:</b> روی فایل bat راست‌کلیک ← Properties ← تیک <b>Unblock</b> ← OK، بعد دوباره اجرا کنید (بهتر است اول فایل را روی Desktop بگذارید).</li><li><b>آفلاین است و پنجره‌ی سیاه ندارید:</b> پل اجرا نشده؛ <code>AKDIVEX_Start.bat</code> را اجرا کنید.</li><li><b>«توکن اشتباه است»:</b> فایل‌ها و سایت باید هم‌جفت باشند؛ دوباره دانلود کنید و فایل‌های قبلی را جایگزین کنید.</li><li><b>وصل نمی‌شود و توکن درست است:</b> اگر سایت را از آدرس دیگری باز کرده‌اید، از همان آدرس دوباره دانلود کنید. مرورگر Safari پشتیبانی نمی‌شود.</li><li><b>«MT5 در دسترس نیست»:</b> MT5 را باز کنید و وارد حساب شوید. MT5 و پل باید هر دو با یک سطح دسترسی اجرا شوند (هر دو عادی یا هر دو Administrator).</li><li><b>پایتون نصب نمی‌شود:</b> پایتون ۶۴ بیتی را از python.org نصب کنید و گزینه‌ی Add to PATH را بزنید.</li>',
+      adv_t: 'تنظیمات پیشرفته (توکن دستی)', f_url: 'آدرس پل', f_tok: 'توکن', f_days: 'ورود معاملات چند روز گذشته', renew: 'توکن جدید و دانلود دوباره', save_conn: 'ذخیره و اتصال',
+      equity: 'اکوییتی', balance: 'بالانس', floating: 'سود/زیان شناور', margin: 'مارجین', free: 'مارجین آزاد', level: 'سطح مارجین', acc0: 'حساب: —', ro: 'فقط‌خواندنی',
+      open_t: 'معاملات باز', cnt: '{0} معامله', empty_t: 'معامله‌ی بازی وجود ندارد', empty_b: 'وقتی در MT5 معامله‌ای باز کنید همین‌جا زنده دیده می‌شود.',
+      feed_t: 'ژورنال خودکار', feed_s: 'آخرین معاملات ثبت‌شده', feed_e: 'هنوز چیزی ثبت نشده…', addnote: 'افزودن ستاپ/یادداشت',
+      p_entry: 'ورود', p_price: 'قیمت', be: 'بریک‌ایون', half: 'بستن ۵۰٪', close: 'بستن', save: 'ذخیره', ph_sl: 'حد ضرر (خالی = حذف)', ph_tp: 'حد سود (خالی = حذف)',
+      t_tok: 'توکن را وارد کنید', t_first: 'ابتدا وصل شوید', t_syncing: 'در حال همگام‌سازی…', t_none: 'چیز جدیدی برای ثبت نبود', t_synced: '{0} معامله‌ی گذشته ثبت شد ✅', t_dups: '{0} معامله‌ی تکراری نادیده گرفته شد',
+      t_closed: '{0} {1} بسته شد ({2}) {3}$ — در ژورنال ثبت شد ⚡', t_ro: 'پل در حالت فقط‌خواندنی است', t_ok: 'انجام شد ✅', t_fail: 'ناموفق: {0}', t_noconn: 'اتصال برقرار نیست', t_noreply: 'پاسخی دریافت نشد',
+      t_dl: 'فایل دانلود شد — آن را اجرا کنید (اینترنت لازم است)',
+      c_half_t: 'بستن نیمی از معامله', c_half_m: '{0}: ۵۰٪ حجم بسته شود؟', c_close_t: 'بستن معامله', c_close_m: '{0} {1} {2} با سود/زیان {3}$ بسته شود؟', c_ok: 'ببند',
+      r_TP: 'حد سود (TP)', r_SL: 'حد ضرر (SL)', r_MANUAL: 'بستن دستی', r_EA: 'ربات', r_STOPOUT: 'استاپ‌اوت', note: 'ثبت خودکار MT5 — تیکت #{0} — بسته شد با: {1}'
+    }, en: {
+      tab: 'MT5 Live', lock_t: 'MT5 Live is a Pro feature', lock_pw_ph: 'Access password', lock_pw_btn: 'Unlock', lock_pw_bad: 'Wrong password', lock_s: 'Live MetaTrader connection, automatic trade logging and position management are available to activated users only. Contact us to get access.', lock_contact: 'Request access', lock_recheck: 'Check again', lock_checking: 'Checking access…', lock_none: 'This account has no access yet', lock_exp: 'Your subscription has expired', lock_err: 'Could not verify access; check your connection', term_btn: 'Switch MetaTrader', term_t: 'Choose MetaTrader', term_s: 'MetaTrader terminals installed on this computer. Pick one to switch the connection to that terminal and its account.', term_ref: 'Refresh list', term_active: 'Active', term_off: 'Connect to the bridge first.', term_old: 'Your bridge is outdated. Download and run AKDIVEX_Start.bat again.', term_empty: 'No installed MetaTrader 5 found.', term_ok: 'MetaTrader switched ✅', term_wait: 'Switching…', st_off: 'Offline', st_wait: 'Connecting…', st_on: 'Connected to MT5', st_setup: 'Setup required', st_tok: 'Wrong token — download the files again',
+      st_nomt: 'MT5 not available — open the terminal and log in', st_nobroker: 'Broker connection lost', ping: 'Latency: {0}ms',
+      auto: 'Auto-journal', sync: 'Sync past trades', setup_btn: 'Setup & guide',
+      g_title: 'Easy MetaTrader 5 connection',
+      g_intro: 'The bridge is a small program on this computer that links MT5 to your journal: your account and open trades show up live, and every trade you close is journaled automatically. Nothing is sent to any server — the connection stays between your browser and this computer.',
+      g_req: '<b>Requirements:</b> Windows, the MT5 desktop terminal (installed), and Chrome or Edge on <b>this same computer</b>. (It does not work on phones or Mac.)',
+      s1_t: 'Download the bridge files', s1_b: 'The button below downloads just one small file, <code>AKDIVEX_Start.bat</code>. Put it anywhere (e.g. your desktop). Your pairing token is inside it, and it fetches the bridge program from GitHub itself so it is always up to date.',
+      dl: 'Download launcher (BAT)',
+      s2_t: 'Open MT5', s2_b: 'Log in to your account and turn the <b>Algo Trading</b> button in the MT5 toolbar on (green). This is only needed to close or edit trades from the site; live view and auto-journal work without it.',
+      s3_t: 'Run AKDIVEX_Start.bat', s3_b: 'Double-click it. On the first run it installs Python and the needed packages by itself (about a minute). Keep the black window open (minimize it). When the indicator at the top of this page turns green, you are connected.',
+      tips_t: 'Tips', tips_b: '<li>To start it automatically with Windows: press <code>Win+R</code>, type <code>shell:startup</code>, and put a shortcut to <code>AKDIVEX_Start.bat</code> in that folder.</li><li>For read-only mode (no closing trades from the site) set <code>allow_trading</code> to <code>false</code> in <code>bridge_config.json</code>.</li><li>The token works like a password — don\'t share <code>bridge_config.json</code>.</li><li>Trades already in your journal (matched by ticket or trade details) are never recorded twice.</li>',
+      tb_t: 'Having trouble?', tb_b: '<li><b>Windows says "These files can\'t be opened":</b> right-click the .bat → Properties → tick <b>Unblock</b> → OK, then run it again (move it to the Desktop first).</li><li><b>Offline and no black window:</b> the bridge isn\'t running — run <code>AKDIVEX_Start.bat</code>.</li><li><b>"Wrong token":</b> the files and the site must match — download again and replace the old files.</li><li><b>Won\'t connect but the token is right:</b> if you opened the site from a different address, download again from that address. Safari is not supported.</li><li><b>"MT5 not available":</b> open MT5 and log in. MT5 and the bridge must run at the same privilege level (both normal or both Administrator).</li><li><b>Python won\'t install:</b> install 64-bit Python from python.org and tick "Add to PATH".</li>',
+      adv_t: 'Advanced (manual token)', f_url: 'Bridge address', f_tok: 'Token', f_days: 'Import trades from the last (days)', renew: 'New token & download again', save_conn: 'Save & connect',
+      equity: 'Equity', balance: 'Balance', floating: 'Floating P/L', margin: 'Margin', free: 'Free margin', level: 'Margin level', acc0: 'Account: —', ro: 'read-only',
+      open_t: 'Open trades', cnt: '{0} trade(s)', empty_t: 'No open trades', empty_b: 'Open a trade in MT5 and it will appear here live.',
+      feed_t: 'Auto-journal', feed_s: 'Recently recorded', feed_e: 'Nothing recorded yet…', addnote: 'Add setup / note',
+      p_entry: 'Entry', p_price: 'Price', be: 'Break-even', half: 'Close 50%', close: 'Close', save: 'Save', ph_sl: 'Stop loss (empty = remove)', ph_tp: 'Take profit (empty = remove)',
+      t_tok: 'Enter the token', t_first: 'Connect first', t_syncing: 'Syncing…', t_none: 'Nothing new to record', t_synced: '{0} past trade(s) recorded ✅', t_dups: '{0} duplicate trade(s) skipped',
+      t_closed: '{0} {1} closed ({2}) {3}$ — recorded in your journal ⚡', t_ro: 'The bridge is in read-only mode', t_ok: 'Done ✅', t_fail: 'Failed: {0}', t_noconn: 'Not connected', t_noreply: 'No response received',
+      t_dl: 'File downloaded — run it (internet required)',
+      c_half_t: 'Close half the position', c_half_m: '{0}: close 50% of the volume?', c_close_t: 'Close position', c_close_m: 'Close {0} {1} {2} with P/L {3}$?', c_ok: 'Close',
+      r_TP: 'Take profit (TP)', r_SL: 'Stop loss (SL)', r_MANUAL: 'Manual close', r_EA: 'Expert Advisor', r_STOPOUT: 'Stop-out', note: 'Auto-journaled from MT5 — ticket #{0} — closed by: {1}'
+    } };
+    const lvT = (k, ...a) => { let s = (LVT[CUR_LANG === 'en' ? 'en' : 'fa'][k]) ?? LVT.fa[k] ?? k; a.forEach((v, i) => { s = s.split('{' + i + '}').join(v); }); return s; };
+    const LIVE = { ws: null, cfg: null, retry: 0, eq: [], cards: {}, pend: {}, rid: 0, feed: [], ok: false, auto: true, trading: true, st: 'off', stKey: null, n: 0, acc: null };
+    const $lv = (id) => document.getElementById(id);
+    const lvF = (n, d = 2) => (n == null || isNaN(n)) ? '—' : Number(n).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const lvSg = (n) => (n >= 0 ? '+' : '') + lvF(n);
+    const lvCls = (n) => n >= 0 ? 'lv-up' : 'lv-dn';
+    function liveApplyLang(root) {
+      root = root || document;
+      root.querySelectorAll('[data-lv]').forEach(e => { e.textContent = lvT(e.dataset.lv); });
+      root.querySelectorAll('[data-lv-html]').forEach(e => { e.innerHTML = lvT(e.dataset.lvHtml); });
+      root.querySelectorAll('[data-lv-ph]').forEach(e => { e.placeholder = lvT(e.dataset.lvPh); });
+      if (root !== document) return;
+      liveStatus(LIVE.st, LIVE.stKey); liveAccLine(); liveFeed();
+      $lv('lvCnt').textContent = LIVE.n ? lvT('cnt', LIVE.n) : '';
+      Object.values(LIVE.cards).forEach(c => liveApplyLang(c));
+    }
+    function liveSpark(pts) { const s = $lv('lvSpark'); s.querySelector('polyline').setAttribute('points', pts); s.querySelector('polygon').setAttribute('points', pts + ' 100,40 0,40'); }
+    function liveStatus(k, key) {
+      LIVE.st = k; LIVE.stKey = key || null;
+      const el = $lv('lvSt'); if (!el) return;
+      el.className = 'lv-st ' + ({ on: 'on', wait: 'wait', off: 'off' }[k] || '');
+      $lv('lvStT').textContent = lvT(key || ({ on: 'st_on', wait: 'st_wait', off: 'st_off' }[k]));
+    }
+    function liveAccLine() {
+      const a = LIVE.acc, el = $lv('lvAcc'); if (!el) return;
+      el.textContent = a ? `${a.name || ''} · #${a.login} · ${a.server} · 1:${a.leverage}${LIVE.trading ? '' : ' · ' + lvT('ro')}` : lvT('acc0');
+    }
+    // ---- MT5 paywall: access comes from Firestore doc  entitlements/{uid} = { mt5: true, expiresAt?: ms }  (writable only by admin via Rules) ----
+    const MT5_PASSWORD = 'akdivex2026';                 // TEMPORARY tab password (visible in page source!). '' = disable and use the account-based gate below
+    const MT5_PAID = true;                              // false = tab is free for everyone
+    const MT5_CONTACT_URL = 'https://t.me/YOUR_USERNAME';   // where "Request access" leads
+    const MT5ACC = { ok: false, checked: false, checking: false, uid: null };
+    function mt5Lock(locked, msgKey) {
+      $lv('view-live').classList.toggle('lv-locked', locked);
+      document.querySelector('.tab-btn[data-tab="live"]').classList.toggle('lv-tab-locked', locked);
+      $lv('lvLockContact').href = MT5_CONTACT_URL;
+      $lv('lvLockMsg').textContent = msgKey ? lvT(msgKey) : '';
+      if (locked && LIVE.ws) { try { LIVE.ws.onclose = null; LIVE.ws.close(); } catch (e) {} LIVE.started = false; LIVE.ok = false; }
+    }
+    async function mt5Unlock() {
+      const inp = $lv('lvPwIn');
+      if (inp.value === MT5_PASSWORD) { localStorage.setItem('akdivex_mt5_pw', await sha256(MT5_PASSWORD)); inp.value = ''; return mt5Gate(true); }
+      const box = $lv('lvPw'); box.classList.remove('bad'); void box.offsetWidth; box.classList.add('bad'); $lv('lvLockMsg').textContent = lvT('lock_pw_bad'); inp.select();
+    }
+    async function mt5Gate(force) {
+      if (MT5_PASSWORD) {                               // temporary password mode
+        const ok = localStorage.getItem('akdivex_mt5_pw') === await sha256(MT5_PASSWORD);
+        MT5ACC.ok = MT5ACC.checked = ok; mt5Lock(!ok);
+        $lv('lvPw').style.display = 'flex'; $lv('lvLockRe').style.display = 'none';
+        if (ok && $lv('view-live').classList.contains('active') && !LIVE.started) { LIVE.started = true; liveConnect(); }
+        return ok;
+      }
+      if (!MT5_PAID || !CLOUD_MODE) { MT5ACC.ok = MT5ACC.checked = true; mt5Lock(false); return true; }
+      const u = typeof fbAuth !== 'undefined' && fbAuth && fbAuth.currentUser;
+      if (!u) return false;
+      if (MT5ACC.checking) return MT5ACC.ok;
+      if (MT5ACC.checked && !force && MT5ACC.uid === u.uid) return MT5ACC.ok;
+      MT5ACC.checking = true; MT5ACC.uid = u.uid; if (force) $lv('lvLockMsg').textContent = lvT('lock_checking');
+      let ok = false, why = 'lock_none';
+      try {
+        const d = await fbDb.collection('entitlements').doc(u.uid).get();
+        const e = d.exists ? d.data() : null;
+        if (e && e.mt5 === true) { if (!e.expiresAt || e.expiresAt > Date.now()) ok = true; else why = 'lock_exp'; }
+      } catch (err) { why = 'lock_err'; }
+      MT5ACC.checking = false; MT5ACC.checked = true; MT5ACC.ok = ok;
+      mt5Lock(!ok, ok ? '' : (force || why !== 'lock_none' ? why : ''));
+      if (ok && document.getElementById('view-live').classList.contains('active') && !LIVE.started) { LIVE.started = true; liveConnect(); }
+      return ok;
+    }
+    function liveCfgLoad() { try { return JSON.parse(localStorage.getItem('akdivex_bridge') || 'null'); } catch (e) { return null; } }
+    function liveCfgSave(c) { localStorage.setItem('akdivex_bridge', JSON.stringify(c)); }
+    function liveSaveConnect() {
+      const cfg = { url: $lv('lvUrl').value.trim(), token: $lv('lvTok').value.trim(), days: +$lv('lvDays').value, auto: $lv('lvAuto').checked };
+      if (!cfg.token) return toast(lvT('t_tok'), 'error');
+      liveCfgSave(cfg); $lv('lvSetup').classList.remove('show'); LIVE.retry = 0; liveConnect();
+    }
+    function liveSetAuto(v) { const c = liveCfgLoad() || {}; c.auto = v; LIVE.auto = v; liveCfgSave(c); }
+    // ---- one-click bridge package: token + port + site origin are baked into the files ----
+    function liveDlFile(name, text) {
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'application/octet-stream' }));
+      a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    }
+    function liveDownload(renew) {
+      const c = liveCfgLoad() || {};
+      if (renew || !c.token) { const b = new Uint8Array(16); crypto.getRandomValues(b); c.token = btoa(String.fromCharCode(...b)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+      c.url = c.url || 'ws://127.0.0.1:8765'; c.days = c.days || 7; c.auto = c.auto !== false; liveCfgSave(c);
+      let port = 8765; try { port = +new URL(c.url.replace(/^ws/, 'http')).port || 8765; } catch (e) {}
+      const org = /^https?:/.test(location.origin) ? location.origin : '';
+      liveDlFile('AKDIVEX_Start.bat', LV_BAT.replace('__TOKEN__', () => c.token).replace('__PORT__', () => port).replace('__ORIGINS__', () => org).replace('__URL__', () => LV_RAW).replace(/\r?\n/g, '\r\n'));
+      $lv('lvTok').value = c.token; toast(lvT('t_dl'), 'success'); LIVE.retry = 0; liveConnect();
+    }
+    function liveConnect() {
+      const c = LIVE.cfg = liveCfgLoad();
+      if (!c || !c.token) { liveStatus('off', 'st_setup'); $lv('lvSetup').classList.add('show'); return; }
+      LIVE.auto = c.auto !== false; $lv('lvAuto').checked = LIVE.auto; $lv('lvUrl').value = c.url || 'ws://127.0.0.1:8765'; $lv('lvDays').value = c.days || 7; $lv('lvTok').value = c.token;
+      clearTimeout(LIVE.timer); clearInterval(LIVE.ping); try { LIVE.ws && (LIVE.ws.onclose = null, LIVE.ws.close()); } catch (e) {}
+      liveStatus('wait'); let ws;
+      try { ws = new WebSocket(c.url || 'ws://127.0.0.1:8765'); } catch (e) { return liveRetry(); }
+      LIVE.ws = ws;
+      ws.onopen = () => ws.send(JSON.stringify({ type: 'auth', token: c.token }));
+      ws.onmessage = (e) => { try { liveMsg(JSON.parse(e.data)); } catch (err) { console.error(err); } };
+      ws.onclose = () => { LIVE.ok = false; if (LIVE.retry < 99) liveStatus('off'); liveRetry(); };
+    }
+    // automatic pairing: if the token differs from the bridge's, ask the bridge for it (allowed only in its first minutes, once)
+    function livePair() {
+      const c = liveCfgLoad() || {}; let w, done = false;
+      const fail = () => { if (done) return; done = true; LIVE.retry = 99; liveStatus('off', 'st_tok'); $lv('lvSetup').classList.add('show'); };
+      try { w = new WebSocket(c.url || 'ws://127.0.0.1:8765'); } catch (e) { return fail(); }
+      w.onopen = () => w.send(JSON.stringify({ type: 'pair' }));
+      w.onmessage = (e) => { let m = {}; try { m = JSON.parse(e.data); } catch (x) {}
+        if (m.type === 'paired' && m.token) { done = true; c.token = m.token; liveCfgSave(c); try { w.close(); } catch (x) {} LIVE.retry = 0; liveConnect(); } else fail(); };
+      w.onerror = fail; w.onclose = fail;
+    }
+    function liveRetry() { LIVE.retry = Math.min(LIVE.retry + 1, 6); clearTimeout(LIVE.timer); LIVE.timer = setTimeout(liveConnect, LIVE.retry * 1500); }
+    function liveSend(o) {
+      return new Promise((res) => {
+        if (!LIVE.ws || LIVE.ws.readyState !== 1) return res({ ok: false, msg: lvT('t_noconn') });
+        o.id = ++LIVE.rid; LIVE.pend[o.id] = res; const to = o.to || 8000; delete o.to; LIVE.ws.send(JSON.stringify(o));
+        setTimeout(() => { if (LIVE.pend[o.id]) { delete LIVE.pend[o.id]; res({ ok: false, msg: lvT('t_noreply') }); } }, to);
+      });
+    }
+    function liveSync() { if (LIVE.ok) { LIVE.ws.send(JSON.stringify({ type: 'sync', days: (LIVE.cfg && LIVE.cfg.days) || 7 })); toast(lvT('t_syncing'), 'success'); } else toast(lvT('t_first'), 'error'); }
+    function liveMsg(m) {
+      if (m.type === 'auth_fail') { if (!LIVE.pairTried) { LIVE.pairTried = true; livePair(); } else { LIVE.retry = 99; liveStatus('off', 'st_tok'); $lv('lvSetup').classList.add('show'); } }
+      else if (m.type === 'hello') { LIVE.pairTried = false; LIVE.ok = true; LIVE.retry = 0; LIVE.trading = m.trading; liveStatus('on'); liveSync2(); clearInterval(LIVE.ping); LIVE.ping = setInterval(() => LIVE.ws.readyState === 1 && LIVE.ws.send(JSON.stringify({ type: 'ping', ts: Date.now() })), 3000); }
+      else if (m.type === 'pong') $lv('lvPing').textContent = lvT('ping', Date.now() - m.ts);
+      else if (m.type === 'state') liveState(m);
+      else if (m.type === 'closed') liveJournal(m.trade, true);
+      else if (m.type === 'history') {
+        let n = 0, d = 0; m.trades.forEach(t => { const r = liveJournal(t, false, true); if (r === 'new') n++; else if (r === 'dup') d++; });
+        if (n || d) { renderEverything(); persistAll(true); }
+        toast(n ? lvT('t_synced', n) + (d ? ' — ' + lvT('t_dups', d) : '') : (d ? lvT('t_dups', d) : lvT('t_none')), 'success');
+      }
+      else if (m.type === 'result' && LIVE.pend[m.id]) { LIVE.pend[m.id](m); delete LIVE.pend[m.id]; }
+    }
+    function liveSync2() { if (LIVE.auto) LIVE.ws.send(JSON.stringify({ type: 'sync', days: (LIVE.cfg && LIVE.cfg.days) || 7 })); }
+    // ---- duplicate protection: same ticket (per account) OR same trade fingerprint ----
+    const tkOf = (t) => t.ticket != null && t.ticket !== '' ? String(t.ticket) : (String(t.id || '').startsWith('mt_') ? String(t.id).replace(/^mt_(?:\d+_)?/, '') : '');
+    function mtFindDup(n) {
+      const nt = tkOf(n), up = (x) => String(x || '').toUpperCase();
+      const near = (a, b, tol) => a != null && b != null && a !== '' && b !== '' && Math.abs(+a - +b) <= Math.abs(+a) * tol;
+      return trades.find(t => {
+        const tt = tkOf(t);
+        if (tt && nt) {   // both have a broker ticket: the ticket decides (other account/broker = different trade)
+          if (tt !== nt || (t.acct && n.acct && String(t.acct) !== String(n.acct))) return false;
+          return up(t.symbol) === up(n.symbol) && up(t.side) === up(n.side) && (t.entry == null || n.entry == null || near(t.entry, n.entry, 1e-4));
+        }
+        // manual entry vs broker trade: same instrument, side, exact entry, lot and within a day
+        if (up(t.symbol) !== up(n.symbol) || up(t.side) !== up(n.side) || !near(t.entry, n.entry, 2e-6)) return false;
+        if (t.lot && n.lot && Math.abs(t.lot - n.lot) > 1e-6) return false;
+        const a = Date.parse(t.date), b = Date.parse(n.date);
+        return !isNaN(a) && !isNaN(b) && Math.abs(a - b) <= 16 * 3600e3;
+      });
+    }
+    function mtAdopt(t, n) {   // a manual/open entry matched a broker trade: fill in the blanks, keep the user's notes
+      let ch = false;
+      if (!t.ticket && n.ticket) { t.ticket = n.ticket; ch = true; }
+      if (n.acct && !t.acct) { t.acct = n.acct; ch = true; }
+      if ((t.result === 'OPEN' || t.exit == null || t.exit === '') && n.exit != null) { Object.assign(t, { exit: n.exit, pnl: n.pnl, result: n.result, closeDate: n.closeDate || t.closeDate }); if (!t.lot) t.lot = n.lot; ch = true; }
+      return ch;
+    }
+    const mtWasDeleted = (id) => ((userSettings && userSettings.mtDeleted) || []).includes(id);
+    function mtUniqId(n) {
+      if (trades.some(x => x.id === n.id)) n.id = 'mt_' + (n.acct || 'x') + '_' + n.ticket;
+      while (trades.some(x => x.id === n.id)) n.id += '_' + Math.random().toString(36).slice(2, 5);
+    }
+    // ---- journaling ----
+    function liveJournal(p, live, batch) {
+      if (!currentUser || (!LIVE.auto && live)) return false;
+      if (mtWasDeleted(p.id)) return 'dup';   // you deleted it from the journal on purpose
+      const d = mtFindDup(p);
+      if (d) { if (mtAdopt(d, p)) { clearTimeout(LIVE.pt); LIVE.pt = setTimeout(() => persistAll(true), 250); if (!batch) renderEverything(); } return 'dup'; }
+      const z = (n) => String(n).padStart(2, '0');
+      const iso = (ts) => { const d = new Date(ts * 1000); return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`; };
+      const date = iso(p.open_ts);
+      const rf = p.sl != null && (p.side === 'BUY' ? p.sl >= p.entry : p.sl <= p.entry);
+      const rl = lvT('r_' + p.reason) === 'r_' + p.reason ? p.reason : lvT('r_' + p.reason);
+      const t = { id: p.id, ticket: String(p.ticket), acct: p.acct || null, symbol: p.symbol, side: p.side, setup: '', timeframe: '', session: autoDetectSession(date), date, entry: p.entry, sl: p.sl, tp: p.tp,
+        origSl: rf && p.orig_sl !== p.sl ? p.orig_sl : null, riskFree: rf, exit: p.exit, lot: p.lot, pnl: p.pnl,
+        result: p.pnl > 0.005 ? 'WIN' : (p.pnl < -0.005 ? 'LOSS' : 'BE'), tags: 'MT5-Auto,' + p.reason, reasons: '',
+        notes: lvT('note', p.ticket, rl), mood: 'calm', screenshots: [], auto: true, closeReason: p.reason, closeDate: iso(p.close_ts) };
+      mtUniqId(t);
+      trades.unshift(t);
+      clearTimeout(LIVE.pt); LIVE.pt = setTimeout(() => persistAll(true), 250);
+      if (!batch) renderEverything();
+      if (live) {
+        LIVE.feed.unshift(t); LIVE.feed = LIVE.feed.slice(0, 15); liveFeed();
+        toast(lvT('t_closed', p.symbol, p.side, rl, lvSg(p.pnl)), p.pnl >= 0 ? 'success' : 'error');
+        if (userSettings.haptics && navigator.vibrate) navigator.vibrate(60);
+      }
+      return 'new';
+    }
+    function liveFeed() {
+      const rname = (r) => lvT('r_' + r) === 'r_' + r ? r : lvT('r_' + r);
+      $lv('lvFeed').innerHTML = LIVE.feed.map(t => `<div><b>${t.symbol}</b><span class="chip" style="${t.side === 'SELL' ? 'background:var(--sell-dim);color:var(--sell)' : ''}">${t.side}</span><span class="ltr ${lvCls(t.pnl)}"><b>${lvSg(t.pnl)}$</b></span><span class="lat">${rname(t.closeReason)}</span><span style="flex:1"></span><button class="btn small" onclick="editTrade('${t.id}')">${lvT('addnote')}</button></div>`).join('') || `<span style="color:var(--muted);font-size:13px">${lvT('feed_e')}</span>`;
+    }
+    // ---- live state ----
+    function liveState(m) {
+      if (!m.mt5_ok) return liveStatus('wait', 'st_nomt');
+      const a = m.account; if (!a) return;
+      liveStatus(a.broker_ok ? 'on' : 'wait', a.broker_ok ? 'st_on' : 'st_nobroker');
+      const cur = a.currency || '$'; LIVE.acc = a; liveAccLine();
+      const set = (id, v, cls, n) => { const e = $lv(id), o = e._n; if (cls !== undefined) e.className = 'ltr ' + cls; e.textContent = v;
+        if (o != null && n != null && n !== o) { e.classList.remove('lv-fu', 'lv-fd'); void e.offsetWidth; e.classList.add(n > o ? 'lv-fu' : 'lv-fd'); } e._n = n; };
+      set('lvEq', lvF(a.equity) + ' ' + cur, undefined, a.equity); set('lvBal', lvF(a.balance), undefined, a.balance); set('lvFl', lvSg(a.profit), lvCls(a.profit), a.profit);
+      set('lvMg', lvF(a.margin), undefined, a.margin); set('lvFr', lvF(a.free), undefined, a.free); set('lvLv', a.margin ? lvF(a.level, 0) + '%' : '—', undefined, a.level);
+      if (a.terminal) { const k = a.terminal.toLowerCase(); LIVE.tc = LIVE.tc || JSON.parse(localStorage.getItem('akdivex_termacc') || '{}'); LIVE.tc[k] = { name: a.name, login: a.login, server: a.server }; if (LIVE.tcs !== a.login) { LIVE.tcs = a.login; localStorage.setItem('akdivex_termacc', JSON.stringify(LIVE.tc)); } }
+      const now = Date.now(); if (!LIVE.lastEq || now - LIVE.lastEq > 1000) { LIVE.lastEq = now; LIVE.eq.push(a.equity); LIVE.eq = LIVE.eq.slice(-90);
+        const lo = Math.min(...LIVE.eq), hi = Math.max(...LIVE.eq), r = (hi - lo) || 1;
+        liveSpark(LIVE.eq.map((v, i) => `${(i / Math.max(LIVE.eq.length - 1, 1)) * 100},${36 - ((v - lo) / r) * 30}`).join(' ')); }
+      const box = $lv('lvPos'), seen = new Set();
+      m.positions.forEach(p => { seen.add(p.ticket); livePos(box, p); });
+      Object.keys(LIVE.cards).forEach(k => { if (!seen.has(+k)) { LIVE.cards[k].remove(); delete LIVE.cards[k]; } });
+      LIVE.n = m.positions.length; $lv('lvEmpty').style.display = LIVE.n ? 'none' : ''; $lv('lvCnt').textContent = LIVE.n ? lvT('cnt', LIVE.n) : '';
+    }
+    function livePos(box, p) {
+      let c = LIVE.cards[p.ticket];
+      if (!c) {
+        c = document.createElement('div'); c.dataset.t = p.ticket;
+        c.innerHTML = `<div class="lv-h"><b class="sym"></b><span class="chip"></span><span class="lv-pl ltr"></span></div><div class="lv-track"><i class="en"></i><i class="px"></i></div>
+        <div class="lv-g"><div><span data-lv="p_entry"></span><b class="ltr e"></b></div><div><span data-lv="p_price"></span><b class="ltr pr"></b></div><div>SL<b class="ltr sl"></b></div><div>TP<b class="ltr tp"></b></div></div>
+        <div class="lv-acts"><button class="btn small" data-a="edit" data-ic="shield">SL / TP</button><button class="btn small" data-a="be" data-ic="equal" data-lv="be"></button><button class="btn small" data-a="half" data-ic="scissors" data-lv="half"></button><button class="btn small" data-a="close" data-ic="x" data-lv="close" style="color:var(--sell)"></button></div>
+        <div class="lv-edit"><input class="ltr" type="number" step="any" data-lv-ph="ph_sl" data-f="sl"><input class="ltr" type="number" step="any" data-lv-ph="ph_tp" data-f="tp"><button class="btn small primary" data-a="save" data-lv="save"></button></div>`;
+        liveApplyLang(c); c.addEventListener('click', liveAct); box.appendChild(c); LIVE.cards[p.ticket] = c;
+      }
+      c._p = p; c.className = 'lv-pos ' + p.side.toLowerCase();
+      const q = (s) => c.querySelector(s), d = p.digits;
+      q('.sym').textContent = p.symbol; q('.chip').textContent = `${p.side} ${p.volume}`;
+      const pl = q('.lv-pl'), pv = c._pv; pl.textContent = lvSg(p.profit); pl.className = 'lv-pl ltr ' + lvCls(p.profit) + (pv != null && p.profit !== pv ? (p.profit > pv ? ' lv-fu' : ' lv-fd') : ''); c._pv = p.profit; c.style.setProperty('--g', p.profit >= 0 ? 'var(--mint-dim)' : 'var(--sell-dim)');
+      q('.e').textContent = lvF(p.open, d); q('.pr').textContent = lvF(p.price, d); q('.sl').textContent = p.sl ? lvF(p.sl, d) : '—'; q('.tp').textContent = p.tp ? lvF(p.tp, d) : '—';
+      const trk = q('.lv-track'); if (p.sl && p.tp) { trk.style.display = ''; const pc = (x) => Math.max(0, Math.min(100, (x - p.sl) / (p.tp - p.sl) * 100)); q('.en').style.left = pc(p.open) + '%'; q('.px').style.left = pc(p.price) + '%'; } else trk.style.display = 'none';
+    }
+    async function liveAct(e) {
+      const b = e.target.closest('button[data-a]'); if (!b) return;
+      const c = e.currentTarget, p = c._p, a = b.dataset.a;
+      if (!LIVE.trading && a !== 'edit') return toast(lvT('t_ro'), 'error');
+      if (a === 'edit') { const ed = c.querySelector('.lv-edit'); ed.classList.toggle('show'); c.querySelector('[data-f=sl]').value = p.sl || ''; c.querySelector('[data-f=tp]').value = p.tp || ''; return; }
+      let req;
+      if (a === 'save') { const g = (f) => c.querySelector(`[data-f=${f}]`).value; req = { type: 'modify', ticket: p.ticket, sl: g('sl') ? +g('sl') : null, tp: g('tp') ? +g('tp') : null }; }
+      else if (a === 'be') req = { type: 'modify', ticket: p.ticket, sl: p.open, tp: p.tp };
+      else if (a === 'half') { if (!(await appConfirm(lvT('c_half_t'), lvT('c_half_m', p.symbol), { danger: true, okText: lvT('c_ok') }))) return; req = { type: 'close', ticket: p.ticket, volume: p.volume / 2 }; }
+      else if (a === 'close') { if (!(await appConfirm(lvT('c_close_t'), lvT('c_close_m', p.symbol, p.side, p.volume, lvSg(p.profit)), { danger: true, okText: lvT('c_ok') }))) return; req = { type: 'close', ticket: p.ticket }; }
+      b.disabled = true; const r = await liveSend(req); b.disabled = false;
+      toast(r.ok ? lvT('t_ok') : lvT('t_fail', r.msg), r.ok ? 'success' : 'error');
+      if (r.ok && a === 'save') c.querySelector('.lv-edit').classList.remove('show');
+    }
+    setInterval(() => { if (typeof currentUser !== 'undefined' && currentUser) { if (!MT5ACC.checked && !MT5ACC.checking) mt5Gate(); else if (MT5ACC.ok && !LIVE.started && liveCfgLoad()) { LIVE.started = true; liveConnect(); } } }, 1000);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden && LIVE.started && !LIVE.ok) { LIVE.retry = 0; liveConnect(); } });
+    const lvEsc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    function liveTermOpen() { $lv('lvTermBg').classList.add('show'); liveTermLoad(); }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') liveTermClose(); });
+    function liveTermClose() { $lv('lvTermBg').classList.remove('show'); }
+    async function liveTermLoad() {
+      const box = $lv('lvTermList'), msg = (k) => `<div class="lv-tempty"><i class="ic ic-monitor"></i>${lvT(k)}</div>`;
+      if (!LIVE.ok) { box.innerHTML = msg('term_off'); return; }
+      box.innerHTML = '<div class="lv-skel"></div><div class="lv-skel"></div>';
+      const r = await liveSend({ type: 'terminals' });
+      if (!r.ok || !r.list) { box.innerHTML = msg('term_old'); return; }
+      const tc = JSON.parse(localStorage.getItem('akdivex_termacc') || '{}');
+      box.innerHTML = r.list.length ? r.list.map((t, i) => { const c = tc[String(t.dir).toLowerCase()];
+        return `<button class="lv-term${t.active ? ' on' : ''}" data-id="${t.id}" style="animation-delay:${i * 60}ms"><i class="ic ic-monitor"></i><span class="tx"><b>${lvEsc(t.name)}</b><small class="ltr">${lvEsc(c ? `${c.name || ''} · #${c.login} · ${c.server}` : t.path)}</small></span>${t.active ? `<em class="lv-on">${lvT('term_active')}</em>` : '<i class="ic ic-next"></i>'}</button>`; }).join('') : msg('term_empty');
+    }
+    $lv('lvTermList').addEventListener('click', async (e) => {
+      const b = e.target.closest('.lv-term'); if (!b || b.classList.contains('on') || b.classList.contains('busy')) return;
+      b.classList.add('busy'); b.querySelector('small').textContent = lvT('term_wait');
+      const r = await liveSend({ type: 'switch', id: b.dataset.id, to: 40000 });
+      if (r.ok) { toast(lvT('term_ok'), 'success'); LIVE.eq = []; LIVE.lastEq = 0; Object.values(LIVE.cards).forEach(c => c.remove()); LIVE.cards = {}; liveTermClose(); liveSync2(); }
+      else { toast(lvT('t_fail', r.msg), 'error'); liveTermLoad(); }
+    });
+    liveApplyLang();
 
     // ---- INIT ----
     function initAppShell() {
