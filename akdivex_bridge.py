@@ -251,7 +251,7 @@ async def handle(ws):
                 await ws.send(json.dumps({"type": "result", "id": rid, "ok": True, "list": await mt(terminals)})); continue
             if t == "switch":
                 S["busy"] = True
-                try: res = await mt(do_switch, m.get("id"))
+                try: res = await mt(do_switch, m.get("tid"))
                 finally: KNOWN.clear(); S["offset"] = 0; S["busy"] = False
                 await ws.send(json.dumps({"type": "result", "id": rid, "ok": res[0], "msg": res[1]})); continue
             if t in ("modify", "close"):
