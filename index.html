@@ -1688,12 +1688,12 @@
     // Paste your Firebase web-app config here (Firebase Console > Project settings > Your apps > Web).
     // While apiKey is empty the site works locally only; once it is filled, accounts + data sync across all devices.
     const FIREBASE_CONFIG = {
-      apiKey: '',
-      authDomain: '',
-      projectId: '',
-      storageBucket: '',
-      messagingSenderId: '',
-      appId: ''
+      apiKey: 'AIzaSyDzW4sivpnDTG2Jgr4SCIU4IB7iGwPZnPg',
+      authDomain: 'akdivex-tj.firebaseapp.com',
+      projectId: 'akdivex-tj',
+      storageBucket: 'akdivex-tj.firebasestorage.app',
+      messagingSenderId: '171678338746',
+      appId: '1:171678338746:web:4127ce6647c664ae66bc83'
     };
     const CLOUD_MODE = !!(FIREBASE_CONFIG && FIREBASE_CONFIG.apiKey);
     let fbAuth = null,
@@ -6325,7 +6325,7 @@ exit /b 1
     $lv('lvTermList').addEventListener('click', async (e) => {
       const b = e.target.closest('.lv-term'); if (!b || b.classList.contains('on') || b.classList.contains('busy')) return;
       b.classList.add('busy'); b.querySelector('small').textContent = lvT('term_wait');
-      const r = await liveSend({ type: 'switch', id: b.dataset.id, to: 40000 });
+      const r = await liveSend({ type: 'switch', tid: b.dataset.id, to: 40000 });
       if (r.ok) { toast(lvT('term_ok'), 'success'); LIVE.eq = []; LIVE.lastEq = 0; Object.values(LIVE.cards).forEach(c => c.remove()); LIVE.cards = {}; liveTermClose(); liveSync2(); }
       else { toast(lvT('t_fail', r.msg), 'error'); liveTermLoad(); }
     });
