@@ -1115,6 +1115,7 @@
         <button type="submit" class="btn primary" style="width:100%;justify-content:center;margin-top:6px;" id="loginBtn" data-ic="login" data-i18n="auth_login">ورود</button>
         <div class="auth-link">رمز عبور را فراموش کرده‌اید؟ <a onclick="showForgotPassword()">بازیابی</a></div>
         <div class="auth-link">حساب کاربری ندارید؟ <a onclick="switchAuthTab('register')">ثبت‌نام کنید</a></div>
+        <div class="auth-link"><a onclick="showDataInfo()">ℹ️ اطلاعات من کجا ذخیره می‌شود؟</a></div>
       </form>
       <form class="auth-form" id="registerForm" style="display:none;" onsubmit="return handleRegister(event)">
         <div class="field"><label>نام کاربری</label><input type="text" id="regUsername" autocomplete="username" required></div>
@@ -1659,7 +1660,7 @@
         <div class="panel">
           <h2><span class="panel-icon">🔄</span> <span data-i18n="h_backup_restore">پشتیبان‌گیری و بازیابی</span></h2>
           <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">داده‌های شما روی همین دستگاه (و در صورت پیکربندی، در فضای ابری) ذخیره می‌شود. همیشه یک نسخه‌ی پشتیبان نگه دارید.</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="btn gold" data-ic="download" onclick="exportFullBackup()">پشتیبان کامل (JSON)</button><button class="btn" data-ic="share" id="shareBackupBtn" style="display:none;" onclick="shareFullBackup()">اشتراک‌گذاری پشتیبان</button><label class="btn" data-ic="history" style="cursor:pointer;">بازیابی پشتیبان<input type="file" accept=".json" style="display:none;" onchange="restoreFullBackup(event)"></label><button class="btn" data-ic="refresh" onclick="forceSyncNow()">همگام‌سازی</button></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="btn gold" data-ic="download" onclick="exportFullBackup()">پشتیبان کامل (JSON)</button><button class="btn" onclick="showDataInfo()">ℹ️ راهنمای ذخیره‌سازی</button><button class="btn" data-ic="share" id="shareBackupBtn" style="display:none;" onclick="shareFullBackup()">اشتراک‌گذاری پشتیبان</button><label class="btn" data-ic="history" style="cursor:pointer;">بازیابی پشتیبان<input type="file" accept=".json" style="display:none;" onchange="restoreFullBackup(event)"></label><button class="btn" data-ic="refresh" onclick="forceSyncNow()">همگام‌سازی</button></div>
         </div>
         <div class="panel">
           <h2><span class="panel-icon">📱</span> <span data-i18n="h_app_device">برنامه و دستگاه</span></h2>
@@ -1688,16 +1689,45 @@
     // Paste your Firebase web-app config here (Firebase Console > Project settings > Your apps > Web).
     // While apiKey is empty the site works locally only; once it is filled, accounts + data sync across all devices.
     const FIREBASE_CONFIG = {
-      apiKey: 'AIzaSyDzW4sivpnDTG2Jgr4SCIU4IB7iGwPZnPg',
-      authDomain: 'akdivex-tj.firebaseapp.com',
-      projectId: 'akdivex-tj',
-      storageBucket: 'akdivex-tj.firebasestorage.app',
-      messagingSenderId: '171678338746',
-      appId: '1:171678338746:web:4127ce6647c664ae66bc83'
+      apiKey: '',
+      authDomain: '',
+      projectId: '',
+      storageBucket: '',
+      messagingSenderId: '',
+      appId: ''
     };
     const CLOUD_MODE = !!(FIREBASE_CONFIG && FIREBASE_CONFIG.apiKey);
     let fbAuth = null,
       fbDb = null;
+
+    // ---- Own Python server (server.py). The address is read from ./server.json ({"url":"https://..."}) at start-up,
+    // or put it here. Empty = local-only mode (data stays in this browser).
+    let SERVER_URL = '';
+    let SERVER_MODE = false;
+    let srvToken = localStorage.getItem('akdivex_srv_token') || '';
+    const _srvLast = {};
+    async function resolveServerUrl() {
+      try {
+        const r = await fetch('./server.json?t=' + Date.now(), { cache: 'no-store' });
+        const j = await r.json();
+        if (j && j.url) SERVER_URL = String(j.url).replace(/\/+$/, '');
+      } catch (e) { /* no server.json -> local mode */ }
+      SERVER_MODE = !!SERVER_URL && !CLOUD_MODE;
+    }
+    async function srv(path, method, body) {
+      let res;
+      try {
+        res = await fetch(SERVER_URL + path, {
+          method: method || 'GET',
+          headers: Object.assign({ 'Content-Type': 'application/json' }, srvToken ? { Authorization: 'Bearer ' + srvToken } : {}),
+          body: body ? JSON.stringify(body) : undefined
+        });
+      } catch (e) { const er = new Error('اتصال به سرور برقرار نشد — اینترنت یا روشن بودن سرور را بررسی کنید'); er.net = true; throw er; }
+      let j = {}; try { j = await res.json(); } catch (e) {}
+      if (!res.ok) { const er = new Error(j.error || 'خطای سرور'); er.status = res.status; throw er; }
+      return j;
+    }
+    function srvSetToken(t) { srvToken = t; localStorage.setItem('akdivex_srv_token', t); }
 
     const SESSION_META = {
       asian: { label: 'آسیایی', color: '#6FA8FF' },
@@ -2496,6 +2526,28 @@
       bg.onclick = (e) => { if (e.target === bg) closeIt(); };
     }
 
+    // ---- DATA STORAGE INFO MODAL ----
+    function showDataInfo() {
+      showAppAlert(tr('اطلاعات شما کجا ذخیره می‌شود؟'), [
+        tr('• حساب و معاملات شما فقط روی همین دستگاه و همین مرورگر ذخیره می‌شود؛ جای دیگری ارسال نمی‌شود و برای ورود به VPN نیاز ندارید.'),
+        tr('• اگر با مرورگر یا گوشی دیگری وارد شوید، اطلاعات قبلی را نمی‌بینید.'),
+        tr('• پاک کردن اطلاعات مرورگر یا حذف برنامه، همه‌ی اطلاعات را از بین می‌برد.'),
+        tr('• برای جلوگیری از از دست رفتن اطلاعات، از «تنظیمات ← پشتیبان کامل (JSON)» نسخه‌ی پشتیبان بگیرید و هر وقت لازم شد (یا برای انتقال به دستگاه دیگر) همان فایل را در تنظیمات بازیابی کنید.'),
+        tr('• نام کاربری و رمز عبور فقط برای قفل کردن حساب روی همین دستگاه است.')
+      ].join('\n'), 'ℹ️');
+    }
+    Object.assign(EN_DICT, {
+      'اطلاعات من کجا ذخیره می‌شود؟': 'Where is my data stored?',
+      'ℹ️ اطلاعات من کجا ذخیره می‌شود؟': 'ℹ️ Where is my data stored?',
+      'ℹ️ راهنمای ذخیره‌سازی': 'ℹ️ Storage guide',
+      'اطلاعات شما کجا ذخیره می‌شود؟': 'Where is your data stored?',
+      '• حساب و معاملات شما فقط روی همین دستگاه و همین مرورگر ذخیره می‌شود؛ جای دیگری ارسال نمی‌شود و برای ورود به VPN نیاز ندارید.': '• Your account and trades are stored only on this device and this browser. Nothing is sent anywhere else and no VPN is needed.',
+      '• اگر با مرورگر یا گوشی دیگری وارد شوید، اطلاعات قبلی را نمی‌بینید.': '• If you sign in from another browser or phone, you will not see your previous data.',
+      '• پاک کردن اطلاعات مرورگر یا حذف برنامه، همه‌ی اطلاعات را از بین می‌برد.': '• Clearing browser data or uninstalling the app erases everything.',
+      '• برای جلوگیری از از دست رفتن اطلاعات، از «تنظیمات ← پشتیبان کامل (JSON)» نسخه‌ی پشتیبان بگیرید و هر وقت لازم شد (یا برای انتقال به دستگاه دیگر) همان فایل را در تنظیمات بازیابی کنید.': '• To avoid losing data, create a backup from Settings → Full backup (JSON), and restore that file in Settings whenever needed (or to move to another device).',
+      '• نام کاربری و رمز عبور فقط برای قفل کردن حساب روی همین دستگاه است.': '• Your username and password only lock the account on this device.'
+    });
+
     // ---- CUSTOM APP CONFIRM (styled replacement for native confirm()) ----
     // Usage: if (!(await appConfirm('عنوان', 'پیام؟'))) return;
     function appConfirm(title, message, opts = {}) {
@@ -2891,6 +2943,7 @@
 
     async function registerAccount(username, password, secQ, secA) {
       username = username.trim();
+      if (SERVER_MODE) { const r = await srv('/api/register', 'POST', { username, password, secQ, secA }); srvSetToken(r.token); return true; }
       if (CLOUD_MODE) {
         const cred = await fbAuth.createUserWithEmailAndPassword(usernameToEmail(username), password);
         await fbDb.collection('users').doc(cred.user.uid).set({ username, createdAt: Date.now(), securityQ: secQ, securityA: secA, settings: { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }, trades: [], backtestTrades: [] });
@@ -2910,6 +2963,7 @@
 
     async function loginAccount(username, password) {
       username = username.trim();
+      if (SERVER_MODE) { const r = await srv('/api/login', 'POST', { username, password }); srvSetToken(r.token); return true; }
       if (CLOUD_MODE) {
         await fbAuth.signInWithEmailAndPassword(usernameToEmail(username), password);
         return true;
@@ -2924,6 +2978,7 @@
 
     async function resetPasswordFlow(username, answer, newPass) {
       username = username.trim();
+      if (SERVER_MODE) { await srv('/api/reset', 'POST', { username, answer, newPass }); return true; }
       if (CLOUD_MODE) throw new Error('بازیابی رمز در حالت ابری فعلاً از طریق پشتیبانی انجام می‌شود');
       const reg = localUsersRegistry();
       if (!reg[username]) throw new Error('کاربری با این نام پیدا نشد');
@@ -2935,6 +2990,11 @@
     }
 
     async function fetchUserData(username) {
+      if (SERVER_MODE) {
+        const d = await srv('/api/data', 'GET');
+        _srvLast.settings = JSON.stringify(d.settings || null); _srvLast.trades = JSON.stringify(d.trades || []); _srvLast.backtestTrades = JSON.stringify(d.backtestTrades || []);
+        return { settings: d.settings || { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }, trades: d.trades || [], backtestTrades: d.backtestTrades || [] };
+      }
       if (CLOUD_MODE) {
         const uid = fbAuth.currentUser.uid;
         const doc = await fbDb.collection('users').doc(uid).get();
@@ -2961,7 +3021,12 @@
       setSyncStatus(true);
       if (CLOUD_MODE && silent !== true) showLoading('در حال همگام‌سازی…');
       try {
-        if (CLOUD_MODE) {
+        if (SERVER_MODE) {
+          const cur = { settings: JSON.stringify(userSettings), trades: JSON.stringify(trades), backtestTrades: JSON.stringify(backtestTrades) };
+          const body = {};
+          for (const k in cur) if (cur[k] !== _srvLast[k]) body[k] = JSON.parse(cur[k]);   // only what changed
+          if (Object.keys(body).length) { await srv('/api/data', 'PUT', body); for (const k in body) _srvLast[k] = cur[k]; }
+        } else if (CLOUD_MODE) {
           const uid = fbAuth.currentUser.uid;
           const prev = (window._cloudCounts = window._cloudCounts || {});
           const nt = await cloudWriteBlob('trades', trades, prev.trades), nb = await cloudWriteBlob('backtestTrades', backtestTrades, prev.backtestTrades);
@@ -2988,7 +3053,7 @@
       if (!dot) return;
       if (syncing) { dot.classList.add('syncing');
         txt.textContent = 'در حال ذخیره…'; } else { dot.classList.remove('syncing');
-        txt.textContent = CLOUD_MODE ? 'همگام‌شده با ابر' : 'ذخیره شد'; }
+        txt.textContent = (CLOUD_MODE || SERVER_MODE) ? 'همگام‌شده با سرور' : 'ذخیره شد'; }
     }
 
     function forceSyncNow() { persistAll();
@@ -3087,6 +3152,8 @@
 
     function logoutUser() {
       if (CLOUD_MODE && fbAuth) fbAuth.signOut();
+      if (SERVER_MODE && srvToken) { srv('/api/logout', 'POST').catch(() => {}); }
+      srvSetToken('');
       localStorage.removeItem('akdivex_currentUser');
       currentUser = null;
       trades = [];
@@ -6362,8 +6429,13 @@ exit /b 1
         });
       } else {
         const saved = localStorage.getItem('akdivex_currentUser');
-        if (saved) { currentUser = saved;
-          loadUserSessionAndBoot().finally(hideLoading); } else {
+        if (saved && SERVER_MODE && !srvToken) { localStorage.removeItem('akdivex_currentUser'); }
+        if (saved && !(SERVER_MODE && !srvToken)) { currentUser = saved;
+          loadUserSessionAndBoot().catch((e) => {
+            document.getElementById('authContainer').style.display = 'flex';
+            document.getElementById('mainJournalApp').style.display = 'none';
+            if (e && e.net) toast(e.message, 'error');
+          }).finally(hideLoading); } else {
           document.getElementById('authContainer').style.display = 'flex';
           document.getElementById('mainJournalApp').style.display = 'none';
           hideLoading();
@@ -6395,7 +6467,7 @@ exit /b 1
         initAppShell();
       });
     } else {
-      initAppShell();
+      resolveServerUrl().then(initAppShell);
     }
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (currentUser) renderEverything(); });
     console.log('%c🏦 AKDIVEX Trading Journal v3 loaded', 'color:#7C6CFF;font-weight:bold;');
