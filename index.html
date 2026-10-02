@@ -967,7 +967,6 @@
     .lv-edit input{flex:1;min-width:90px;background:var(--input-bg);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);padding:8px 10px}
     .lv-feed div{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;flex-wrap:wrap}
     .lv-feed div:last-child{border:0}.lv-feed .lat{font-size:11.5px;color:var(--brand-ink);background:var(--brand-dim);padding:1px 9px;border-radius:999px}
-    #lvSetup{display:none}#lvSetup.show{display:block}
 .ic-wallet, [data-ic="wallet"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7a2 2 0 0 1 2-2h13v4M3 7v10a2 2 0 0 0 2 2h14V9H5a2 2 0 0 1-2-2zM16 14h2'/%3E%3C/svg%3E"); }
 .ic-pulse, [data-ic="pulse"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12h4l3-8 4 16 3-8h4'/%3E%3C/svg%3E"); }
 .ic-gauge, [data-ic="gauge"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 18a8 8 0 1 1 16 0M12 18l4-6'/%3E%3C/svg%3E"); }
@@ -1032,10 +1031,172 @@
     .lv-step h4{margin:0 0 4px;font-size:14.5px}.lv-step p{margin:0;color:var(--muted);font-size:13px;line-height:1.9}
     .lv-more{margin-top:8px;border:1px solid var(--border);border-radius:var(--r-md);padding:10px 14px}
     .lv-more summary{cursor:pointer;font-weight:700;font-size:13.5px}
+    .lv-info-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .lv-info-card{max-width:560px;width:100%}
+    .lv-mbody{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;margin:10px -4px 0;padding:4px;scrollbar-width:thin;scrollbar-color:var(--border2) transparent}
+    .lv-mbody .lv-ul{margin:0;padding-inline-start:20px;color:var(--muted);font-size:13px;line-height:1.95}
+    .lv-mbody .lv-ul li{margin-bottom:6px}
+    .lv-mbody code{direction:ltr;unicode-bidi:isolate;background:var(--panel3);padding:1px 7px;border-radius:6px;font-size:12px}
+    .lv-mbody .form-actions{margin-top:14px}
+    .tk-hint{display:block;margin-top:5px;color:var(--muted);font-size:11.5px;line-height:1.7}
     .lv-more ul{margin:10px 0 2px;padding-inline-start:20px;color:var(--muted);font-size:13px;line-height:1.95}
+    .ic-arrow-up, [data-ic="arrow-up"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 19V5M5 12l7-7 7 7'/%3E%3C/svg%3E"); }
+    .ic-info, [data-ic="info"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4M12 8h.01'/%3E%3C/svg%3E"); }
+    .ic-help, [data-ic="help"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01'/%3E%3C/svg%3E"); }
+    .ic-book, [data-ic="book"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 4h7a3 3 0 0 1 3 3v14a2 2 0 0 0-2-2H2z'/%3E%3Cpath d='M22 4h-7a3 3 0 0 0-3 3v14a2 2 0 0 1 2-2h8z'/%3E%3C/svg%3E"); }
+    .ic-rocket, [data-ic="rocket"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.1 2.1 0 0 0-2.9-.1z'/%3E%3Cpath d='M12 15l-3-3a22 22 0 0 1 2-3.95A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z'/%3E%3Cpath d='M9 12H4s.55-3.03 2-4c1.6-1.1 5 0 5 0M12 15v5s3.03-.55 4-2c1.1-1.6 0-5 0-5'/%3E%3C/svg%3E"); }
+    .ic-clock, [data-ic="clock"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 6v6l4 2'/%3E%3C/svg%3E"); }
+    .ic-target, [data-ic="target"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Ccircle cx='12' cy='12' r='6'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3C/svg%3E"); }
+    .ic-zap, [data-ic="zap"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 2L3 14h9l-1 8 10-12h-9z'/%3E%3C/svg%3E"); }
+    .ic-layers, [data-ic="layers"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2l10 5-10 5L2 7z'/%3E%3Cpath d='M2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E"); }
+    .ic-globe, [data-ic="globe"] { --i: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z'/%3E%3C/svg%3E"); }
+
+    /* =================== v4 — تحلیل بازار حرفه‌ای =================== */
+    .an-hero { padding: 12px 14px 14px; overflow: hidden; }
+    .an-tape { height: 76px; border-radius: 12px; overflow: hidden; margin-bottom: 12px; position: relative; }
+    .an-pulse-row { display: grid; grid-template-columns: minmax(0, 1fr) 210px; gap: 14px; align-items: stretch; }
+    .an-sess-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .an-sess { background: var(--panel2); border: 1px solid var(--border); border-radius: 14px; padding: 10px 12px; transition: transform .2s, border-color .2s, box-shadow .2s; position: relative; overflow: hidden; }
+    .an-sess:hover { transform: translateY(-2px); border-color: var(--c); }
+    .an-sess.open { border-color: color-mix(in srgb, var(--c) 55%, var(--border)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 18%, transparent), 0 8px 22px -14px var(--c); }
+    .an-sess-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .an-sess-n { display: inline-flex; align-items: center; gap: 7px; font-weight: 800; font-size: 13.5px; }
+    .an-sess .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); display: inline-block; opacity: .55; }
+    .an-sess.open .dot { opacity: 1; animation: anPing 1.8s ease-out infinite; }
+    @keyframes anPing { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c) 70%, transparent); } 100% { box-shadow: 0 0 0 9px transparent; } }
+    .an-sess-b { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 99px; background: var(--panel3); color: var(--muted); }
+    .an-sess.open .an-sess-b { background: color-mix(in srgb, var(--c) 20%, transparent); color: var(--c); }
+    .an-sess-bar { height: 5px; border-radius: 9px; background: var(--panel3); margin: 9px 0 6px; overflow: hidden; }
+    .an-sess-bar i { display: block; height: 100%; background: var(--c); border-radius: 9px; transition: width .8s cubic-bezier(.2,.8,.2,1); }
+    .an-sess small { color: var(--muted); font-size: 11.5px; }
+    .an-sess small b { color: var(--text); font-variant-numeric: tabular-nums; }
+    .an-tl { margin-top: 10px; }
+    .an-tl-track { position: relative; height: 10px; border-radius: 9px; background: var(--panel2); border: 1px solid var(--border); }
+    .an-tl-track i { position: absolute; top: 1px; bottom: 1px; background: var(--c); opacity: .5; border-radius: 6px; }
+    .an-tl-track b { position: absolute; top: -4px; width: 3px; height: 18px; border-radius: 3px; background: var(--text); box-shadow: 0 0 10px var(--text); transform: translateX(-50%); transition: inset-inline-start .6s; }
+    [dir="rtl"] .an-tl-track b, .rtl .an-tl-track b { transform: translateX(50%); }
+    .an-tl-lbl { display: flex; justify-content: space-between; color: var(--muted2, var(--muted)); font-size: 10.5px; margin-top: 5px; direction: ltr; }
+    .an-hot { margin-top: 10px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; color: #F5B93C; background: rgba(245,185,60,.1); border: 1px solid rgba(245,185,60,.28); padding: 7px 12px; border-radius: 12px; animation: anGlow 2.4s ease-in-out infinite; }
+    .an-hot .ic { width: 16px; height: 16px; }
+    @keyframes anGlow { 50% { box-shadow: 0 0 18px -4px rgba(245,185,60,.55); } }
+    .an-fng { background: var(--panel2); border: 1px solid var(--border); border-radius: 14px; padding: 10px 12px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .an-fng-t { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--muted); }
+    .an-fng-t .ic { width: 14px; height: 14px; color: var(--brand-ink); }
+    .an-fng-svg { width: 130px; height: 76px; overflow: visible; }
+    .an-needle { transform-origin: 60px 62px; transition: transform 1.4s cubic-bezier(.2,1.2,.3,1); }
+    .an-fng-v { display: flex; align-items: baseline; gap: 8px; margin-top: -4px; }
+    .an-fng-v b { font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; }
+    .an-fng-v span { font-size: 12px; color: var(--muted); font-weight: 700; }
+
+    .an-toolbar { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: -4px 0 12px; }
+    .an-tgrp { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .an-tlbl { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+    .an-tlbl .ic { width: 14px; height: 14px; }
+    .an-segs { display: flex; gap: 3px; background: var(--panel2); border: 1px solid var(--border); padding: 3px; border-radius: 11px; overflow-x: auto; scrollbar-width: none; }
+    .an-segs::-webkit-scrollbar { display: none; }
+    .an-seg { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background .15s, color .15s, transform .12s; }
+    .an-seg:hover { color: var(--text); background: var(--panel3); }
+    .an-seg:active { transform: scale(.94); }
+    .an-seg.on { background: var(--brand-dim); color: var(--brand-ink); box-shadow: inset 0 0 0 1px var(--brand-ink); }
+    .an-seg.study.on { background: var(--mint-dim); color: var(--mint); box-shadow: inset 0 0 0 1px var(--mint); }
+
+    .an-plan { margin-bottom: 16px; }
+    .an-plan .an-panel-head h3 .ic { color: var(--mint); }
+    .an-saved { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--mint); opacity: 0; transition: opacity .3s; }
+    .an-saved .ic { width: 14px; height: 14px; }
+    .an-saved.flash { animation: anSaved 1.8s ease; }
+    @keyframes anSaved { 0% { opacity: 0; transform: translateY(4px); } 15%, 70% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    .an-plan-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 16px; }
+    .an-plan-col { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+    .an-plan-col.wide { grid-column: 1 / -1; }
+    .an-bias-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .an-bias { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 10px 8px; border-radius: 13px; border: 1px solid var(--border); background: var(--panel2); color: var(--muted); font: inherit; font-weight: 800; font-size: 13px; cursor: pointer; transition: all .18s; }
+    .an-bias .ic { width: 17px; height: 17px; }
+    .an-bias:hover { transform: translateY(-2px); color: var(--text); }
+    .an-bias.bull.on { background: var(--mint-dim); border-color: var(--mint); color: var(--mint); }
+    .an-bias.bear.on { background: var(--sell-dim); border-color: var(--sell); color: var(--sell); }
+    .an-bias.neutral.on { background: var(--brand-dim); border-color: var(--brand-ink); color: var(--brand-ink); }
+    .an-bias.on { animation: tabPop .3s cubic-bezier(.3,1.4,.5,1); }
+    .an-lv-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .an-lv-row label { display: flex; flex-direction: column; gap: 5px; font-size: 11.5px; font-weight: 700; color: var(--muted); }
+    .an-lv-row label.sl span { color: var(--sell); } .an-lv-row label.tp span { color: var(--mint); }
+    .an-lv-row input, .an-plan textarea { width: 100%; background: var(--panel2); border: 1px solid var(--border); color: var(--text); border-radius: 11px; padding: 9px 11px; font: inherit; font-size: 13.5px; transition: border-color .15s, box-shadow .15s; box-sizing: border-box; }
+    .an-lv-row input:focus, .an-plan textarea:focus { outline: none; border-color: var(--brand-ink); box-shadow: 0 0 0 3px var(--brand-dim); }
+    .an-plan textarea { resize: vertical; min-height: 74px; line-height: 1.8; }
+    .an-rr { background: var(--panel2); border: 1px dashed var(--border2); border-radius: 13px; padding: 12px 14px; min-height: 70px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+    .an-rr-hint { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12.5px; line-height: 1.7; }
+    .an-rr-hint .ic { width: 16px; height: 16px; flex: none; } .an-rr-hint.bad { color: var(--sell); }
+    .an-rr-top { display: flex; align-items: center; gap: 10px; }
+    .an-rr-top b { font-size: 20px; font-weight: 900; }
+    .an-dir { font-size: 11px; font-weight: 900; padding: 3px 9px; border-radius: 8px; letter-spacing: .5px; }
+    .an-dir.buy { background: var(--mint-dim); color: var(--mint); } .an-dir.sell { background: var(--sell-dim); color: var(--sell); }
+    .an-rr-q { margin-inline-start: auto; font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 99px; }
+    .an-rr-q.g { background: var(--mint-dim); color: var(--mint); } .an-rr-q.y { background: rgba(245,185,60,.14); color: #F5B93C; } .an-rr-q.r { background: var(--sell-dim); color: var(--sell); }
+    .an-rr-bar { display: flex; height: 9px; border-radius: 9px; overflow: hidden; gap: 2px; }
+    .an-rr-bar i { transition: width .5s cubic-bezier(.2,.8,.2,1); } .an-rr-bar .r { background: var(--sell); } .an-rr-bar .g { background: var(--mint); }
+    .an-rr small { color: var(--muted); font-size: 12px; }
+    .an-chk-head { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; font-weight: 800; color: var(--muted); }
+    .an-chk-head b { color: var(--text); font-variant-numeric: tabular-nums; }
+    .an-chk-bar { height: 6px; border-radius: 9px; background: var(--panel3); overflow: hidden; margin-top: -4px; }
+    .an-chk-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--brand), var(--mint)); border-radius: 9px; transition: width .5s cubic-bezier(.2,.8,.2,1); }
+    .an-chk-bar.full i { animation: anGlow 1.6s ease-in-out infinite; }
+    .an-chk { display: flex; flex-direction: column; gap: 6px; }
+    .an-chk-i { display: flex; align-items: center; gap: 10px; text-align: start; background: var(--panel2); border: 1px solid var(--border); border-radius: 11px; padding: 8px 11px; color: var(--muted); font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all .15s; }
+    .an-chk-i:hover { border-color: var(--border2); color: var(--text); }
+    .an-chk-i > span { flex: none; width: 20px; height: 20px; border-radius: 7px; border: 1.5px solid var(--border2); display: grid; place-items: center; transition: all .18s; }
+    .an-chk-i > span .ic { width: 13px; height: 13px; color: #fff; transform: scale(0); transition: transform .2s cubic-bezier(.3,1.6,.5,1); }
+    .an-chk-i.on { color: var(--text); border-color: color-mix(in srgb, var(--mint) 45%, var(--border)); }
+    .an-chk-i.on > span { background: var(--mint); border-color: var(--mint); } .an-chk-i.on > span .ic { transform: scale(1); }
+    .an-plan-acts { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+    @media (max-width: 900px) { .an-pulse-row { grid-template-columns: 1fr; } .an-sess-grid { grid-template-columns: repeat(2, 1fr); } .an-fng { flex-direction: row; gap: 14px; justify-content: center; } .an-plan-grid { grid-template-columns: 1fr; } .an-fng-svg { width: 110px; height: 64px; } }
+
+    /* =================== مودال راه‌اندازی =================== */
+    .lv-setup-card { max-width: 620px; padding-top: 22px; }
+    .lv-setup-head { display: flex; align-items: flex-start; gap: 14px; padding-inline-end: 40px; flex: none; }
+    .lv-setup-head h2 { margin: 0 0 4px; font-size: 18px; }
+    .lv-setup-head .lv-note { margin: 0; text-align: start !important; }
+    .lv-setup-ic { flex: none; width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; background: linear-gradient(135deg, var(--brand), var(--mint)); color: #fff; box-shadow: 0 10px 26px -10px var(--brand); animation: lvFloat 3.4s ease-in-out infinite; }
+    .lv-setup-ic .ic { width: 24px; height: 24px; }
+    .lv-setup-card .lv-mbody { margin-top: 14px; }
+    .lv-setup-card .lv-step { transition: transform .2s, border-color .2s; animation: riseIn .45s both; }
+    .lv-setup-card .lv-step:nth-child(2) { animation-delay: .07s; } .lv-setup-card .lv-step:nth-child(3) { animation-delay: .14s; }
+    .lv-setup-card .lv-step:hover { transform: translateX(-3px); border-color: var(--brand-ink); }
+    [dir="ltr"] .lv-setup-card .lv-step:hover { transform: translateX(3px); }
+    .lv-setup-card .lv-step > b { background: linear-gradient(135deg, var(--brand), var(--brand-ink)); color: #fff; }
+    .modal-bg { backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+    .modal-bg.show { animation: bgFade .22s ease; }
+    @keyframes bgFade { from { opacity: 0; } to { opacity: 1; } }
+
+    /* =================== انیمیشن و جزئیات عمومی =================== */
+    @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .view.active > .panel, .view.active .stats-row > .stat-card, .view.active > .stats-row-4 > .stat-card, .an-main > *, .an-lower > .panel { animation: riseIn .5s cubic-bezier(.2,.8,.2,1) backwards; }
+    .view.active > :nth-child(2) { animation-delay: .04s; } .view.active > :nth-child(3) { animation-delay: .08s; } .view.active > :nth-child(4) { animation-delay: .12s; }
+    .view.active > :nth-child(5) { animation-delay: .16s; } .view.active > :nth-child(6) { animation-delay: .2s; } .view.active > :nth-child(n+7) { animation-delay: .24s; }
+    .stats-row > .stat-card:nth-child(2), .stats-row-4 > .stat-card:nth-child(2) { animation-delay: .06s; } .stats-row > .stat-card:nth-child(3), .stats-row-4 > .stat-card:nth-child(3) { animation-delay: .12s; }
+    .stats-row > .stat-card:nth-child(4), .stats-row-4 > .stat-card:nth-child(4) { animation-delay: .18s; } .stats-row > .stat-card:nth-child(n+5) { animation-delay: .24s; }
+    .stat-card { transition: transform .22s cubic-bezier(.2,.8,.2,1), border-color .2s, box-shadow .25s; }
+    .stat-card:hover { transform: translateY(-4px); border-color: var(--border2); box-shadow: 0 16px 34px -18px rgba(124,108,255,.55); }
+    .panel:hover { border-color: var(--border2); }
+    .btn:hover { transform: translateY(-1px); } .btn:active { transform: scale(.97); }
+    .rip { position: absolute; border-radius: 50%; background: currentColor; opacity: .22; transform: scale(0); pointer-events: none; animation: ripple .6s ease-out forwards; }
+    @keyframes ripple { to { transform: scale(2.6); opacity: 0; } }
+    .tab-btn { position: relative; }
+    .tab-btn.active::after { content: ''; position: absolute; inset-inline: 22%; bottom: 3px; height: 3px; border-radius: 3px; background: var(--brand-ink); animation: tabLine .35s cubic-bezier(.2,1.2,.4,1); }
+    @keyframes tabLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    input:focus, select:focus, textarea:focus { transition: box-shadow .15s, border-color .15s; }
+    #scrollBar { position: fixed; top: 0; inset-inline: 0; height: 3px; z-index: 400; pointer-events: none; }
+    #scrollBar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--brand), var(--mint)); box-shadow: 0 0 12px var(--brand); border-radius: 0 3px 3px 0; transition: width .1s linear; }
+    #toTop { position: fixed; bottom: 22px; inset-inline-start: 22px; z-index: 90; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border2); background: var(--panel); color: var(--brand-ink); display: grid; place-items: center; cursor: pointer; box-shadow: var(--shadow); opacity: 0; transform: translateY(16px) scale(.8); pointer-events: none; transition: all .28s cubic-bezier(.2,1.2,.4,1); }
+    #toTop.show { opacity: 1; transform: none; pointer-events: auto; }
+    #toTop:hover { background: var(--brand); color: #fff; transform: translateY(-3px); }
+    #toTop .ic { width: 20px; height: 20px; }
+    @media (max-width: 760px) { #toTop { bottom: 84px; inset-inline-start: 14px; width: 40px; height: 40px; } }
+    @media (prefers-reduced-motion: reduce) { .view.active > *, .stat-card, .an-sess .dot, .an-hot, .lv-setup-ic, .rip { animation: none !important; } .an-needle, .an-sess-bar i { transition: none; } }
   </style>
 </head>
 <body class="rtl">
+  <div id="scrollBar"><i></i></div>
+  <button id="toTop" type="button" aria-label="Top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="ic ic-arrow-up"></i></button>
 
   <div class="toast-stack" id="toastStack"></div>
   <div class="loading-bg" id="loadingBg">
@@ -1047,6 +1208,68 @@
   <div class="modal-bg" id="modalBg">
     <button class="modal-close" id="modalClose">&times;</button>
     <img id="modalImg" src="" alt="تصویر معامله">
+  </div>
+
+  <div class="modal-bg" id="lvSetup" onclick="if(event.target===this)liveSetupClose()">
+    <div class="voice-modal-card lv-term-card lv-setup-card">
+      <button class="modal-close-inline lv-x" onclick="liveSetupClose()" aria-label="Close">&times;</button>
+      <div class="lv-setup-head">
+        <span class="lv-setup-ic"><i class="ic ic-rocket"></i></span>
+        <div><h2 data-lv="g_title"></h2><p class="lv-note" data-lv-html="g_intro"></p></div>
+      </div>
+      <div class="lv-mbody">
+        <p class="lv-note" data-lv-html="g_req"></p>
+        <div class="lv-steps">
+          <div class="lv-step"><b>1</b><div><h4 data-lv="s1_t"></h4><p data-lv-html="s1_b"></p>
+            <div class="form-actions" style="justify-content:flex-start;margin-top:10px"><button class="btn primary" data-ic="download" onclick="liveDownload(false)"><span data-lv="dl"></span></button></div></div></div>
+          <div class="lv-step"><b>2</b><div><h4 data-lv="s2_t"></h4><p data-lv-html="s2_b"></p></div></div>
+          <div class="lv-step"><b>3</b><div><h4 data-lv="s3_t"></h4><p data-lv-html="s3_b"></p></div></div>
+        </div>
+        <div class="lv-info-btns">
+          <button class="btn small" data-ic="list" onclick="liveInfoOpen('lvInfoTips')"><span data-lv="tips_t"></span></button>
+          <button class="btn small" data-ic="shield" onclick="liveInfoOpen('lvInfoTb')"><span data-lv="tb_t"></span></button>
+          <button class="btn small" data-ic="key" onclick="liveInfoOpen('lvInfoAdv')"><span data-lv="adv_t"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="lvInfoTips" onclick="if(event.target===this)liveInfoClose()">
+    <div class="voice-modal-card lv-term-card lv-info-card">
+      <button class="modal-close-inline lv-x" onclick="liveInfoClose()" aria-label="Close">&times;</button>
+      <div class="voice-modal-icon"><i class="ic ic-list"></i></div>
+      <div class="voice-modal-title" data-lv="tips_t"></div>
+      <div class="lv-mbody">
+        <ul class="lv-ul" data-lv-html="tips_b"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="lvInfoTb" onclick="if(event.target===this)liveInfoClose()">
+    <div class="voice-modal-card lv-term-card lv-info-card">
+      <button class="modal-close-inline lv-x" onclick="liveInfoClose()" aria-label="Close">&times;</button>
+      <div class="voice-modal-icon"><i class="ic ic-shield"></i></div>
+      <div class="voice-modal-title" data-lv="tb_t"></div>
+      <div class="lv-mbody">
+        <ul class="lv-ul" data-lv-html="tb_b"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="lvInfoAdv" onclick="if(event.target===this)liveInfoClose()">
+    <div class="voice-modal-card lv-term-card lv-info-card">
+      <button class="modal-close-inline lv-x" onclick="liveInfoClose()" aria-label="Close">&times;</button>
+      <div class="voice-modal-icon"><i class="ic ic-key"></i></div>
+      <div class="voice-modal-title" data-lv="adv_t"></div>
+      <div class="lv-mbody">
+            <div class="grid-form" style="grid-template-columns:1fr;margin-top:6px">
+              <div class="field"><label data-lv="f_url"></label><input class="ltr" id="lvUrl" value="ws://127.0.0.1:8765"></div>
+              <div class="field"><label data-lv="f_tok"></label><input class="ltr" id="lvTok" type="password" autocomplete="off"></div>
+              <div class="field"><label data-lv="f_days"></label><select id="lvDays"><option>3</option><option selected>7</option><option>30</option><option>90</option></select></div>
+            </div>
+            <div class="form-actions"><button class="btn" onclick="liveDownload(true)"><span data-lv="renew"></span></button><button class="btn primary" onclick="liveSaveConnect()"><span data-lv="save_conn"></span></button></div>
+      </div>
+    </div>
   </div>
 
   <div class="modal-bg" id="lvTermBg" onclick="if(event.target===this)liveTermClose()">
@@ -1115,7 +1338,6 @@
         <button type="submit" class="btn primary" style="width:100%;justify-content:center;margin-top:6px;" id="loginBtn" data-ic="login" data-i18n="auth_login">ورود</button>
         <div class="auth-link">رمز عبور را فراموش کرده‌اید؟ <a onclick="showForgotPassword()">بازیابی</a></div>
         <div class="auth-link">حساب کاربری ندارید؟ <a onclick="switchAuthTab('register')">ثبت‌نام کنید</a></div>
-        <div class="auth-link"><a onclick="showDataInfo()">ℹ️ اطلاعات من کجا ذخیره می‌شود؟</a></div>
       </form>
       <form class="auth-form" id="registerForm" style="display:none;" onsubmit="return handleRegister(event)">
         <div class="field"><label>نام کاربری</label><input type="text" id="regUsername" autocomplete="username" required></div>
@@ -1179,7 +1401,7 @@
       <div class="tabs">
         <button class="tab-btn active" data-tab="dashboard" onclick="switchTab('dashboard')"><i class="ic ic-dashboard"></i><span data-i18n="tab_dashboard">داشبورد</span></button>
         <button class="tab-btn" data-tab="journal" onclick="switchTab('journal')"><i class="ic ic-journal"></i><span data-i18n="tab_journal">ژورنال‌ها</span></button>
-        <button class="tab-btn" data-tab="live" onclick="switchTab('live')"><i class="ic ic-refresh"></i><span data-lv="tab">MT5 زنده</span></button>
+        <button class="tab-btn" data-tab="live" onclick="switchTab('live')"><i class="ic ic-refresh"></i><span data-lv="tab">ژورنال خودکار</span></button>
         <button class="tab-btn" data-tab="backtest" onclick="switchTab('backtest')"><i class="ic ic-backtest"></i><span data-i18n="tab_backtest">بک‌تست</span></button>
         <button class="tab-btn" data-tab="analysis" onclick="switchTab('analysis')"><i class="ic ic-analysis"></i><span data-i18n="tab_analysis">تحلیل بازار</span></button>
         <button class="tab-btn" data-tab="calculator" onclick="switchTab('calculator')"><i class="ic ic-calculator"></i><span data-i18n="tab_calculator">ماشین‌حساب ریسک</span></button>
@@ -1298,6 +1520,11 @@
                 <label data-i18n="f_symbol">نماد معاملاتی</label>
                 <input type="text" id="t_symbol" list="symbolList" required placeholder="انتخاب کنید یا بنویسید…" autocomplete="off">
               </div>
+              <div class="field">
+                <label data-i18n="f_ticket">شماره تیکت (Ticket) *</label>
+                <input type="text" id="t_ticket" class="ltr" required inputmode="numeric" autocomplete="off" placeholder="مثلاً 123456789">
+                <small class="tk-hint" data-i18n="f_ticket_hint">برای جلوگیری از ثبت تکراری هنگام بارگذاری استیتمنت، شماره تیکت را از متاتریدر وارد کنید.</small>
+              </div>
               <div class="field"><label data-i18n="f_direction">جهت</label><div class="toggle-group"><button type="button" class="buy active" data-ic="trend-up" id="t_side_buy" onclick="setSide('buy')">خرید</button><button type="button" class="sell" data-ic="trend-down" id="t_side_sell" onclick="setSide('sell')">فروش</button></div></div>
               <div class="field">
                 <label data-i18n="f_setup">ستاپ</label>
@@ -1385,28 +1612,7 @@
           <label style="display:flex;gap:6px;align-items:center;font-size:13px;cursor:pointer"><input type="checkbox" id="lvAuto" checked onchange="liveSetAuto(this.checked)" style="accent-color:var(--brand)"> <span data-lv="auto"></span></label>
           <button class="btn small" data-ic="refresh" onclick="liveSync();this.classList.add('spin');setTimeout(()=>this.classList.remove('spin'),900)"><span data-lv="sync"></span></button>
           <button class="btn small" data-ic="swap" onclick="liveTermOpen()"><span data-lv="term_btn"></span></button>
-          <button class="btn small" data-ic="settings" onclick="document.getElementById('lvSetup').classList.toggle('show')"><span data-lv="setup_btn"></span></button>
-        </div>
-        <div class="panel" id="lvSetup">
-          <h2 data-lv="g_title"></h2>
-          <p class="lv-note" data-lv-html="g_intro"></p>
-          <p class="lv-note" data-lv-html="g_req"></p>
-          <div class="lv-steps">
-            <div class="lv-step"><b>1</b><div><h4 data-lv="s1_t"></h4><p data-lv-html="s1_b"></p>
-              <div class="form-actions" style="justify-content:flex-start;margin-top:10px"><button class="btn primary" data-ic="download" onclick="liveDownload(false)"><span data-lv="dl"></span></button></div></div></div>
-            <div class="lv-step"><b>2</b><div><h4 data-lv="s2_t"></h4><p data-lv-html="s2_b"></p></div></div>
-            <div class="lv-step"><b>3</b><div><h4 data-lv="s3_t"></h4><p data-lv-html="s3_b"></p></div></div>
-          </div>
-          <details class="lv-more"><summary data-lv="tips_t"></summary><ul data-lv-html="tips_b"></ul></details>
-          <details class="lv-more"><summary data-lv="tb_t"></summary><ul data-lv-html="tb_b"></ul></details>
-          <details class="lv-more"><summary data-lv="adv_t"></summary>
-            <div class="grid-form" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:10px">
-              <div class="field"><label data-lv="f_url"></label><input class="ltr" id="lvUrl" value="ws://127.0.0.1:8765"></div>
-              <div class="field"><label data-lv="f_tok"></label><input class="ltr" id="lvTok" type="password" autocomplete="off"></div>
-              <div class="field"><label data-lv="f_days"></label><select id="lvDays"><option>3</option><option selected>7</option><option>30</option><option>90</option></select></div>
-            </div>
-            <div class="form-actions"><button class="btn" onclick="liveDownload(true)"><span data-lv="renew"></span></button><button class="btn primary" onclick="liveSaveConnect()"><span data-lv="save_conn"></span></button></div>
-          </details>
+          <button class="btn small" data-ic="rocket" onclick="liveSetupOpen()"><span data-lv="setup_btn"></span></button>
         </div>
         <div class="lv-hero">
           <svg id="lvSpark" viewBox="0 0 100 40" preserveAspectRatio="none"><defs><linearGradient id="lvG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--brand-ink)" stop-opacity=".35"/><stop offset="1" style="stop-color:var(--brand-ink)" stop-opacity="0"/></linearGradient></defs><polygon fill="url(#lvG)" points=""/><polyline class="lv-line" fill="none" stroke="var(--brand-ink)" stroke-width="1.4" vector-effect="non-scaling-stroke" points=""/></svg>
@@ -1526,6 +1732,13 @@
 
       <!-- ===== MARKET ANALYSIS (TradingView) ===== -->
       <div class="view" id="view-analysis">
+        <div class="panel an-hero" id="anHero">
+          <div class="tv-host an-tape" id="tvTape"></div>
+          <div class="an-pulse-row">
+            <div class="an-sessions" id="anSessions"></div>
+            <div class="an-fng" id="anFng"></div>
+          </div>
+        </div>
         <div class="panel an-bar">
           <div class="an-bar-top">
             <div class="an-current" id="anCurrent"></div>
@@ -1553,6 +1766,7 @@
                 <button type="button" class="an-tool sm" id="anFsBtn" onclick="anToggleFs()" data-an-title="fs"><i class="ic ic-expand"></i></button>
               </div>
             </div>
+            <div class="an-toolbar" id="anTools"></div>
             <div class="tv-host an-chart-host" id="tvChart"></div>
           </div>
           <div class="an-side">
@@ -1566,6 +1780,8 @@
             </div>
           </div>
         </div>
+
+        <div class="panel an-plan" id="anPlan"></div>
 
         <div class="an-lower" id="anLower">
           <div class="panel" id="anNewsPanel">
@@ -1660,7 +1876,7 @@
         <div class="panel">
           <h2><span class="panel-icon">🔄</span> <span data-i18n="h_backup_restore">پشتیبان‌گیری و بازیابی</span></h2>
           <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">داده‌های شما روی همین دستگاه (و در صورت پیکربندی، در فضای ابری) ذخیره می‌شود. همیشه یک نسخه‌ی پشتیبان نگه دارید.</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="btn gold" data-ic="download" onclick="exportFullBackup()">پشتیبان کامل (JSON)</button><button class="btn" onclick="showDataInfo()">ℹ️ راهنمای ذخیره‌سازی</button><button class="btn" data-ic="share" id="shareBackupBtn" style="display:none;" onclick="shareFullBackup()">اشتراک‌گذاری پشتیبان</button><label class="btn" data-ic="history" style="cursor:pointer;">بازیابی پشتیبان<input type="file" accept=".json" style="display:none;" onchange="restoreFullBackup(event)"></label><button class="btn" data-ic="refresh" onclick="forceSyncNow()">همگام‌سازی</button></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="btn gold" data-ic="download" onclick="exportFullBackup()">پشتیبان کامل (JSON)</button><button class="btn" data-ic="share" id="shareBackupBtn" style="display:none;" onclick="shareFullBackup()">اشتراک‌گذاری پشتیبان</button><label class="btn" data-ic="history" style="cursor:pointer;">بازیابی پشتیبان<input type="file" accept=".json" style="display:none;" onchange="restoreFullBackup(event)"></label><button class="btn" data-ic="refresh" onclick="forceSyncNow()">همگام‌سازی</button></div>
         </div>
         <div class="panel">
           <h2><span class="panel-icon">📱</span> <span data-i18n="h_app_device">برنامه و دستگاه</span></h2>
@@ -1689,45 +1905,16 @@
     // Paste your Firebase web-app config here (Firebase Console > Project settings > Your apps > Web).
     // While apiKey is empty the site works locally only; once it is filled, accounts + data sync across all devices.
     const FIREBASE_CONFIG = {
-      apiKey: '',
-      authDomain: '',
-      projectId: '',
-      storageBucket: '',
-      messagingSenderId: '',
-      appId: ''
+      apiKey: '',   // Firebase off -> accounts + data are stored in this browser only
+      authDomain: 'akdivex-tj.firebaseapp.com',
+      projectId: 'akdivex-tj',
+      storageBucket: 'akdivex-tj.firebasestorage.app',
+      messagingSenderId: '171678338746',
+      appId: '1:171678338746:web:4127ce6647c664ae66bc83'
     };
     const CLOUD_MODE = !!(FIREBASE_CONFIG && FIREBASE_CONFIG.apiKey);
     let fbAuth = null,
       fbDb = null;
-
-    // ---- Own Python server (server.py). The address is read from ./server.json ({"url":"https://..."}) at start-up,
-    // or put it here. Empty = local-only mode (data stays in this browser).
-    let SERVER_URL = '';
-    let SERVER_MODE = false;
-    let srvToken = localStorage.getItem('akdivex_srv_token') || '';
-    const _srvLast = {};
-    async function resolveServerUrl() {
-      try {
-        const r = await fetch('./server.json?t=' + Date.now(), { cache: 'no-store' });
-        const j = await r.json();
-        if (j && j.url) SERVER_URL = String(j.url).replace(/\/+$/, '');
-      } catch (e) { /* no server.json -> local mode */ }
-      SERVER_MODE = !!SERVER_URL && !CLOUD_MODE;
-    }
-    async function srv(path, method, body) {
-      let res;
-      try {
-        res = await fetch(SERVER_URL + path, {
-          method: method || 'GET',
-          headers: Object.assign({ 'Content-Type': 'application/json' }, srvToken ? { Authorization: 'Bearer ' + srvToken } : {}),
-          body: body ? JSON.stringify(body) : undefined
-        });
-      } catch (e) { const er = new Error('اتصال به سرور برقرار نشد — اینترنت یا روشن بودن سرور را بررسی کنید'); er.net = true; throw er; }
-      let j = {}; try { j = await res.json(); } catch (e) {}
-      if (!res.ok) { const er = new Error(j.error || 'خطای سرور'); er.status = res.status; throw er; }
-      return j;
-    }
-    function srvSetToken(t) { srvToken = t; localStorage.setItem('akdivex_srv_token', t); }
 
     const SESSION_META = {
       asian: { label: 'آسیایی', color: '#6FA8FF' },
@@ -2237,7 +2424,13 @@
 "متوسط": "Medium",
 "کم‌اهمیت": "Low",
 "تعطیلی": "Holiday",
-"امروز": "Today"
+"امروز": "Today",
+"شماره تیکت (Ticket) *": "Ticket number *",
+"برای جلوگیری از ثبت تکراری هنگام بارگذاری استیتمنت، شماره تیکت را از متاتریدر وارد کنید.": "Enter the ticket number from MetaTrader so the trade is never duplicated when you upload a statement.",
+"مثلاً 123456789": "e.g. 123456789",
+"شماره تیکت را وارد کنید — بدون آن معامله ذخیره نمی‌شود": "Enter the ticket number — the trade can't be saved without it",
+"این تیکت قبلاً در ژورنال ثبت شده است": "This ticket is already in your journal",
+"ژورنال خودکار": "Auto Journal"
 });
     const TH_EN = {"ورود": "Entry", "حد ضرر": "SL", "حد سود": "TP", "خروج": "Exit", "حد ضرر اولیه": "Orig SL", "حجم": "Lot"};
     const EN_RX = [["^\\((\\d+) معامله، (\\d+)% برد\\)$", "($1 trades, $2% win)"], ["^\\((\\d+) معامله\\)$", "($1 trades)"], ["^میانگین \\((\\d+)% وین‌ریت\\)$", "average ($1% win rate)"], ["^در (\\d+) روز، بیش از حد معامله کرده‌اید و نتیجه منفی شده — مراقب اوِرترید \\(معامله‌ی بیش‌ازحد\\) باشید$", "On $1 day(s) you overtraded and finished negative — watch out for overtrading"], ["^(\\d+) معامله بسته‌شده$", "$1 closed trades"], ["^(\\d+) برد / (\\d+) باخت$", "$1 W / $2 L"], ["^(\\d+) معامله$", "$1 trades"], ["^(\\d+) سناریو$", "$1 scenarios"], ["^1 برد 🔥$", "1 Win 🔥"], ["^1 باخت ❄️$", "1 Loss ❄️"], ["^(\\d+) برد 🔥$", "$1 Wins 🔥"], ["^(\\d+) باخت ❄️$", "$1 Losses ❄️"], ["^(\\d+)% وین‌ریت$", "$1% Win Rate"], ["^روند: (\\d+) برد$", "Streak: $1 Win"], ["^روند: (\\d+) باخت$", "Streak: $1 Loss"], ["^روند: (\\d+)\\s*$", "Streak: $1"], ["^بدترین: (.+)$", "Worst: $1"], ["^هدف: (.+)$", "Target: $1"], ["^(.+) در این ماه$", "$1 this month"], ["^(\\d+)% از هدف ماهانه محقق شده است$", "$1% of monthly goal achieved"], ["^(\\d+)% از هدف ماهانه$", "$1% of monthly goal"], ["^روز (\\d+)$", "Day $1"], ["^گروه معاملاتی AKDIVEX — (.*)$", "AKDIVEX Trading Group — $1"], ["^خوش برگشتید (.+)! 👋$", "Welcome back $1! 👋"], ["^(\\d+) معامله از متاتریدر وارد شد ✅$", "Imported $1 trade(s) from MetaTrader ✅"], ["^سرمایه‌ی نهایی پس از (\\d+) ماه$", "Final Capital after $1 months"], ["^(\\d+) معامله دارای مبلغ دلاری$", "$1 trades with $ recorded"], ["^(\\d+) از (\\d+) دارای حد ضرر اولیه‌ی ثبت‌شده$", "$1/$2 have an Original SL on file"], ["^(.+?)\\ معامله\\ از\\ متاتریدر\\ وارد\\ شد\\ ✅$", "Imported $1 trade(s) from MetaTrader ✅"], ["^(.+?)\\ معامله\\ بسته‌شده$", "$1 closed trades"], ["^(.+?)\\ برد\\ /\\ (.+?)\\ باخت$", "$1 W / $2 L"], ["^(.+?)\\ معامله\\ دارای\\ مبلغ\\ دلاری$", "$1 trades with $ recorded"], ["^(.+?)\\ از\\ (.+?)\\ دارای\\ حد\\ ضرر\\ اولیه‌ی\\ ثبت‌شده$", "$1/$2 have an Original SL on file"], ["^(.+?)\\ معامله$", "$1 trades"], ["^rgba\\(46,230,166,(.+?)\\)$", "rgba(43,217,166,$1)"], ["^rgba\\(255,92,122,(.+?)\\)$", "rgba(255,94,122,$1)"], ["^روز\\ (.+?)$", "Day $1"], ["^هدف:\\ (.+?)%$", "Target: $1%"], ["^(.+?)%\\ از\\ هدف\\ ماهانه\\ محقق\\ شده\\ است$", "$1% of monthly goal achieved"], ["^(.+?)\\ معامله$", "$1 trades"], ["^(.+?)\\ معامله$", "$1 trades"], ["^(.+?)\\ سناریو$", "$1 scenarios"]].map(([src, tpl]) => [new RegExp(src), tpl]);
@@ -2265,6 +2458,8 @@
 "f_datetime2": "تاریخ/ساعت",
 "f_direction": "جهت",
 "f_entry": "قیمت ورود",
+"f_ticket": "شماره تیکت (Ticket) *",
+"f_ticket_hint": "برای جلوگیری از ثبت تکراری هنگام بارگذاری استیتمنت، شماره تیکت را از متاتریدر وارد کنید.",
 "f_exit": "قیمت خروج (اختیاری)",
 "f_lot": "حجم معامله",
 "f_mood": "حالت روانی معامله",
@@ -2525,28 +2720,6 @@
       document.getElementById('appAlertOk').onclick = closeIt;
       bg.onclick = (e) => { if (e.target === bg) closeIt(); };
     }
-
-    // ---- DATA STORAGE INFO MODAL ----
-    function showDataInfo() {
-      showAppAlert(tr('اطلاعات شما کجا ذخیره می‌شود؟'), [
-        tr('• حساب و معاملات شما فقط روی همین دستگاه و همین مرورگر ذخیره می‌شود؛ جای دیگری ارسال نمی‌شود و برای ورود به VPN نیاز ندارید.'),
-        tr('• اگر با مرورگر یا گوشی دیگری وارد شوید، اطلاعات قبلی را نمی‌بینید.'),
-        tr('• پاک کردن اطلاعات مرورگر یا حذف برنامه، همه‌ی اطلاعات را از بین می‌برد.'),
-        tr('• برای جلوگیری از از دست رفتن اطلاعات، از «تنظیمات ← پشتیبان کامل (JSON)» نسخه‌ی پشتیبان بگیرید و هر وقت لازم شد (یا برای انتقال به دستگاه دیگر) همان فایل را در تنظیمات بازیابی کنید.'),
-        tr('• نام کاربری و رمز عبور فقط برای قفل کردن حساب روی همین دستگاه است.')
-      ].join('\n'), 'ℹ️');
-    }
-    Object.assign(EN_DICT, {
-      'اطلاعات من کجا ذخیره می‌شود؟': 'Where is my data stored?',
-      'ℹ️ اطلاعات من کجا ذخیره می‌شود؟': 'ℹ️ Where is my data stored?',
-      'ℹ️ راهنمای ذخیره‌سازی': 'ℹ️ Storage guide',
-      'اطلاعات شما کجا ذخیره می‌شود؟': 'Where is your data stored?',
-      '• حساب و معاملات شما فقط روی همین دستگاه و همین مرورگر ذخیره می‌شود؛ جای دیگری ارسال نمی‌شود و برای ورود به VPN نیاز ندارید.': '• Your account and trades are stored only on this device and this browser. Nothing is sent anywhere else and no VPN is needed.',
-      '• اگر با مرورگر یا گوشی دیگری وارد شوید، اطلاعات قبلی را نمی‌بینید.': '• If you sign in from another browser or phone, you will not see your previous data.',
-      '• پاک کردن اطلاعات مرورگر یا حذف برنامه، همه‌ی اطلاعات را از بین می‌برد.': '• Clearing browser data or uninstalling the app erases everything.',
-      '• برای جلوگیری از از دست رفتن اطلاعات، از «تنظیمات ← پشتیبان کامل (JSON)» نسخه‌ی پشتیبان بگیرید و هر وقت لازم شد (یا برای انتقال به دستگاه دیگر) همان فایل را در تنظیمات بازیابی کنید.': '• To avoid losing data, create a backup from Settings → Full backup (JSON), and restore that file in Settings whenever needed (or to move to another device).',
-      '• نام کاربری و رمز عبور فقط برای قفل کردن حساب روی همین دستگاه است.': '• Your username and password only lock the account on this device.'
-    });
 
     // ---- CUSTOM APP CONFIRM (styled replacement for native confirm()) ----
     // Usage: if (!(await appConfirm('عنوان', 'پیام؟'))) return;
@@ -2943,7 +3116,6 @@
 
     async function registerAccount(username, password, secQ, secA) {
       username = username.trim();
-      if (SERVER_MODE) { const r = await srv('/api/register', 'POST', { username, password, secQ, secA }); srvSetToken(r.token); return true; }
       if (CLOUD_MODE) {
         const cred = await fbAuth.createUserWithEmailAndPassword(usernameToEmail(username), password);
         await fbDb.collection('users').doc(cred.user.uid).set({ username, createdAt: Date.now(), securityQ: secQ, securityA: secA, settings: { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }, trades: [], backtestTrades: [] });
@@ -2963,7 +3135,6 @@
 
     async function loginAccount(username, password) {
       username = username.trim();
-      if (SERVER_MODE) { const r = await srv('/api/login', 'POST', { username, password }); srvSetToken(r.token); return true; }
       if (CLOUD_MODE) {
         await fbAuth.signInWithEmailAndPassword(usernameToEmail(username), password);
         return true;
@@ -2978,7 +3149,6 @@
 
     async function resetPasswordFlow(username, answer, newPass) {
       username = username.trim();
-      if (SERVER_MODE) { await srv('/api/reset', 'POST', { username, answer, newPass }); return true; }
       if (CLOUD_MODE) throw new Error('بازیابی رمز در حالت ابری فعلاً از طریق پشتیبانی انجام می‌شود');
       const reg = localUsersRegistry();
       if (!reg[username]) throw new Error('کاربری با این نام پیدا نشد');
@@ -2990,11 +3160,6 @@
     }
 
     async function fetchUserData(username) {
-      if (SERVER_MODE) {
-        const d = await srv('/api/data', 'GET');
-        _srvLast.settings = JSON.stringify(d.settings || null); _srvLast.trades = JSON.stringify(d.trades || []); _srvLast.backtestTrades = JSON.stringify(d.backtestTrades || []);
-        return { settings: d.settings || { startBalance: 1000, monthlyGoalPct: 10, theme: 'dark', haptics: true, appBadge: true }, trades: d.trades || [], backtestTrades: d.backtestTrades || [] };
-      }
       if (CLOUD_MODE) {
         const uid = fbAuth.currentUser.uid;
         const doc = await fbDb.collection('users').doc(uid).get();
@@ -3021,12 +3186,7 @@
       setSyncStatus(true);
       if (CLOUD_MODE && silent !== true) showLoading('در حال همگام‌سازی…');
       try {
-        if (SERVER_MODE) {
-          const cur = { settings: JSON.stringify(userSettings), trades: JSON.stringify(trades), backtestTrades: JSON.stringify(backtestTrades) };
-          const body = {};
-          for (const k in cur) if (cur[k] !== _srvLast[k]) body[k] = JSON.parse(cur[k]);   // only what changed
-          if (Object.keys(body).length) { await srv('/api/data', 'PUT', body); for (const k in body) _srvLast[k] = cur[k]; }
-        } else if (CLOUD_MODE) {
+        if (CLOUD_MODE) {
           const uid = fbAuth.currentUser.uid;
           const prev = (window._cloudCounts = window._cloudCounts || {});
           const nt = await cloudWriteBlob('trades', trades, prev.trades), nb = await cloudWriteBlob('backtestTrades', backtestTrades, prev.backtestTrades);
@@ -3053,7 +3213,7 @@
       if (!dot) return;
       if (syncing) { dot.classList.add('syncing');
         txt.textContent = 'در حال ذخیره…'; } else { dot.classList.remove('syncing');
-        txt.textContent = (CLOUD_MODE || SERVER_MODE) ? 'همگام‌شده با سرور' : 'ذخیره شد'; }
+        txt.textContent = CLOUD_MODE ? 'همگام‌شده با ابر' : 'ذخیره شد'; }
     }
 
     function forceSyncNow() { persistAll();
@@ -3152,8 +3312,6 @@
 
     function logoutUser() {
       if (CLOUD_MODE && fbAuth) fbAuth.signOut();
-      if (SERVER_MODE && srvToken) { srv('/api/logout', 'POST').catch(() => {}); }
-      srvSetToken('');
       localStorage.removeItem('akdivex_currentUser');
       currentUser = null;
       trades = [];
@@ -3334,8 +3492,22 @@
       e.preventDefault();
       const dateVal = document.getElementById('t_date').value;
       const sessionVal = document.getElementById('t_session').value || autoDetectSession(dateVal);
+      const tkEl = document.getElementById('t_ticket');
+      const ticketVal = tkEl.value.replace(/[^a-zA-Z0-9]/g, '');
+      if (!ticketVal) {
+        toast('شماره تیکت را وارد کنید — بدون آن معامله ذخیره نمی‌شود', 'error');
+        tkEl.focus();
+        return false;
+      }
+      const sameTicket = trades.find(x => x.id !== editingTradeId && tkOf(x) === ticketVal);
+      if (sameTicket) {
+        toast('این تیکت قبلاً در ژورنال ثبت شده است', 'error');
+        tkEl.focus();
+        return false;
+      }
       const trade = {
         id: editingTradeId || ('t_' + Date.now()),
+        ticket: ticketVal,
         symbol: document.getElementById('t_symbol').value,
         side: currentSide.toUpperCase(),
         setup: document.getElementById('t_setup').value || '',
@@ -3360,7 +3532,7 @@
       };
       if (editingTradeId) {
         const idx = trades.findIndex(t => t.id === editingTradeId);
-        if (idx > -1) trades[idx] = trade;
+        if (idx > -1) trades[idx] = Object.assign({}, trades[idx], trade);   // keep acct/auto/close info of broker trades
       } else {
         trades.unshift(trade);
       }
@@ -3377,6 +3549,7 @@
       if (!t) return;
       editingTradeId = id;
       document.getElementById('t_symbol').value = t.symbol;
+      document.getElementById('t_ticket').value = tkOf(t);
       setSide(t.side.toLowerCase());
       document.getElementById('t_setup').value = t.setup || '';
       document.getElementById('t_timeframe').value = t.timeframe || '';
@@ -5228,9 +5401,14 @@
       { id: 'cross',    fa: 'کراس‌ریت ارزها', en: 'Cross rates', ic: 'repeat' },
     ];
 
+    const AN_TF = [['1','1m','1m'],['5','5m','5m'],['15','15m','15m'],['60','1h','1h'],['240','4h','4h'],['D','1D','1D'],['W','1W','1W']];
+    const AN_STYLES = [[1,'شمعی','Candles'],[0,'میله‌ای','Bars'],[2,'خطی','Line'],[3,'مساحتی','Area'],[8,'هایکن‌آشی','Heikin Ashi']];
+    const AN_STUDIES = { ema: 'MAExp@tv-basicstudies', bb: 'BB@tv-basicstudies', rsi: 'RSI@tv-basicstudies', macd: 'MACD@tv-basicstudies', vol: 'Volume@tv-basicstudies' };
+    const AN_STUDY_LBL = { ema: 'EMA', bb: 'Bollinger', rsi: 'RSI', macd: 'MACD', vol: 'Volume' };
     const an = {
       symbol: 'OANDA:XAUUSD', favs: AN_DEFAULT_FAVS.slice(), cat: 'all', mkt: 'overview',
       sub: { screener: 'forex', heatmap: 'crypto', hot: 'US' },
+      tf: '60', style: 1, studies: [],
       inited: false, dirty: false, lazyLower: false, lazyMarket: false, ddIdx: 0, ddItems: [], stateLoaded: false,
     };
     function an$(fa, en) { return CUR_LANG === 'en' ? en : fa; }
@@ -5249,11 +5427,14 @@
         if (raw && typeof raw === 'object') {
           if (typeof raw.symbol === 'string' && raw.symbol) an.symbol = raw.symbol;
           if (Array.isArray(raw.favs)) an.favs = raw.favs.filter(x => typeof x === 'string').slice(0, 40);
+          if (AN_TF.some(t => t[0] === raw.tf)) an.tf = raw.tf;
+          if (AN_STYLES.some(t => t[0] === raw.style)) an.style = raw.style;
+          if (Array.isArray(raw.studies)) an.studies = raw.studies.filter(k => AN_STUDIES[k]);
         }
       } catch (e) {}
     }
     function anSaveState() {
-      try { localStorage.setItem(AN_STORE, JSON.stringify({ symbol: an.symbol, favs: an.favs })); } catch (e) {}
+      try { localStorage.setItem(AN_STORE, JSON.stringify({ symbol: an.symbol, favs: an.favs, tf: an.tf, style: an.style, studies: an.studies })); } catch (e) {}
     }
 
     // ---- نماد‌ها ----
@@ -5332,6 +5513,7 @@
       if (link) link.href = anTvUrl(an.symbol);
       const cs = document.getElementById('anChartSym');
       if (cs) cs.textContent = it.short;
+      if (an._planSym !== an.symbol) anRenderPlan(true);
 
       const cats = document.getElementById('anCats');
       if (cats) cats.innerHTML = AN_CATS.map(c =>
@@ -5425,6 +5607,7 @@
       const i = an.favs.indexOf(sym);
       if (i >= 0) an.favs.splice(i, 1); else an.favs.unshift(sym);
       anSaveState(); anRenderBar();
+      clearTimeout(an._tapeT); an._tapeT = setTimeout(() => { if (an.inited) anMountTape(); }, 900);
       if (typeof hapticPulse === 'function') hapticPulse('light');
     }
     function anSetSymbol(sym) {
@@ -5507,18 +5690,18 @@
       tvMount('tvChart', 'advanced-chart', () => {
         const light = document.body.classList.contains('light');
         return {
-          autosize: true, symbol: an.symbol, interval: '60',
+          autosize: true, symbol: an.symbol, interval: an.tf,
           timezone: (Intl.DateTimeFormat().resolvedOptions().timeZone || 'Etc/UTC'),
-          theme: light ? 'light' : 'dark', style: '1', locale: CUR_LANG === 'en' ? 'en' : 'fa',
+          theme: light ? 'light' : 'dark', style: String(an.style), locale: CUR_LANG === 'en' ? 'en' : 'fa',
           backgroundColor: tvVar('--panel') || (light ? '#FFFFFF' : '#10151F'),
           gridColor: light ? 'rgba(20,30,70,0.06)' : 'rgba(150,165,205,0.07)',
           withdateranges: true, hide_side_toolbar: false, allow_symbol_change: false, save_image: true,
-          calendar: false, details: false, hotlist: false, studies: [], support_host: 'https://www.tradingview.com',
+          calendar: false, details: false, hotlist: false, studies: an.studies.map(k => AN_STUDIES[k]), support_host: 'https://www.tradingview.com',
         };
       });
       tvMount('tvInfo', 'symbol-info', () => Object.assign(tvBase(), { symbol: an.symbol, width: '100%' }), { auto: true });
       tvMount('tvTA', 'technical-analysis', (c) => Object.assign(tvBase(), {
-        symbol: an.symbol, interval: '1h', width: '100%', height: c.h || 450, showIntervalTabs: true, displayMode: 'single' }));
+        symbol: an.symbol, interval: anTaInterval(), width: '100%', height: c.h || 450, showIntervalTabs: true, displayMode: 'single' }));
       if (an.lazyLower) anMountLower();
     }
     function anMountLower() {
@@ -5605,7 +5788,7 @@
     }
     function anOnLanguage() {            // تغییر زبان
       if (!an.inited) return;
-      anApplyText(); anRenderBar(); anRenderMktTabs();
+      anApplyText(); anRenderBar(); anRenderMktTabs(); anRenderTools(); anRenderPlan(true); anRenderSessions(); anRenderFng(true);
       if (anViewActive()) anRemountAll(); else an.dirty = true;
     }
     function anBindLazy() {
@@ -5626,7 +5809,9 @@
       if (!an.inited) {
         an.inited = true; an.dirty = false;
         anApplyText(); anRenderBar(); anRenderMktTabs(); anBindSearch();
+        anRenderTools(); anRenderPlan(true); anRenderSessions(); anRenderFng(); anMountTape();
         anMountSymbol(); anBindLazy();
+        setInterval(() => { if (anViewActive()) anRenderSessions(); }, 20000);
         document.addEventListener('keydown', (e) => {
           if (!anViewActive()) return;
           if (e.key === 'Escape') { const p = document.getElementById('anChartPanel'); if (p && p.classList.contains('is-fs')) anToggleFs(false); }
@@ -5634,10 +5819,189 @@
         });
       } else if (an.dirty) {
         an.dirty = false;
-        anApplyText(); anRenderBar(); anRenderMktTabs();
+        anApplyText(); anRenderBar(); anRenderMktTabs(); anRenderTools(); anRenderPlan(true); anRenderSessions(); anRenderFng();
         anMountSymbol();
         anRemountAll();
       }
+    }
+
+
+    // =====================================================================
+    //  تحلیل بازار — نسخه‌ی حرفه‌ای: تایم‌فریم، سبک نمودار، اندیکاتور، سشن‌ها، پلن معامله
+    // =====================================================================
+    function anTaInterval() { const t = AN_TF.find(x => x[0] === an.tf); return t ? t[1] : '1h'; }
+    function anMountTape() {
+      tvMount('tvTape', 'ticker-tape', () => Object.assign(tvBase(), {
+        symbols: an.favs.slice(0, 14).map(sym => ({ proName: sym, title: anItem(sym).short })),
+        showSymbolLogo: true, displayMode: 'adaptive', largeChartUrl: '' }));
+    }
+    function anRenderTools() {
+      const el = document.getElementById('anTools'); if (!el) return;
+      const tf = AN_TF.map(t => `<button type="button" class="an-seg ${an.tf === t[0] ? 'on' : ''}" onclick="anSetTf('${t[0]}')">${an$(t[1], t[2])}</button>`).join('');
+      const st = AN_STYLES.map(t => `<button type="button" class="an-seg ${an.style === t[0] ? 'on' : ''}" onclick="anSetStyle(${t[0]})">${an$(t[1], t[2])}</button>`).join('');
+      const sd = Object.keys(AN_STUDIES).map(k => `<button type="button" class="an-seg study ${an.studies.includes(k) ? 'on' : ''}" onclick="anToggleStudy('${k}')">${AN_STUDY_LBL[k]}</button>`).join('');
+      el.innerHTML =
+        `<div class="an-tgrp"><span class="an-tlbl"><i class="ic ic-clock"></i>${an$('تایم‌فریم', 'Timeframe')}</span><div class="an-segs">${tf}</div></div>` +
+        `<div class="an-tgrp"><span class="an-tlbl"><i class="ic ic-chart"></i>${an$('سبک', 'Style')}</span><div class="an-segs">${st}</div></div>` +
+        `<div class="an-tgrp"><span class="an-tlbl"><i class="ic ic-layers"></i>${an$('اندیکاتور', 'Indicators')}</span><div class="an-segs">${sd}</div></div>`;
+    }
+    function anApplyChartOpts(taToo) {
+      anSaveState(); anRenderTools();
+      if (!an.inited) return;
+      anReloadChart();
+      if (taToo) tvMount('tvTA', 'technical-analysis', (c) => Object.assign(tvBase(), {
+        symbol: an.symbol, interval: anTaInterval(), width: '100%', height: c.h || 450, showIntervalTabs: true, displayMode: 'single' }));
+      if (typeof hapticPulse === 'function') hapticPulse('light');
+    }
+    function anSetTf(v) { if (an.tf === v) return; an.tf = v; anApplyChartOpts(true); }
+    function anSetStyle(v) { if (an.style === v) return; an.style = v; anApplyChartOpts(false); }
+    function anToggleStudy(k) {
+      const i = an.studies.indexOf(k); if (i >= 0) an.studies.splice(i, 1); else an.studies.push(k);
+      anApplyChartOpts(false);
+    }
+
+    // ---- سشن‌های زنده ----
+    function anRenderSessions() {
+      const el = document.getElementById('anSessions'); if (!el || typeof FOREX_SESSIONS === 'undefined') return;
+      const now = new Date(), h = now.getUTCHours() + now.getUTCMinutes() / 60;
+      const nm = { sydney: ['سیدنی', 'Sydney'], tokyo: ['توکیو', 'Tokyo'], london: ['لندن', 'London'], newyork: ['نیویورک', 'New York'] };
+      const fmt = (x) => { const m = Math.max(0, Math.round(x * 60)); return Math.floor(m / 60) + ':' + String(m % 60).padStart(2, '0'); };
+      const st = FOREX_SESSIONS.map(s => {
+        const len = (s.closeUTC - s.openUTC + 24) % 24, since = (h - s.openUTC + 24) % 24, open = since < len;
+        return { s, open, pct: open ? since / len * 100 : 0, left: open ? len - since : (24 - since) % 24 };
+      });
+      const ov = st.find(x => x.s.key === 'london').open && st.find(x => x.s.key === 'newyork').open;
+      const cards = st.map(x => `<div class="an-sess ${x.open ? 'open' : ''}" style="--c:${x.s.color}">
+          <div class="an-sess-top"><span class="an-sess-n"><i class="dot"></i>${an$(nm[x.s.key][0], nm[x.s.key][1])}</span>
+          <span class="an-sess-b">${x.open ? an$('باز', 'Open') : an$('بسته', 'Closed')}</span></div>
+          <div class="an-sess-bar"><i style="width:${x.pct.toFixed(1)}%"></i></div>
+          <small>${x.open ? an$('تا بسته‌شدن ', 'Closes in ') : an$('تا بازشدن ', 'Opens in ')}<b dir="ltr">${fmt(x.left)}</b></small></div>`).join('');
+      const marks = st.map(x => { const a = x.s.openUTC / 24 * 100, len = (x.s.closeUTC - x.s.openUTC + 24) % 24 / 24 * 100;
+        return `<i style="--c:${x.s.color};inset-inline-start:${a}%;width:${Math.min(len, 100 - a)}%"></i>` + (a + len > 100 ? `<i style="--c:${x.s.color};inset-inline-start:0;width:${a + len - 100}%"></i>` : ''); }).join('');
+      el.innerHTML = `<div class="an-sess-grid">${cards}</div>
+        <div class="an-tl"><div class="an-tl-track">${marks}<b style="inset-inline-start:${(h / 24 * 100).toFixed(2)}%"></b></div>
+        <div class="an-tl-lbl"><span>00</span><span>06</span><span>12</span><span>18</span><span>24 UTC</span></div></div>
+        ${ov ? `<div class="an-hot"><i class="ic ic-flame"></i>${an$('همپوشانی لندن و نیویورک — نقدینگی و نوسان بالا', 'London–New York overlap — high liquidity & volatility')}</div>` : ''}`;
+    }
+
+    // ---- شاخص ترس و طمع ----
+    async function anRenderFng(force) {
+      const el = document.getElementById('anFng'); if (!el) return;
+      el.style.display = '';
+      const draw = (v, cls) => {
+        const a = -90 + v * 1.8;
+        el.innerHTML = `<div class="an-fng-t"><i class="ic ic-gauge"></i>${an$('ترس و طمع (کریپتو)', 'Fear & Greed (crypto)')}</div>
+          <svg viewBox="0 0 120 70" class="an-fng-svg"><defs><linearGradient id="anFg" x1="0" x2="1"><stop offset="0" stop-color="#FF5C7A"/><stop offset=".5" stop-color="#F5B93C"/><stop offset="1" stop-color="#2EE6A6"/></linearGradient></defs>
+          <path d="M12 62 A48 48 0 0 1 108 62" fill="none" stroke="var(--panel3)" stroke-width="10" stroke-linecap="round"/>
+          <path d="M12 62 A48 48 0 0 1 108 62" fill="none" stroke="url(#anFg)" stroke-width="10" stroke-linecap="round" opacity=".9"/>
+          <g class="an-needle" style="transform:rotate(${a}deg)"><line x1="60" y1="62" x2="60" y2="22" stroke="var(--text)" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="62" r="5" fill="var(--text)"/></g></svg>
+          <div class="an-fng-v"><b>${v}</b><span>${cls}</span></div>`;
+      };
+      if (an._fng && !force && Date.now() - an._fng.t < 1800000) return draw(an._fng.v, an._fng.c);
+      draw(50, '…');
+      try {
+        const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 6000);
+        const r = await fetch('https://api.alternative.me/fng/?limit=1', { signal: ctl.signal }); clearTimeout(to);
+        const d = (await r.json()).data[0], v = Math.max(0, Math.min(100, +d.value));
+        const fa = { 'Extreme Fear': 'ترس شدید', 'Fear': 'ترس', 'Neutral': 'خنثی', 'Greed': 'طمع', 'Extreme Greed': 'طمع شدید' };
+        const c = CUR_LANG === 'en' ? d.value_classification : (fa[d.value_classification] || d.value_classification);
+        an._fng = { v, c, t: Date.now() }; draw(v, c);
+      } catch (e) { el.innerHTML = ''; el.style.display = 'none'; }
+    }
+
+    // ---- پلن معامله (ذخیره برای هر نماد) ----
+    const AN_PLAN_KEY = 'akdivex_anplan_v1';
+    const AN_CHK = [['هم‌جهت با روند تایم‌فریم بالاتر', 'Aligned with higher-timeframe trend'], ['نزدیک سطح کلیدی (حمایت/مقاومت)', 'Near a key support/resistance level'],
+      ['تأیید کندلی یا ساختاری', 'Candle / structure confirmation'], ['خبر مهم نزدیک نیست', 'No high-impact news nearby'], ['ریسک حداکثر ۱ تا ۲٪ حساب', 'Risk ≤ 1–2% of account']];
+    function anPlanAll() { try { return JSON.parse(localStorage.getItem(AN_PLAN_KEY) || '{}') || {}; } catch (e) { return {}; } }
+    function anPlanGet(sym) { return Object.assign({ bias: '', entry: '', sl: '', tp: '', note: '', chk: [0, 0, 0, 0, 0] }, anPlanAll()[sym || an.symbol] || {}); }
+    function anPlanSave(patch) {
+      const all = anPlanAll(), cur = Object.assign(anPlanGet(), patch);
+      all[an.symbol] = cur;
+      try { localStorage.setItem(AN_PLAN_KEY, JSON.stringify(all)); } catch (e) {}
+      const f = document.getElementById('anPlanSaved'); if (f) { f.classList.remove('flash'); void f.offsetWidth; f.classList.add('flash'); }
+      return cur;
+    }
+    function anRenderPlan(force) {
+      const el = document.getElementById('anPlan'); if (!el) return;
+      if (!force && an._planSym === an.symbol) return;
+      an._planSym = an.symbol;
+      const it = anItem(an.symbol), pl = anPlanGet();
+      const bi = (k, fa, en, ic) => `<button type="button" class="an-bias ${k} ${pl.bias === k ? 'on' : ''}" data-b="${k}" onclick="anPlanBias('${k}')"><i class="ic ${ic}"></i>${an$(fa, en)}</button>`;
+      el.innerHTML = `<div class="an-panel-head"><h3><i class="ic ic-target"></i>${an$('پلن معامله', 'Trade plan')}<small>${escapeHtml(it.short)}</small></h3>
+          <span class="an-saved" id="anPlanSaved"><i class="ic ic-check"></i>${an$('ذخیره شد', 'Saved')}</span></div>
+        <div class="an-plan-grid">
+          <div class="an-plan-col">
+            <div class="an-bias-row">${bi('bull', 'صعودی', 'Bullish', 'ic-trend-up')}${bi('neutral', 'خنثی', 'Neutral', 'ic-equal')}${bi('bear', 'نزولی', 'Bearish', 'ic-trend-down')}</div>
+            <div class="an-lv-row">
+              <label><span>${an$('ورود', 'Entry')}</span><input id="anPlEntry" class="ltr" inputmode="decimal" value="${escapeHtml(String(pl.entry))}" oninput="anPlanInput()"></label>
+              <label class="sl"><span>${an$('حد ضرر', 'Stop loss')}</span><input id="anPlSl" class="ltr" inputmode="decimal" value="${escapeHtml(String(pl.sl))}" oninput="anPlanInput()"></label>
+              <label class="tp"><span>${an$('حد سود', 'Take profit')}</span><input id="anPlTp" class="ltr" inputmode="decimal" value="${escapeHtml(String(pl.tp))}" oninput="anPlanInput()"></label>
+            </div>
+            <div class="an-rr" id="anPlanRR"></div>
+          </div>
+          <div class="an-plan-col">
+            <div class="an-chk-head"><span>${an$('چک‌لیست قبل از ورود', 'Pre-trade checklist')}</span><b id="anChkCnt"></b></div>
+            <div class="an-chk-bar"><i id="anChkBar"></i></div>
+            <div class="an-chk">${AN_CHK.map((c, i) => `<button type="button" class="an-chk-i ${pl.chk[i] ? 'on' : ''}" onclick="anPlanChk(${i})"><span><i class="ic ic-check"></i></span>${an$(c[0], c[1])}</button>`).join('')}</div>
+          </div>
+          <div class="an-plan-col wide">
+            <textarea id="anPlNote" rows="3" placeholder="${escapeHtml(an$('سناریو، سطوح مهم و دلیل ورود…', 'Scenario, key levels and reason for entry…'))}" oninput="anPlanInput()">${escapeHtml(pl.note)}</textarea>
+            <div class="an-plan-acts">
+              <button type="button" class="btn small" data-ic="share" onclick="anPlanCopy()">${an$('کپی خلاصه', 'Copy summary')}</button>
+              <button type="button" class="btn small" data-ic="trash" onclick="anPlanClear()">${an$('پاک‌کردن', 'Clear')}</button>
+            </div>
+          </div>
+        </div>`;
+      anPlanCalc();
+    }
+    function anPlanInput() {
+      clearTimeout(an._plT);
+      an._plT = setTimeout(() => anPlanSave({
+        entry: document.getElementById('anPlEntry').value.trim(), sl: document.getElementById('anPlSl').value.trim(),
+        tp: document.getElementById('anPlTp').value.trim(), note: document.getElementById('anPlNote').value }), 400);
+      anPlanCalc();
+    }
+    function anPlanBias(k) {
+      const pl = anPlanGet(); const nb = pl.bias === k ? '' : k; anPlanSave({ bias: nb });
+      document.querySelectorAll('#anPlan .an-bias').forEach(b => b.classList.toggle('on', b.dataset.b === nb)); anPlanCalc();
+    }
+    function anPlanChk(i) {
+      const pl = anPlanGet(); pl.chk[i] = pl.chk[i] ? 0 : 1; anPlanSave({ chk: pl.chk });
+      document.querySelectorAll('#anPlan .an-chk-i').forEach((b, j) => b.classList.toggle('on', !!pl.chk[j])); anPlanCalc();
+      if (pl.chk.every(Boolean) && typeof hapticPulse === 'function') hapticPulse('success');
+    }
+    function anPlanNums() {
+      const n = (id) => { const v = parseFloat(String((document.getElementById(id) || {}).value || '').replace(',', '.')); return isNaN(v) ? null : v; };
+      return { e: n('anPlEntry'), s: n('anPlSl'), t: n('anPlTp') };
+    }
+    function anPlanCalc() {
+      const rr = document.getElementById('anPlanRR'); if (!rr) return;
+      const { e, s, t } = anPlanNums(), pl = anPlanGet();
+      const done = pl.chk.filter(Boolean).length;
+      const cnt = document.getElementById('anChkCnt'), bar = document.getElementById('anChkBar');
+      if (cnt) cnt.textContent = done + '/' + AN_CHK.length;
+      if (bar) { bar.style.width = (done / AN_CHK.length * 100) + '%'; bar.parentNode.classList.toggle('full', done === AN_CHK.length); }
+      if (e == null || s == null || t == null) { rr.innerHTML = `<span class="an-rr-hint"><i class="ic ic-info"></i>${an$('ورود، حد ضرر و حد سود را وارد کنید تا نسبت ریسک به ریوارد محاسبه شود.', 'Enter entry, stop and target to see the risk/reward ratio.')}</span>`; return; }
+      const risk = Math.abs(e - s), rew = Math.abs(t - e);
+      const dir = s < e && t > e ? 'BUY' : (s > e && t < e ? 'SELL' : '');
+      if (!risk || !dir) { rr.innerHTML = `<span class="an-rr-hint bad"><i class="ic ic-info"></i>${an$('سطوح ناهماهنگ‌اند: برای خرید SL < ورود < TP و برای فروش برعکس.', 'Levels are inconsistent: BUY needs SL < Entry < TP, SELL the reverse.')}</span>`; return; }
+      const ratio = rew / risk, tot = risk + rew, wr = 1 / (1 + ratio) * 100;
+      rr.innerHTML = `<div class="an-rr-top"><span class="an-dir ${dir.toLowerCase()}">${dir}</span><b dir="ltr">1 : ${ratio.toFixed(2)}</b>
+          <span class="an-rr-q ${ratio >= 2 ? 'g' : ratio >= 1 ? 'y' : 'r'}">${ratio >= 2 ? an$('عالی', 'Great') : ratio >= 1 ? an$('قابل‌قبول', 'OK') : an$('ضعیف', 'Weak')}</span></div>
+        <div class="an-rr-bar"><i class="r" style="width:${(risk / tot * 100).toFixed(1)}%"></i><i class="g" style="width:${(rew / tot * 100).toFixed(1)}%"></i></div>
+        <small>${an$('حداقل وین‌ریت لازم برای سر‌به‌سر شدن: ', 'Break-even win rate: ')}<b dir="ltr">${wr.toFixed(0)}%</b></small>`;
+    }
+    function anPlanCopy() {
+      const { e, s, t } = anPlanNums(), pl = anPlanGet(), it = anItem(an.symbol);
+      const b = { bull: an$('صعودی', 'Bullish'), bear: an$('نزولی', 'Bearish'), neutral: an$('خنثی', 'Neutral') }[pl.bias] || '-';
+      const txt = `${it.short} | ${b} | Entry ${e ?? '-'} | SL ${s ?? '-'} | TP ${t ?? '-'}` + (pl.note ? '\n' + pl.note : '');
+      (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => toast(an$('خلاصه‌ی پلن کپی شد', 'Plan summary copied'), 'success')).catch(() => toast(txt));
+    }
+    function anPlanClear() {
+      const all = anPlanAll(); delete all[an.symbol];
+      try { localStorage.setItem(AN_PLAN_KEY, JSON.stringify(all)); } catch (e) {}
+      anRenderPlan(true);
     }
 
     // ---- TICKER (قیمت زنده) ----
@@ -6067,7 +6431,7 @@ pause
 exit /b 1
 `;
     const LVT = { fa: {
-      tab: 'MT5 زنده', lock_t: 'MT5 زنده ویژه‌ی اعضای Pro است', hc_t: 'ثبت معاملات گذشته', hc_m: '{0} معامله‌ی بسته‌شده‌ی جدید در متاتریدر پیدا شد ({1}). به ژورنال اضافه شوند؟', hc_ok: 'بله، ثبت کن', hc_no: 'فعلاً نه', hc_skip: 'ثبت نشد — با دکمه‌ی همگام‌سازی می‌توانید دوباره امتحان کنید', lock_pw_ph: 'رمز دسترسی', lock_pw_btn: 'باز کردن', lock_pw_bad: 'رمز اشتباه است', lock_s: 'اتصال زنده به متاتریدر، ثبت خودکار معاملات و مدیریت پوزیشن‌ها فقط برای کاربران فعال‌شده در دسترس است. برای فعال‌سازی با ما در تماس باشید.', lock_contact: 'درخواست دسترسی', lock_recheck: 'بررسی دوباره', lock_checking: 'در حال بررسی دسترسی…', lock_none: 'دسترسی برای این حساب فعال نیست', lock_exp: 'اشتراک شما منقضی شده است', lock_err: 'بررسی دسترسی ممکن نشد؛ اینترنت را چک کنید', term_btn: 'تغییر متاتریدر', term_t: 'انتخاب متاتریدر', term_s: 'متاتریدرهای نصب‌شده روی این کامپیوتر. با انتخاب هر کدام، اتصال به همان ترمینال و حسابش عوض می‌شود.', term_ref: 'بازخوانی لیست', term_active: 'فعال', term_off: 'ابتدا به پل وصل شوید.', term_old: 'پل شما قدیمی است. AKDIVEX_Start.bat را دوباره دانلود و اجرا کنید.', term_empty: 'متاتریدر ۵ نصب‌شده‌ای پیدا نشد.', term_ok: 'متاتریدر عوض شد ✅', term_wait: 'در حال جابه‌جایی…', st_off: 'آفلاین', st_wait: 'در حال اتصال…', st_on: 'متصل به MT5', st_setup: 'نیاز به تنظیم', st_tok: 'توکن اشتباه است — فایل‌ها را دوباره دانلود کنید',
+      tab: 'ژورنال خودکار', lock_t: 'ژورنال خودکار ویژه‌ی اعضای Pro است', hc_t: 'ثبت معاملات گذشته', hc_m: '{0} معامله‌ی بسته‌شده‌ی جدید در متاتریدر پیدا شد ({1}). به ژورنال اضافه شوند؟', hc_ok: 'بله، ثبت کن', hc_no: 'فعلاً نه', hc_skip: 'ثبت نشد — با دکمه‌ی همگام‌سازی می‌توانید دوباره امتحان کنید', lock_pw_ph: 'رمز دسترسی', lock_pw_btn: 'باز کردن', lock_pw_bad: 'رمز اشتباه است', lock_s: 'اتصال زنده به متاتریدر، ثبت خودکار معاملات و مدیریت پوزیشن‌ها فقط برای کاربران فعال‌شده در دسترس است. برای فعال‌سازی با ما در تماس باشید.', lock_contact: 'درخواست دسترسی', lock_recheck: 'بررسی دوباره', lock_checking: 'در حال بررسی دسترسی…', lock_none: 'دسترسی برای این حساب فعال نیست', lock_exp: 'اشتراک شما منقضی شده است', lock_err: 'بررسی دسترسی ممکن نشد؛ اینترنت را چک کنید', term_btn: 'تغییر متاتریدر', term_t: 'انتخاب متاتریدر', term_s: 'متاتریدرهای نصب‌شده روی این کامپیوتر. با انتخاب هر کدام، اتصال به همان ترمینال و حسابش عوض می‌شود.', term_ref: 'بازخوانی لیست', term_active: 'فعال', term_off: 'ابتدا به پل وصل شوید.', term_old: 'پل شما قدیمی است. AKDIVEX_Start.bat را دوباره دانلود و اجرا کنید.', term_empty: 'متاتریدر ۵ نصب‌شده‌ای پیدا نشد.', term_ok: 'متاتریدر عوض شد ✅', term_wait: 'در حال جابه‌جایی…', st_off: 'آفلاین', st_wait: 'در حال اتصال…', st_on: 'متصل به MT5', st_setup: 'نیاز به تنظیم', st_tok: 'توکن اشتباه است — فایل‌ها را دوباره دانلود کنید',
       st_nomt: 'MT5 در دسترس نیست — ترمینال را باز کنید و وارد حساب شوید', st_nobroker: 'اتصال بروکر قطع است', ping: 'تأخیر شبکه: {0}ms',
       auto: 'ژورنال خودکار', sync: 'همگام‌سازی گذشته', setup_btn: 'راه‌اندازی و راهنما',
       g_title: 'اتصال آسان به متاتریدر ۵',
@@ -6090,7 +6454,7 @@ exit /b 1
       c_half_t: 'بستن نیمی از معامله', c_half_m: '{0}: ۵۰٪ حجم بسته شود؟', c_close_t: 'بستن معامله', c_close_m: '{0} {1} {2} با سود/زیان {3}$ بسته شود؟', c_ok: 'ببند',
       r_TP: 'حد سود (TP)', r_SL: 'حد ضرر (SL)', r_MANUAL: 'بستن دستی', r_EA: 'ربات', r_STOPOUT: 'استاپ‌اوت', note: 'ثبت خودکار MT5 — تیکت #{0} — بسته شد با: {1}'
     }, en: {
-      tab: 'MT5 Live', lock_t: 'MT5 Live is a Pro feature', hc_t: 'Journal past trades', hc_m: 'Found {0} new closed trade(s) in MetaTrader ({1}). Add them to your journal?', hc_ok: 'Yes, add them', hc_no: 'Not now', hc_skip: 'Nothing added \u2014 press Sync to try again',  lock_pw_ph: 'Access password', lock_pw_btn: 'Unlock', lock_pw_bad: 'Wrong password', lock_s: 'Live MetaTrader connection, automatic trade logging and position management are available to activated users only. Contact us to get access.', lock_contact: 'Request access', lock_recheck: 'Check again', lock_checking: 'Checking access…', lock_none: 'This account has no access yet', lock_exp: 'Your subscription has expired', lock_err: 'Could not verify access; check your connection', term_btn: 'Switch MetaTrader', term_t: 'Choose MetaTrader', term_s: 'MetaTrader terminals installed on this computer. Pick one to switch the connection to that terminal and its account.', term_ref: 'Refresh list', term_active: 'Active', term_off: 'Connect to the bridge first.', term_old: 'Your bridge is outdated. Download and run AKDIVEX_Start.bat again.', term_empty: 'No installed MetaTrader 5 found.', term_ok: 'MetaTrader switched ✅', term_wait: 'Switching…', st_off: 'Offline', st_wait: 'Connecting…', st_on: 'Connected to MT5', st_setup: 'Setup required', st_tok: 'Wrong token — download the files again',
+      tab: 'Auto Journal', lock_t: 'Auto Journal is a Pro feature', hc_t: 'Journal past trades', hc_m: 'Found {0} new closed trade(s) in MetaTrader ({1}). Add them to your journal?', hc_ok: 'Yes, add them', hc_no: 'Not now', hc_skip: 'Nothing added \u2014 press Sync to try again',  lock_pw_ph: 'Access password', lock_pw_btn: 'Unlock', lock_pw_bad: 'Wrong password', lock_s: 'Live MetaTrader connection, automatic trade logging and position management are available to activated users only. Contact us to get access.', lock_contact: 'Request access', lock_recheck: 'Check again', lock_checking: 'Checking access…', lock_none: 'This account has no access yet', lock_exp: 'Your subscription has expired', lock_err: 'Could not verify access; check your connection', term_btn: 'Switch MetaTrader', term_t: 'Choose MetaTrader', term_s: 'MetaTrader terminals installed on this computer. Pick one to switch the connection to that terminal and its account.', term_ref: 'Refresh list', term_active: 'Active', term_off: 'Connect to the bridge first.', term_old: 'Your bridge is outdated. Download and run AKDIVEX_Start.bat again.', term_empty: 'No installed MetaTrader 5 found.', term_ok: 'MetaTrader switched ✅', term_wait: 'Switching…', st_off: 'Offline', st_wait: 'Connecting…', st_on: 'Connected to MT5', st_setup: 'Setup required', st_tok: 'Wrong token — download the files again',
       st_nomt: 'MT5 not available — open the terminal and log in', st_nobroker: 'Broker connection lost', ping: 'Latency: {0}ms',
       auto: 'Auto-journal', sync: 'Sync past trades', setup_btn: 'Setup & guide',
       g_title: 'Easy MetaTrader 5 connection',
@@ -6187,7 +6551,7 @@ exit /b 1
     function liveSaveConnect() {
       const cfg = { url: $lv('lvUrl').value.trim(), token: $lv('lvTok').value.trim(), days: +$lv('lvDays').value, auto: $lv('lvAuto').checked };
       if (!cfg.token) return toast(lvT('t_tok'), 'error');
-      liveCfgSave(cfg); $lv('lvSetup').classList.remove('show'); LIVE.retry = 0; liveConnect();
+      liveCfgSave(cfg); liveSetupClose(); liveInfoClose(); LIVE.retry = 0; liveConnect();
     }
     function liveSetAuto(v) { const c = liveCfgLoad() || {}; c.auto = v; LIVE.auto = v; liveCfgSave(c); }
     // ---- one-click bridge package: token + port + site origin are baked into the files ----
@@ -6206,7 +6570,7 @@ exit /b 1
     }
     function liveConnect() {
       const c = LIVE.cfg = liveCfgLoad();
-      if (!c || !c.token) { liveStatus('off', 'st_setup'); $lv('lvSetup').classList.add('show'); return; }
+      if (!c || !c.token) { liveStatus('off', 'st_setup'); liveSetupShow(); return; }
       LIVE.auto = c.auto !== false; $lv('lvAuto').checked = LIVE.auto; $lv('lvUrl').value = c.url || 'ws://127.0.0.1:8765'; $lv('lvDays').value = c.days || 7; $lv('lvTok').value = c.token;
       clearTimeout(LIVE.timer); clearInterval(LIVE.ping); try { LIVE.ws && (LIVE.ws.onclose = null, LIVE.ws.close()); } catch (e) {}
       liveStatus('wait'); let ws;
@@ -6219,7 +6583,7 @@ exit /b 1
     // automatic pairing: if the token differs from the bridge's, ask the bridge for it (allowed only in its first minutes, once)
     function livePair() {
       const c = liveCfgLoad() || {}; let w, done = false;
-      const fail = () => { if (done) return; done = true; LIVE.retry = 99; liveStatus('off', 'st_tok'); $lv('lvSetup').classList.add('show'); };
+      const fail = () => { if (done) return; done = true; LIVE.retry = 99; liveStatus('off', 'st_tok'); liveSetupShow(); };
       try { w = new WebSocket(c.url || 'ws://127.0.0.1:8765'); } catch (e) { return fail(); }
       w.onopen = () => w.send(JSON.stringify({ type: 'pair' }));
       w.onmessage = (e) => { let m = {}; try { m = JSON.parse(e.data); } catch (x) {}
@@ -6236,7 +6600,7 @@ exit /b 1
     }
     function liveSync() { if (LIVE.ok) { LIVE.manualSync = true; LIVE.ws.send(JSON.stringify({ type: 'sync', days: (LIVE.cfg && LIVE.cfg.days) || 7 })); toast(lvT('t_syncing'), 'success'); } else toast(lvT('t_first'), 'error'); }
     function liveMsg(m) {
-      if (m.type === 'auth_fail') { if (!LIVE.pairTried) { LIVE.pairTried = true; livePair(); } else { LIVE.retry = 99; liveStatus('off', 'st_tok'); $lv('lvSetup').classList.add('show'); } }
+      if (m.type === 'auth_fail') { if (!LIVE.pairTried) { LIVE.pairTried = true; livePair(); } else { LIVE.retry = 99; liveStatus('off', 'st_tok'); liveSetupShow(); } }
       else if (m.type === 'hello') { LIVE.pairTried = false; LIVE.ok = true; LIVE.retry = 0; LIVE.trading = m.trading; liveStatus('on'); liveSync2(); clearInterval(LIVE.ping); LIVE.ping = setInterval(() => LIVE.ws.readyState === 1 && LIVE.ws.send(JSON.stringify({ type: 'ping', ts: Date.now() })), 3000); }
       else if (m.type === 'pong') $lv('lvPing').textContent = lvT('ping', Date.now() - m.ts);
       else if (m.type === 'state') liveState(m);
@@ -6272,7 +6636,7 @@ exit /b 1
         const tt = tkOf(t);
         if (tt && nt) {   // both have a broker ticket: the ticket decides (other account/broker = different trade)
           if (tt !== nt || (t.acct && n.acct && String(t.acct) !== String(n.acct))) return false;
-          return up(t.symbol) === up(n.symbol) && up(t.side) === up(n.side) && (t.entry == null || n.entry == null || near(t.entry, n.entry, 1e-4));
+          return true;
         }
         // manual entry vs broker trade: same instrument, side, exact entry, lot and within a day
         if (up(t.symbol) !== up(n.symbol) || up(t.side) !== up(n.side) || !near(t.entry, n.entry, 2e-6)) return false;
@@ -6377,7 +6741,12 @@ exit /b 1
     document.addEventListener('visibilitychange', () => { if (!document.hidden && LIVE.started && !LIVE.ok) { LIVE.retry = 0; liveConnect(); } });
     const lvEsc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     function liveTermOpen() { $lv('lvTermBg').classList.add('show'); liveTermLoad(); }
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') liveTermClose(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { liveTermClose(); if (document.querySelector('.lv-info-card')&&document.querySelector('.modal-bg.show .lv-info-card')) liveInfoClose(); else liveSetupClose(); } });
+    function liveSetupOpen() { liveInfoClose(); $lv('lvSetup').classList.add('show'); }
+    function liveSetupClose() { const m = $lv('lvSetup'); if (m) m.classList.remove('show'); }
+    function liveSetupShow() { const v = $lv('view-live'); if (v && v.classList.contains('active')) $lv('lvSetup').classList.add('show'); }
+    function liveInfoOpen(id) { liveInfoClose(); const m = $lv(id); if (m) m.classList.add('show'); }
+    function liveInfoClose() { document.querySelectorAll('.lv-info-card').forEach(c => c.parentNode.classList.remove('show')); }
     function liveTermClose() { $lv('lvTermBg').classList.remove('show'); }
     async function liveTermLoad() {
       const box = $lv('lvTermList'), msg = (k) => `<div class="lv-tempty"><i class="ic ic-monitor"></i>${lvT(k)}</div>`;
@@ -6429,13 +6798,8 @@ exit /b 1
         });
       } else {
         const saved = localStorage.getItem('akdivex_currentUser');
-        if (saved && SERVER_MODE && !srvToken) { localStorage.removeItem('akdivex_currentUser'); }
-        if (saved && !(SERVER_MODE && !srvToken)) { currentUser = saved;
-          loadUserSessionAndBoot().catch((e) => {
-            document.getElementById('authContainer').style.display = 'flex';
-            document.getElementById('mainJournalApp').style.display = 'none';
-            if (e && e.net) toast(e.message, 'error');
-          }).finally(hideLoading); } else {
+        if (saved) { currentUser = saved;
+          loadUserSessionAndBoot().finally(hideLoading); } else {
           document.getElementById('authContainer').style.display = 'flex';
           document.getElementById('mainJournalApp').style.display = 'none';
           hideLoading();
@@ -6467,10 +6831,67 @@ exit /b 1
         initAppShell();
       });
     } else {
-      resolveServerUrl().then(initAppShell);
+      initAppShell();
     }
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (currentUser) renderEverything(); });
     console.log('%c🏦 AKDIVEX Trading Journal v3 loaded', 'color:#7C6CFF;font-weight:bold;');
+
+
+    // ---- جزئیات ظاهری: ریپل دکمه‌ها، نوار پیشرفت اسکرول، بازگشت به بالا، شمارش انیمیشنی اعداد ----
+    (function polish() {
+      const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.addEventListener('pointerdown', (e) => {
+        if (reduce) return;
+        const b = e.target.closest && e.target.closest('.btn, .an-chip');
+        if (!b || b.disabled) return;
+        const r = b.getBoundingClientRect(), d = Math.max(r.width, r.height);
+        const s = document.createElement('span'); s.className = 'rip';
+        s.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX - r.left - d / 2}px;top:${e.clientY - r.top - d / 2}px`;
+        if (getComputedStyle(b).position === 'static') b.style.position = 'relative'; b.style.overflow = 'hidden';
+        b.appendChild(s); setTimeout(() => s.remove(), 650);
+      }, { passive: true });
+      const bar = document.querySelector('#scrollBar i'), top = document.getElementById('toTop');
+      let tick = false;
+      const onScroll = () => {
+        if (tick) return; tick = true;
+        requestAnimationFrame(() => {
+          const h = document.documentElement, max = h.scrollHeight - h.clientHeight, y = window.scrollY || h.scrollTop;
+          if (bar) bar.style.width = (max > 0 ? Math.min(100, y / max * 100) : 0) + '%';
+          if (top) top.classList.toggle('show', y > 500);
+          tick = false;
+        });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+      // شمارش انیمیشنی روی کارت‌های آمار
+      if (reduce || !('MutationObserver' in window)) return;
+      const busy = new WeakSet(), last = new WeakMap();
+      const rx = /-?\d[\d,]*\.?\d*/;
+      function animate(el) {
+        if (busy.has(el) || el.children.length) return;
+        const txt = el.textContent, prev = last.get(el);
+        last.set(el, txt);
+        if (prev === undefined || prev === txt) return;
+        const m = txt.match(rx); if (!m) return;
+        const raw = m[0], hasComma = raw.includes(','), dec = (raw.split('.')[1] || '').length;
+        const to = parseFloat(raw.replace(/,/g, '')); if (!isFinite(to)) return;
+        const pm = prev.match(rx), from = pm ? parseFloat(pm[0].replace(/,/g, '')) : 0;
+        if (!isFinite(from) || from === to) return;
+        const t0 = performance.now(), dur = 650, i = m.index;
+        busy.add(el);
+        const step = (now) => {
+          const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3), v = from + (to - from) * e;
+          let str = v.toFixed(dec); if (hasComma) str = Number(str).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+          el.textContent = txt.slice(0, i) + str + txt.slice(i + raw.length);
+          if (k < 1) requestAnimationFrame(step); else { el.textContent = txt; busy.delete(el); }
+        };
+        requestAnimationFrame(step);
+      }
+      const mo = new MutationObserver((list) => {
+        list.forEach(r => { const el = r.target.nodeType === 3 ? r.target.parentNode : r.target; if (el && el.matches && el.matches('.stat-card .value') && !busy.has(el)) animate(el); });
+      });
+      const attach = () => document.querySelectorAll('.stat-card .value').forEach(el => { last.set(el, el.textContent); mo.observe(el, { childList: true, characterData: true, subtree: true }); });
+      attach(); setTimeout(attach, 1500);
+    })();
 
     // ---- PWA SERVICE WORKER ----
     if ('serviceWorker' in navigator) {
