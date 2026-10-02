@@ -2,7 +2,7 @@
 // v9: تب MT5 زنده — دانلود آسان پل، ضدتکرار معاملات و ترجمه‌ی کامل.
 // v7: درخواست‌های غیرهم‌مبدأ (TradingView، APIهای قیمت و …) دیگر از SW عبور نمی‌کنند تا سریع‌تر بیایند؛
 //     فقط فونت‌ها و فایل‌های خودِ برنامه کش می‌شوند.
-const CACHE_NAME = 'akdivex-cache-v11';
+const CACHE_NAME = 'akdivex-cache-v13';
 const APP_SHELL = [
   './',
   './index.html',
@@ -37,6 +37,9 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
+
+  // آدرس سرور هر بار تازه از شبکه خوانده شود (هیچ‌وقت کش نشود)
+  if (url.origin === self.location.origin && url.pathname.endsWith('/server.json')) return;
 
   // درخواست‌های بیرونی به‌جز فونت‌ها (ویجت TradingView، Binance، CoinGecko، …) را به مرورگر می‌سپاریم:
   // هم واسطه‌ی SW حذف می‌شود و هم پاسخ‌های زنده (قیمت/اخبار) هیچ‌وقت قدیمی از کش برنگردانده می‌شوند.
