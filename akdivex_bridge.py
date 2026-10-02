@@ -164,10 +164,16 @@ def do_close(ticket, volume=None):
     info, tick = mt5.symbol_info(p.symbol), mt5.symbol_info_tick(p.symbol)
     buy = p.type == 0
     vol = p.volume
-    if volume:
+    if volume and float(volume) < p.volume - 1e-9:      # partial close requested
         step = info.volume_step or 0.01
-        v = round(math.floor(min(float(volume), p.volume) / step) * step, 8)
-        if v >= info.volume_min and p.volume - v >= info.volume_min: vol = v
+        vmin = info.volume_min or step
+        v = math.floor(float(volume) / step + 0.5 + 1e-9) * step      # nearest lot step (50% of 0.07 -> 0.04)
+        if p.volume - v < vmin - 1e-9:                                # keep at least min lot open
+            v = math.floor((p.volume - vmin) / step + 1e-9) * step
+        v = round(v, 8)
+        if v < vmin - 1e-9:                                           # too small to split: refuse, do NOT close everything
+            return False, f"Position too small for a partial close (min lot {vmin}) / حجم برای بستن بخشی کافی نیست (حداقل لات {vmin})"
+        vol = v
     modes = [mt5.ORDER_FILLING_IOC, mt5.ORDER_FILLING_FOK, mt5.ORDER_FILLING_RETURN]
     for f in modes:
         ok, msg = _send({"action": mt5.TRADE_ACTION_DEAL, "position": p.ticket, "symbol": p.symbol,
